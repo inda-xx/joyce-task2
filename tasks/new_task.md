@@ -1,233 +1,215 @@
-# 🕹️ Simple Java Game: Battle the Enemies!
+# 📚 Java Library Management System
 
-For this project, you will harness your Java skills to create a simple text-based game. The objective is to manage a player's movement, implement a scoring system, and create interactions with enemies. This exercise will sharpen your object-oriented programming skills and familiarize you with fundamental concepts in Java. 
+In this exercise, you will practice modeling objects in Java by designing a simple library management system. You will use this opportunity to reinforce your understanding of Java classes and the concepts of encapsulation, constructors, getters, setters, and the use of the `main` method.
 
 ### 💀 Deadline
-Complete this assignment by **Friday, 16th September** for lab evaluation.
+This task should be completed by **Friday 16th October**.
 
 ### 👩‍🏫 Instructions
-Detailed instructions for submission are provided on the [course instruction page](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments).
+Please refer to the [assignments section of the course instructions](https://gits-15.sys.kth.se/course-instructions) for guidance on completing and submitting this assignment.
 
 ### 📝 Preparation
-Before embarking on this task, complete the required readings in the OLI Module 2. This will equip you with a foundational understanding of Java classes:
+Before you start working on the assignment, ensure that you have thoroughly reviewed the following material:
 
-- [From Classes to Objects](https://kth.oli.cmu.edu/jcourse/webui/syllabus/module.do?context=f5e5a808ac1f088812f2a8ce315bac60)
+- Read [Classes](https://docs.oracle.com/javase/tutorial/java/javaOO/classes.html) and [Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/objects.html) in the Oracle Java documentation.
+- Explore [Java Constructors](https://docs.oracle.com/javase/tutorial/java/javaOO/constructors.html) and [Encapsulation](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html).
 
-> **Assistant’s Note:** While the main course material is essential, do advance reading if required concepts appear unfamiliar.
+> **Note:** The learning resources will provide a foundational understanding to help you complete this exercise successfully.
 
 ### ✅ Learning Goals
 
-Completing this task will help you achieve the following learning goals:
-
-* Designing Java classes
-* Adding instance fields
-* Adding a constructor method
-* Creating *getters* and *setters*
-* Printing outputs in the terminal
-* Utilizing the `main` method
-* Understanding variable scope and shadowing
+By the end of this assignment, you will be able to:
+- Design Java classes
+- Add instance fields
+- Implement a constructor method
+- Create *getters* and *setters*
+- Print to the terminal
+- Utilize the `main` method effectively
+- Understand scope and variable shadowing in Java
 
 ### 🚨 Troubleshooting Guide
-For queries or technical assistance, follow these steps:
+In case you encounter challenges while working on the assignment, follow these steps:
 
-1. Review this week's [posted issues](https://gits-15.sys.kth.se/inda-22/help/issues).
-2. If unresolved, post your query by creating a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new). Include a clear title starting with "Task *x*: *your issue*".
-3. Consult a TA at the [weekly lab](https://queue.csc.kth.se/Queue/INDA). Refer to your schedule for lab timings.
+1. Check the [posted issues page](https://gits-15.sys.kth.se/help/issues) to see if your classmates have raised similar concerns.
+2. If not, consider opening a [New Issue](https://gits-15.sys.kth.se/help/issues/new) detailing your problem. Give your issue a concise title starting with "Task *x*: *problem description*."
+3. Seek assistance from a TA during your [designated lab sessions](https://queue.csc.kth.se/Queue/INDA).
 
-Collaboration with classmates is encouraged, but please ensure **individual work submission**.
+Discuss with peers but refrain from sharing direct solutions.
 
-### 🎮 Assignment: Build Your Game!
+### 📚 Assignment Overview
 
-Create your own basic game environment at the storied campus of the Royal Institute of Technology in Stockholm. The game will involve a player navigating through the map, interacting with enemies, and collecting points as they attempt to survive the perilous campus grounds.
+Imagining a bustling library at the heart of a quaint town, you are to create a basic Library Management System to manage a collection of books. In this system, you will model the attributes and actions that a book might have.
 
-#### Exercise 1.0 -- Designing Core Classes
-In the [`src`](src) folder, set up classes to represent the Player, Enemy, and GameMap objects. 
+#### Exercise 1.0 -- Fields
+Start by developing a class called `Book.java` within your `src` directory. Your class should correctly define the following fields to model book attributes:
 
-Each class should have:
+- `String title`
+- `String author`
+- `int yearPublished`
+- `String isbn`
+- `boolean isCheckedOut`
 
-**Player:**
-- `String` playerName
-- `int` score
-- `int` health
-
-**Enemy:**
-- `String` enemyType
-- `int` health
-- `int` damageLevel
-
-**GameMap:**
-- `char[][]` mapLayout to visualize the grid/map
-
-Your main method should instantiate these objects and compile successfully.
+If done correctly, the main method provided in Example 1 should compile successfully.
 
 <details>
-  <summary> 🛠 Exercise 1.0 Template </summary>
+  <summary> 🛠 Example 1 </summary>
 
   ```java
-  class Player {
-      // Fields for the Player class
-      String playerName;
-      int score;
-      int health;
-      
-      // ...add methods and constructors here
-  }
+  public class Book {
 
-  class Enemy {
-      // Fields for the Enemy class
-      String enemyType;
-      int health;
-      int damageLevel;
-      
-      // ...add methods and constructors here
-  }
+    // Define your fields here!
 
-  class GameMap {
-      // Fields for the GameMap class
-      char[][] mapLayout;
-      
-      // ...add methods and constructors here
-  }
+    public static void main(String[] args) {
+      // Create a new Book instance
+      Book book = new Book();
 
-  public class Game {
-      public static void main(String[] args) {
-          // Create instances of Player, Enemy, and GameMap
-          Player player = new Player();
-          Enemy enemy = new Enemy();
-          GameMap gameMap = new GameMap();
-          
-          // ...game logic here
-          
-          System.out.println("Welcome to the Game!");
-      }
+      // Assign values to the book's fields
+      book.title = "Java Programming";
+      book.author = "James Gosling";
+      book.yearPublished = 1995;
+      book.isbn = "123-4567891234";
+
+      // Print book details to the terminal
+      System.out.println("Title: " + book.title);
+      System.out.println("Author: " + book.author);
+      System.out.println("Year Published: " + book.yearPublished);
+      System.out.println("ISBN: " + book.isbn);
+    } // end main method
+
+  } // end class
+  ```
+</details>
+
+#### Exercise 1.1 -- Getters and Setters
+To encapsulate the fields within your `Book` class, start by setting the fields' access modifiers to `private`. Implement the required accessors and mutators (*getters* and *setters*) for each field, making a total of ten methods in your class. Validate your implementation against the provided main method in Example 2.
+
+<details>
+  <summary> 🛠 Example 2 </summary>
+
+  ```java
+  public class Book {
+
+    // Define your private fields here!
+
+    // Implement your getters and setters here!
+
+    public static void main(String[] args) {
+      // Create a new Book object
+      Book book = new Book();
+
+      // Assign values using setters
+      book.setTitle("Java Programming");
+      book.setAuthor("James Gosling");
+      book.setYearPublished(1995);
+      book.setIsbn("123-4567891234");
+
+      // Retrieve information using getters
+      System.out.println("Title: " + book.getTitle());
+      System.out.println("Author: " + book.getAuthor());
+      System.out.println("Year Published: " + book.getYearPublished());
+      System.out.println("ISBN: " + book.getIsbn());
+    } // end main method
+
+  } // end class
+  ```
+</details>
+
+#### Exercise 1.2 -- Constructor
+Simplify object instantiation by implementing a constructor that initializes all the book's attribute values at once. Re-examine Example 2 and instantiate objects using the newly defined constructor.
+
+#### Exercise 1.3 -- `printDetails()`
+Create a method called `printDetails()` that prints all the book's information to the terminal in a formatted manner. Refer to Example 3:
+
+<details>
+  <summary> 🛠 Example 3 </summary>
+
+  ```java
+  public static void main(String[] args){
+    // Create a new Book object using the constructor
+    Book book = new Book("Java Programming", "James Gosling", 1995, "123-4567891234");
+
+    // Print book information using printDetails
+    book.printDetails();
+  }
+  ```
+
+  Expected console output:
+
+  ```
+  > BOOK DETAILS
+  > Title: Java Programming
+  > Author: James Gosling
+  > Year Published: 1995
+  > ISBN: 123-4567891234
+  > Checked Out: No
+  ```
+</details>
+
+#### Exercise 1.4 -- Scenarios of Checking Out
+Implement a method to simulate the action of checking out a book called `checkOut()`, which will update the `isCheckedOut` field to `true`. Similarly, define a method `returnBook()` to mark the book as available again.
+
+<details>
+  <summary> 🛠 Example 4 </summary>
+
+  ```java
+  public static void main(String[] args){
+    // Create a new Book object using the constructor
+    Book book = new Book("Java Programming", "James Gosling", 1995, "123-4567891234");
+
+    // Check out the book and display its status
+    book.checkOut();
+    book.printDetails(); // Checked Out: Yes
+
+    // Return the book and display its status
+    book.returnBook();
+    book.printDetails(); // Checked Out: No
   }
   ```
 </details>
 
-#### Exercise 1.1 -- Methods for Interaction
-Implement methods for each class for interaction.
+#### Exercise 1.5 -- Variable Shadowing
+Explore the provided code snippets that demonstrate variable shadowing issues. Evaluate how these examples contribute to improper data handling and analyze how you might rectify them using resources mentioned earlier.
 
-**Player Class:**
-- Move up, down, left, or right on the map (`moveUp()`, `moveDown()`, `moveLeft()`, `moveRight()`)
-- Encounter with an enemy: lose health and print the status to the terminal
+```Java
+public class ShadowExample {
+    private String message = "Instance Message"; // Original message I want to print
 
-**Enemy Class:**
-- Attack the player and print the damage on the player
-
-**GameMap Class:**
-- Create a simple 5x5 grid as a character array
-- Print the current map status with player and enemies positioned
-
-<details>
-  <summary> 🛠 Exercise 1.1 Sample Usage </summary>
-
-  ```java
-  Player player = new Player("Hero", 0, 100);
-  Enemy goblin = new Enemy("Goblin", 30, 10);
-
-  player.moveUp(); // Update player's position
-  goblin.attack(player); // Enemy attacks player
-  
-  GameMap gameMap = new GameMap();
-  gameMap.printMap(); // Show current map layout
-  
-  System.out.println(player.getName() + " Scores: " + player.getScore());
-  ```
-</details>
-
-#### Exercise 1.2 -- Scoring System
-Enrich your Player class with a scoring system. Award points for successfully avoiding enemies or achieving a goal (like reaching a certain map position). Implement relevant methods for updating and retrieving scores.
-
-<details>
-  <summary> 🛠 Exercise 1.2 Sample Scoring </summary>
-
-  ```java
-  class Player {
-      // Already existing fields
-      
-      // Method to add score
-      public void increaseScore(int points) {
-          this.score += points;
-          System.out.println("Score increased by " + points + ". Total Score: " + this.score);
-      }
-  }
-  ```
-</details>
-
-#### Exercise 1.3 -- Constructor and Access control
-Improve each class by adding constructors to initialize objects with specific attributes. Employ encapsulation by making fields `private` and adding getter and setter methods.
-
-<details>
-  <summary> 🛠 Exercise 1.3 Constructors Example </summary>
-  
-  ```java
-  class Player {
-      private String playerName;
-      private int score;
-      private int health;
-
-      // Constructor
-      public Player(String playerName, int score, int health) {
-          this.playerName = playerName;
-          this.score = score;
-          this.health = health;
-      }
-      
-      // Getter for playerName
-      public String getPlayerName() {
-          return playerName;
-      }
-      
-      // Additional getters and setters...
-  }
-  ```
-</details>
-
-#### Exercise 1.4 -- Game Initialization
-Using the main method, bring your game to life by initializing the game map, placing players and enemies, and starting interactions.
-
-<details>
-  <summary> 🛠 Exercise 1.4 Game Interaction Example </summary>
-  
-  ```java
-  public static void main(String[] args) {
-      // Create and configure game objects
-      Player hero = new Player("Hero", 0, 100);
-      Enemy dragon = new Enemy("Dragon", 100, 15);
-
-      // Initialize game map
-      GameMap map = new GameMap();
-      
-      // Print initial game status
-      map.printMap();
-      System.out.println("Game started! Good luck, " + hero.getPlayerName());
-      
-      // Interaction sample
-      hero.moveRight();
-      dragon.attack(hero);
-  }
-  ```
-</details>
-
-#### Exercise 1.5 -- Scope and Variable Shadowing
-Explore how variable shadowing might impact your game. Examine and fix any shadowing in your game classes making use of the `this` keyword where necessary.
-
-```java
-class Score {
-    private int totalScore = 50; // Outermost score
-
-    public void addBonus(int totalScore) {
-        totalScore += 20; // Shadows the instance variable
-        System.out.println("Total Score inside method: " + totalScore);
+    public void printShadow() {
+        String message = "Local Message"; // This shadows my intended message
+        System.out.println(message); // It prints the shadowed local message
     }
-    
-    public void showTotalScore() {
-        System.out.println("Actual Total Score: " + this.totalScore);
+
+    public static void main(String[] args){
+        new ShadowExample().printShadow();
     }
 }
 ```
 
-> **Assistant's Note:** Understand the implications of the `this` keyword as you fix shadowing and improve your code.
+And another example:
 
-### 🐞 Bugs and Errors?
-Should you uncover any errors or experience issues as you progress through this task, please open a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) with the subject "Task *x* Error: *issue summary*". Your contribution to refining the exercise will help future students.
+```Java
+public class Library {
+  private String address;
+
+  public Library(String address) {
+    address = address; // This doesn’t work :( Why?
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public static void main(String[] args) {
+    Library library = new Library("123 Book Street");
+    System.out.println(library.getAddress()); // Prints null instead of intended address?
+  }
+}
+```
+
+> **Note:** Familiarize yourself with concepts of *local scope*, *global variables*, and the `this` keyword for resolving variable shadowing.
+
+### 🌟 Exploring Further
+Try extending your library management system with other functionalities like tracking multiple books, author details, or due dates for checked-out books. Implementing these additional features will deepen your understanding of Java's object-oriented capabilities.
+
+### 🐞 Notice an Issue?
+If you identify any issues or errors during this exercise, please take a moment to report them by creating a [New Issue](https://gits-15.sys.kth.se/help/issues/new) with a descriptive title. Recognized and useful contributions will be acknowledged in future iterations of this exercise.
