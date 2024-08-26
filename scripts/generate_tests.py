@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+import re
 from openai import OpenAI
 
 def main(api_key, branch_name):
@@ -129,9 +130,12 @@ def main(api_key, branch_name):
         print("Error: Failed to generate the tests after multiple retries.")
         sys.exit(1)
 
-    # Write the generated tests to a single Java file in the gen_test directory
+    # Extract the class name from the solution to use for the test file name
+    class_name = extract_class_name(solution)
+
+    # Write the generated tests to a Java file in the gen_test directory
     gen_test_dir = os.path.join("gen_test")
-    write_generated_tests_to_single_file(gen_test_dir, response_content)
+    write_generated_tests_to_file(gen_test_dir, response_content, class_name)
 
     # Commit and push changes
     commit_and_push_changes(branch_name, gen_test_dir)
@@ -153,9 +157,16 @@ def generate_with_retries(client, prompt, max_retries=3):
                 print("Retrying...")
     return None
 
-def write_generated_tests_to_single_file(directory, code_content):
-    """Write all generated Java tests to a single file in the specified directory."""
-    file_name = "AllGeneratedTests.java"
+def extract_class_name(java_code):
+    """Extract the class name from the given Java code."""
+    match = re.search(r'\bclass\s+(\w+)', java_code)
+    if match:
+        return match.group(1)
+    return "GeneratedTests"
+
+def write_generated_tests_to_file(directory, code_content, class_name):
+    """Write all generated Java tests to a single file in the specified directory with an appropriate name."""
+    file_name = f"{class_name}Test.java"
     file_path = os.path.join(directory, file_name)
 
     # Ensure the directory exists
