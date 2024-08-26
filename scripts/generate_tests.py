@@ -129,9 +129,9 @@ def main(api_key, branch_name):
         print("Error: Failed to generate the tests after multiple retries.")
         sys.exit(1)
 
-    # Write the generated tests to appropriate Java files in the gen_src directory
+    # Write the generated tests to a single Java file in the gen_src directory
     gen_src_dir = os.path.join("gen_src")
-    write_generated_code_to_files(gen_src_dir, response_content)
+    write_generated_tests_to_single_file(gen_src_dir, response_content)
 
     # Commit and push changes
     commit_and_push_changes(branch_name, gen_src_dir)
@@ -153,27 +153,19 @@ def generate_with_retries(client, prompt, max_retries=3):
                 print("Retrying...")
     return None
 
-def write_generated_code_to_files(directory, code_content):
-    """Write generated Java code to appropriate files in the specified directory."""
-    file_blocks = code_content.split("class ")
-    for block in file_blocks:
-        if block.strip():  # Ensure there's content
-            class_name = block.split("{")[0].strip().split()[0]
-            if not class_name.isidentifier():  # Check if the class name is valid
-                print(f"Invalid class name detected: '{class_name}'. Skipping block.")
-                continue
-            
-            file_name = f"{class_name}.java"
-            file_path = os.path.join(directory, file_name)
+def write_generated_tests_to_single_file(directory, code_content):
+    """Write all generated Java tests to a single file in the specified directory."""
+    file_name = "AllGeneratedTests.java"
+    file_path = os.path.join(directory, file_name)
 
-            # Ensure the directory exists
-            os.makedirs(directory, exist_ok=True)
+    # Ensure the directory exists
+    os.makedirs(directory, exist_ok=True)
 
-            try:
-                with open(file_path, "w") as java_file:
-                    java_file.write("class " + block)
-            except IOError as e:
-                print(f"Error writing file {file_name}: {e}")
+    try:
+        with open(file_path, "w") as java_file:
+            java_file.write(code_content)
+    except IOError as e:
+        print(f"Error writing file {file_name}: {e}")
 
 def commit_and_push_changes(branch_name, directory):
     try:
