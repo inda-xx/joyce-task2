@@ -111,8 +111,8 @@ def main(api_key, branch_name):
             "### Original Code Template\n\n"
             f"{original_template}\n\n"
             "IMPORTANT: The response must be plain Java code with no markdown formatting or ```java blocks. "
-            "Ensure that the response is ready to be saved directly as a .java file. "
-            "Additionally, ensure that all import statements are placed at the top of the file and that all classes and methods are properly closed with curly braces."
+            "Ensure that the response is ready to be saved directly as .java files. "
+            "The model can generate multiple .java files if necessary, and each file should be named accordingly with classes placed in appropriate files."
     )
 
     # Call OpenAI API to generate the template code
@@ -121,49 +121,26 @@ def main(api_key, branch_name):
         print("Error: Failed to generate template code after multiple retries.")
         sys.exit(1)
 
-    # Validate and correct the generated code
-    response_content = validate_and_correct_java_code(response_content)
+    # Ensure the gen_src directory exists
+    gen_src_dir = os.path.join("gen_src")
+    os.makedirs(gen_src_dir, exist_ok=True)
 
-    # Prepend the required imports to the generated code
-    final_code = required_imports.strip() + "\n\n" + response_content.strip()
-
-    # Write the template code to a Java file
-    template_file_path = os.path.join("src", "template_code.java")
-    with open(template_file_path, "w") as file:
-        file.write(final_code)
+    # Write the generated code to multiple Java files if necessary
+    write_generated_code_to_files(gen_src_dir, response_content)
 
     # Commit and push changes
-    commit_and_push_changes(branch_name, template_file_path)
+    commit_and_push_changes(branch_name, gen_src_dir)
 
-def validate_and_correct_java_code(java_code):
-    """Validate and correct common Java code errors."""
-    lines = java_code.splitlines()
-    imports = []
-    code = []
-    inside_class = False
-
-    for line in lines:
-        # Collect imports to ensure they are at the top
-        if line.startswith("import "):
-            imports.append(line)
-        else:
-            if "class " in line:
-                inside_class = True
-            if inside_class:
-                code.append(line)
-            else:
-                # Collect any code that should be outside the class
-                imports.append(line)
-
-    # Ensure all braces are properly closed
-    open_braces = sum(line.count('{') for line in code)
-    close_braces = sum(line.count('}') for line in code)
-    if open_braces > close_braces:
-        code.append("}" * (open_braces - close_braces))
-
-    # Reassemble the code with imports at the top
-    final_code = "\n".join(imports + [""] + code)
-    return final_code
+def write_generated_code_to_files(directory, code_content):
+    """Write generated Java code to appropriate files in the specified directory."""
+    file_blocks = code_content.split("class ")
+    for block in file_blocks:
+        if block.strip():  # Ensure there's content
+            class_name = block.split("{")[0].strip().split()[0]
+            file_name = f"{class_name}.java"
+            file_path = os.path.join(directory, file_name)
+            with open(file_path, "w") as java_file:
+                java_file.write("class " + block)
 
 def generate_with_retries(client, prompt, max_retries=3):
     for attempt in range(max_retries):
@@ -182,13 +159,13 @@ def generate_with_retries(client, prompt, max_retries=3):
                 print("Retrying...")
     return None
 
-def commit_and_push_changes(branch_name, template_file_path):
+def commit_and_push_changes(branch_name, directory_path):
     try:
         subprocess.run(["git", "config", "--global", "user.email", "actions@github.com"], check=True)
         subprocess.run(["git", "config", "--global", "user.name", "github-actions"], check=True)
 
-        subprocess.run(["git", "add", template_file_path], check=True)
-        subprocess.run(["git", "commit", "-m", "Add new template code"], check=True)
+        subprocess.run(["git", "add", directory_path], check=True)
+        subprocess.run(["git", "commit", "-m", "Add new generated template code"], check=True)
         subprocess.run(
             ["git", "push", "--set-upstream", "origin", branch_name],
             check=True,
