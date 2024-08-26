@@ -1,0 +1,80 @@
+name: Pull Request Review
+
+on:
+  pull_request:
+    branches:
+      - task-* # This triggers the workflow on PRs to task branches
+
+permissions:
+  contents: write  # Grant write permission for the GITHUB_TOKEN
+  pull-requests: write  # Making sure the PR comments can be added
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Download JUnit
+        run: |
+          wget -O junit-4.13.2.jar https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
+          wget -O hamcrest-core-1.3.jar https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+
+      - name: Compile the Code
+        run: |
+          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d .hidden_tasks/ src/*.java
+
+      - name: Run Tests
+        run: |
+          java -cp .hidden_tasks:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore .hidden_tasks.new_task_tests
+
+      - name: Determine Test Result
+        id: determine-result
+        run: |
+          if [ ${{ steps.run-tests.outcome }} == 'success' ]; then
+            echo "::set-output name=tests_passed::true"
+          else
+            echo "::set-output name=tests_passed::false"
+          fi
+
+  analyze-and-respond:
+    runs-on: ubuntu-latest
+    needs: run-tests
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}  # Ensure its the right branch
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'  # Choose JDK distribution
+          java-version: '11'     # Adjust to JDK version
+
+      - name: Set GITHUB_PR_NUMBER
+        run: echo "GITHUB_PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+
+      - name: Analyze and Respond
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the PAT token or GITHUB_TOKEN
+          TESTS_PASSED: ${{ needs.run-tests.outputs.tests_passed }}
+          GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}  
+        run: |
+          if [ "${{ env.TESTS_PASSED }}" == "true" ]; then
+            python scripts/generate_compliment_and_merge.py "${{ secrets.OPENAI_TOKEN }}" "${{ github.head_ref }}" "${{ github.base_ref }}"
+          else
+            python scripts/generate_feedback_and_clues.py "${{ secrets.OPENAI_TOKEN }}" "${{ github.head_ref }}" "${{ github.base_ref }}"
+          fi
