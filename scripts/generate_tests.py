@@ -26,6 +26,10 @@ def main(api_key, branch_name):
         print("Error: new_task_solution.java file not found.")
         sys.exit(1)
 
+    # Extract the package and class name from the solution to use in the test
+    package_name = extract_package_name(solution)
+    class_name = extract_class_name(solution)
+
     # Example tests to inspire the model (not to be directly copied)
     example_tests = """
     package original;
@@ -130,8 +134,8 @@ def main(api_key, branch_name):
         print("Error: Failed to generate the tests after multiple retries.")
         sys.exit(1)
 
-    # Extract the class name from the solution to use for the test file name
-    class_name = extract_class_name(solution)
+    # Ensure the tests use the correct package and imports
+    response_content = adjust_package_and_imports(response_content, package_name)
 
     # Write the generated tests to a Java file in the gen_test directory
     gen_test_dir = os.path.join("gen_test")
@@ -157,12 +161,26 @@ def generate_with_retries(client, prompt, max_retries=3):
                 print("Retrying...")
     return None
 
+def extract_package_name(java_code):
+    """Extract the package name from the given Java code."""
+    match = re.search(r'\bpackage\s+(\w+(\.\w+)*);', java_code)
+    if match:
+        return match.group(1)
+    return None
+
 def extract_class_name(java_code):
     """Extract the class name from the given Java code."""
     match = re.search(r'\bclass\s+(\w+)', java_code)
     if match:
         return match.group(1)
     return "GeneratedTests"
+
+def adjust_package_and_imports(test_code, package_name):
+    """Adjust the package declaration and imports in the generated test code."""
+    if package_name:
+        test_code = f"package {package_name};\n\n" + test_code
+        test_code = test_code.replace("import main.", f"import {package_name}.")
+    return test_code
 
 def write_generated_tests_to_file(directory, code_content, class_name):
     """Write all generated Java tests to a single file in the specified directory with an appropriate name."""
