@@ -137,10 +137,21 @@ def write_generated_code_to_files(directory, code_content):
     for block in file_blocks:
         if block.strip():  # Ensure there's content
             class_name = block.split("{")[0].strip().split()[0]
+            if not class_name.isidentifier():  # Check if the class name is valid
+                print(f"Invalid class name detected: '{class_name}'. Skipping block.")
+                continue
+            
             file_name = f"{class_name}.java"
             file_path = os.path.join(directory, file_name)
-            with open(file_path, "w") as java_file:
-                java_file.write("class " + block)
+
+            # Ensure the directory exists
+            os.makedirs(directory, exist_ok=True)
+
+            try:
+                with open(file_path, "w") as java_file:
+                    java_file.write("class " + block)
+            except IOError as e:
+                print(f"Error writing file {file_name}: {e}")
 
 def generate_with_retries(client, prompt, max_retries=3):
     for attempt in range(max_retries):
