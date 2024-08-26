@@ -129,12 +129,12 @@ def main(api_key, branch_name):
         print("Error: Failed to generate the tests after multiple retries.")
         sys.exit(1)
 
-    # Write the generated tests to a single Java file in the gen_src directory
-    gen_src_dir = os.path.join("gen_src")
-    write_generated_tests_to_single_file(gen_src_dir, response_content)
+    # Write the generated tests to a single Java file in the gen_test directory
+    gen_test_dir = os.path.join("gen_test")
+    write_generated_tests_to_single_file(gen_test_dir, response_content)
 
     # Commit and push changes
-    commit_and_push_changes(branch_name, gen_src_dir)
+    commit_and_push_changes(branch_name, gen_test_dir)
 
 def generate_with_retries(client, prompt, max_retries=3):
     for attempt in range(max_retries):
