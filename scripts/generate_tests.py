@@ -25,6 +25,94 @@ def main(api_key, branch_name):
         print("Error: new_task_solution.java file not found.")
         sys.exit(1)
 
+    # Example tests to inspire the model (not to be directly copied)
+    example_tests = """
+    package original;
+    import org.junit.Before;
+    import org.junit.Test;
+    import static org.junit.Assert.*;
+
+    public class IndamonTest {
+        private Indamon indamon1;
+        private Indamon indamon2;
+
+        @Before
+        public void setUp() {
+            indamon1 = new Indamon("Glassey", 10, 5, 5);
+            indamon2 = new Indamon("Siberov", 10, 5, 5);
+        }
+
+        @Test
+        public void testGetName() {
+            assertEquals("Glassey", indamon1.getName());
+            assertEquals("Siberov", indamon2.getName());
+        }
+
+        @Test
+        public void testGetHp() {
+            assertEquals(10, indamon1.getHp());
+            assertEquals(10, indamon2.getHp());
+        }
+
+        @Test
+        public void testGetAttack() {
+            assertEquals(5, indamon1.getAttack());
+            assertEquals(5, indamon2.getAttack());
+        }
+
+        @Test
+        public void testGetDefense() {
+            assertEquals(5, indamon1.getDefense());
+            assertEquals(5, indamon2.getDefense());
+        }
+
+        @Test
+        public void testGetFainted() {
+            assertEquals(false, indamon1.getFainted());
+            assertEquals(false, indamon2.getFainted());
+        }
+
+        @Test
+        public void testSetName() {
+            indamon1.setName("NewName");
+            assertEquals("NewName", indamon1.getName());
+        }
+
+        @Test
+        public void testSetHp() {
+            indamon1.setHp(20);
+            assertEquals(20, indamon1.getHp());
+        }
+
+        @Test
+        public void testSetAttack() {
+            indamon1.setAttack(7);
+            assertEquals(7, indamon1.getAttack());
+        }
+
+        @Test
+        public void testSetDefense() {
+            indamon1.setDefense(8);
+            assertEquals(8, indamon1.getDefense());
+        }
+
+        @Test
+        public void testSetFainted() {
+            indamon1.setFainted(true);
+            assertEquals(true, indamon1.getFainted());
+        }
+
+        @Test
+        public void testAttack() {
+            indamon1 = new Indamon("Glassey", 10, 5, 5);
+            indamon2 = new Indamon("Siberov", 10, 5, 5);
+            indamon1.attack(indamon2);
+            assertEquals(9, indamon2.getHp()); 
+            assertEquals(false, indamon2.getFainted());
+        }
+    }
+    """
+
     # Combine the solution into a single prompt for test generation
     prompt = (
         f"Given the following Java solution, generate a set of high-quality unit tests. "
@@ -32,6 +120,7 @@ def main(api_key, branch_name):
         f"The tests should follow best practices, including descriptive naming conventions, setup and teardown methods if necessary, and detailed assertions to validate expected behavior. "
         f"Ensure that the tests use the correct imports and that each class is placed in the correct file as per Java naming conventions.\n\n"
         f"### Solution\n{solution}\n\n"
+        f"### Example Tests (for inspiration only)\n{example_tests}\n\n"
         "IMPORTANT: The response must be plain Java code with no markdown formatting or ```java blocks. Ensure that the response is ready to be saved directly as a .java file."
     )
 
@@ -40,16 +129,12 @@ def main(api_key, branch_name):
         print("Error: Failed to generate the tests after multiple retries.")
         sys.exit(1)
 
-    # Ensure the .hidden_tasks directory exists
-    os.makedirs(".hidden_tasks", exist_ok=True)
-
-    # Write the tests code to a Java file in the .hidden_tasks directory
-    tests_file_path = os.path.join(".hidden_tasks", "new_task_tests.java")
-    with open(tests_file_path, "w") as file:
-        file.write(response_content)
+    # Write the generated tests to appropriate Java files in the gen_src directory
+    gen_src_dir = os.path.join("gen_src")
+    write_generated_code_to_files(gen_src_dir, response_content)
 
     # Commit and push changes
-    commit_and_push_changes(branch_name, tests_file_path)
+    commit_and_push_changes(branch_name, gen_src_dir)
 
 def generate_with_retries(client, prompt, max_retries=3):
     for attempt in range(max_retries):
@@ -68,12 +153,34 @@ def generate_with_retries(client, prompt, max_retries=3):
                 print("Retrying...")
     return None
 
-def commit_and_push_changes(branch_name, tests_file_path):
+def write_generated_code_to_files(directory, code_content):
+    """Write generated Java code to appropriate files in the specified directory."""
+    file_blocks = code_content.split("class ")
+    for block in file_blocks:
+        if block.strip():  # Ensure there's content
+            class_name = block.split("{")[0].strip().split()[0]
+            if not class_name.isidentifier():  # Check if the class name is valid
+                print(f"Invalid class name detected: '{class_name}'. Skipping block.")
+                continue
+            
+            file_name = f"{class_name}.java"
+            file_path = os.path.join(directory, file_name)
+
+            # Ensure the directory exists
+            os.makedirs(directory, exist_ok=True)
+
+            try:
+                with open(file_path, "w") as java_file:
+                    java_file.write("class " + block)
+            except IOError as e:
+                print(f"Error writing file {file_name}: {e}")
+
+def commit_and_push_changes(branch_name, directory):
     try:
         subprocess.run(["git", "config", "--global", "user.email", "actions@github.com"], check=True)
         subprocess.run(["git", "config", "--global", "user.name", "github-actions"], check=True)
 
-        subprocess.run(["git", "add", tests_file_path], check=True)
+        subprocess.run(["git", "add", directory], check=True)
         subprocess.run(["git", "commit", "-m", "Add generated tests"], check=True)
         subprocess.run(
             ["git", "push", "--set-upstream", "origin", branch_name],
