@@ -1,137 +1,233 @@
-# Let's Play Java Game! 🕹️ 
+# 🕹️ Simple Java Game: Battle the Enemies!
 
-This is your challenge for today, programmer! It's time to step into the magical world of **Java Programming** and test your skills. Are you ready?
+For this project, you will harness your Java skills to create a simple text-based game. The objective is to manage a player's movement, implement a scoring system, and create interactions with enemies. This exercise will sharpen your object-oriented programming skills and familiarize you with fundamental concepts in Java. 
 
-### 📅 Deadline
-Get this task completed before the due date, which is on **Tuesday 20th September**.
+### 💀 Deadline
+Complete this assignment by **Friday, 16th September** for lab evaluation.
 
-### 👨‍💼 Instructions
-Please review the [course instructions section](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments) to understand how to do and submit assignments. Make sure you adhere to every detail.
+### 👩‍🏫 Instructions
+Detailed instructions for submission are provided on the [course instruction page](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments).
 
-### 🎓 Preparation
-Before getting started with this assignment, here's what you need to do:
+### 📝 Preparation
+Before embarking on this task, complete the required readings in the OLI Module 2. This will equip you with a foundational understanding of Java classes:
 
-- Read [Using Objects](https://kth.oli.cmu.edu/jcourse/webui/syllabus/module.do?context=a2b40d76a4200020a49c27f0000168af)
-- Sign up and get registered for the course key `dd1337-ht22` at https://kth.oli.cmu.edu/, in case you haven't done it yet. 
+- [From Classes to Objects](https://kth.oli.cmu.edu/jcourse/webui/syllabus/module.do?context=f5e5a808ac1f088812f2a8ce315bac60)
 
-### 📌 Learning Goals
-The learning goals for this week's tasks are:
+> **Assistant’s Note:** While the main course material is essential, do advance reading if required concepts appear unfamiliar.
+
+### ✅ Learning Goals
+
+Completing this task will help you achieve the following learning goals:
+
 * Designing Java classes
 * Adding instance fields
 * Adding a constructor method
-* Creating getters and setters
-* Printing to the terminal
-* Utilising the `main` method
-* Scope (or variable shadowing)
+* Creating *getters* and *setters*
+* Printing outputs in the terminal
+* Utilizing the `main` method
+* Understanding variable scope and shadowing
 
-### 🔧 Troubleshooting Guide
-If you find yourself stuck or facing any difficulties:
+### 🚨 Troubleshooting Guide
+For queries or technical assistance, follow these steps:
 
-1. Check out this week's [posted issues](https://gits-15.sys.kth.se/inda-22/help/issues). The solution to your problem might be there already.
-2. If not, feel free to post your issue [here](https://gits-15.sys.kth.se/inda-22/help/issues/new). Make sure title begins with "Task *x*: *summary of your problem*".
-3. You can always ask a teacher assistant in person during the [weekly lab](https://queue.csc.kth.se/Queue/INDA). Check your schedule for the timings of the next lab.
+1. Review this week's [posted issues](https://gits-15.sys.kth.se/inda-22/help/issues).
+2. If unresolved, post your query by creating a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new). Include a clear title starting with "Task *x*: *your issue*".
+3. Consult a TA at the [weekly lab](https://queue.csc.kth.se/Queue/INDA). Refer to your schedule for lab timings.
 
-Feel free to discuss with your fellow students, but remember to **respect the rules against plagiarism**!
+Collaboration with classmates is encouraged, but please ensure **individual work submission**.
 
-### 👾 Assignment
+### 🎮 Assignment: Build Your Game!
 
-The name of the game is **Java Gold Digger!**. You are composing the code of a fearless explorer digging for gold while dodging hidden traps. 
+Create your own basic game environment at the storied campus of the Royal Institute of Technology in Stockholm. The game will involve a player navigating through the map, interacting with enemies, and collecting points as they attempt to survive the perilous campus grounds.
 
-#### Exercise 1.0 -- Character Class
+#### Exercise 1.0 -- Designing Core Classes
+In the [`src`](src) folder, set up classes to represent the Player, Enemy, and GameMap objects. 
 
-In the [`src`](src) folder, create a class named `Character.java`. This class will model the game character and should include these attributes:
+Each class should have:
 
-- `String` name
-- `int` xPos (representing the character's x-position in the game)
-- `int` yPos (y-position)
-- `int` gold (amount of gold collected)
-- `boolean` isAlive (if character is still alive)
+**Player:**
+- `String` playerName
+- `int` score
+- `int` health
 
-A simple `main` method for `Character.java` should compile correctly if done right. This method is given below for your reference.
+**Enemy:**
+- `String` enemyType
+- `int` health
+- `int` damageLevel
+
+**GameMap:**
+- `char[][]` mapLayout to visualize the grid/map
+
+Your main method should instantiate these objects and compile successfully.
 
 <details>
-  <summary>🛠️ Example 1</summary>
-  
-  ```java
-  class Character {
-    // Put your fields here!
+  <summary> 🛠 Exercise 1.0 Template </summary>
 
-    public static void main(String[] args) {
-      // create a new "Character" object
-      Character digger = new Character();
+  ```java
+  class Player {
+      // Fields for the Player class
+      String playerName;
+      int score;
+      int health;
       
-      // assign field variables to some values
-      digger.name = "digger";
-      digger.xPos = 0;
-      digger.yPos = 0;
-      digger.gold = 0;
-      digger.isAlive = true;
+      // ...add methods and constructors here
+  }
+
+  class Enemy {
+      // Fields for the Enemy class
+      String enemyType;
+      int health;
+      int damageLevel;
       
-      // print the information of the assigned values
-      System.out.println("Character name: " + digger.name);
-      System.out.println("Character Position: (" + digger.xPos + ", " + digger.yPos + ")");
-      System.out.println("Gold collected: " + digger.gold);
-      System.out.println("Character alive? " + digger.isAlive);
-    } 
-  } 
+      // ...add methods and constructors here
+  }
+
+  class GameMap {
+      // Fields for the GameMap class
+      char[][] mapLayout;
+      
+      // ...add methods and constructors here
+  }
+
+  public class Game {
+      public static void main(String[] args) {
+          // Create instances of Player, Enemy, and GameMap
+          Player player = new Player();
+          Enemy enemy = new Enemy();
+          GameMap gameMap = new GameMap();
+          
+          // ...game logic here
+          
+          System.out.println("Welcome to the Game!");
+      }
+  }
   ```
 </details>
 
-#### Exercise 1.1 -- Getters and Setters 
+#### Exercise 1.1 -- Methods for Interaction
+Implement methods for each class for interaction.
 
-Implement getters and setters for each field in your `Character` class. Your `Character` class should now have private fields and all the 10 *getters* and *setters* methods. 
+**Player Class:**
+- Move up, down, left, or right on the map (`moveUp()`, `moveDown()`, `moveLeft()`, `moveRight()`)
+- Encounter with an enemy: lose health and print the status to the terminal
 
-A copied version of Example 1 into your `Character.java` file should compile correctly, if you've done this right.
+**Enemy Class:**
+- Attack the player and print the damage on the player
+
+**GameMap Class:**
+- Create a simple 5x5 grid as a character array
+- Print the current map status with player and enemies positioned
 
 <details>
-  <summary>🛠️ Example 2</summary>
-  
+  <summary> 🛠 Exercise 1.1 Sample Usage </summary>
+
   ```java
-  class Character {
-    // Put your fields here!
+  Player player = new Player("Hero", 0, 100);
+  Enemy goblin = new Enemy("Goblin", 30, 10);
+
+  player.moveUp(); // Update player's position
+  goblin.attack(player); // Enemy attacks player
   
-    // Put your getters and setters here!
+  GameMap gameMap = new GameMap();
+  gameMap.printMap(); // Show current map layout
   
-    public static void main(String[] args) {
-      // create a new "Character" object
-      Character digger = new Character();
-      
-      // assign field variables using setters
-      digger.setName("digger");
-      digger.setxPos(0);
-      digger.setyPos(0);
-      digger.setGold(0);
-      digger.setAlive(true);
-      
-      // print the information of the assigned values using getters
-      System.out.println("Character name: " + digger.getName());
-      System.out.println("Character Position: (" + digger.getxPos() + ", " + digger.getyPos() + ")");
-      System.out.println("Gold collected: " + digger.getGold());
-      System.out.println("Character alive? " + digger.getIsAlive());
-    } 
-  } 
+  System.out.println(player.getName() + " Scores: " + player.getScore());
   ```
 </details>
-#### Exercise 1.2
 
-Implement a constructor for your Character class. Overwrite your previous main method in accordance to this change.
+#### Exercise 1.2 -- Scoring System
+Enrich your Player class with a scoring system. Award points for successfully avoiding enemies or achieving a goal (like reaching a certain map position). Implement relevant methods for updating and retrieving scores.
 
-#### Exercise 1.3 -- `printStatus()`
+<details>
+  <summary> 🛠 Exercise 1.2 Sample Scoring </summary>
 
-Add a method named `printStatus()`. This method should print all the information about the character to the console. 
+  ```java
+  class Player {
+      // Already existing fields
+      
+      // Method to add score
+      public void increaseScore(int points) {
+          this.score += points;
+          System.out.println("Score increased by " + points + ". Total Score: " + this.score);
+      }
+  }
+  ```
+</details>
 
-#### Exercise 1.4 -- `move()`
+#### Exercise 1.3 -- Constructor and Access control
+Improve each class by adding constructors to initialize objects with specific attributes. Employ encapsulation by making fields `private` and adding getter and setter methods.
 
-Incorporate a `move()` method into your Character class. This method should receive a `char` as input ('N', 'S', 'E', 'W') and modify the character's position accordingly (North, South, East, or West). Implement bounds checking so the character cannot move outside the grid (which is 10x10 units for this exercise). 
+<details>
+  <summary> 🛠 Exercise 1.3 Constructors Example </summary>
+  
+  ```java
+  class Player {
+      private String playerName;
+      private int score;
+      private int health;
 
-#### Exercise 1.5 -- `dig()`
- 
-Introduce a `dig()` method. This method receives an `int` value as an argument, which corresponds to the amount of gold to be added to the player’s gold stash.
+      // Constructor
+      public Player(String playerName, int score, int health) {
+          this.playerName = playerName;
+          this.score = score;
+          this.health = health;
+      }
+      
+      // Getter for playerName
+      public String getPlayerName() {
+          return playerName;
+      }
+      
+      // Additional getters and setters...
+  }
+  ```
+</details>
 
-#### Exercise 1.6 -- Instance variable shadowing
+#### Exercise 1.4 -- Game Initialization
+Using the main method, bring your game to life by initializing the game map, placing players and enemies, and starting interactions.
 
-Create an example of instance variable shadowing. Discuss this subject during the next lab session. 
+<details>
+  <summary> 🛠 Exercise 1.4 Game Interaction Example </summary>
+  
+  ```java
+  public static void main(String[] args) {
+      // Create and configure game objects
+      Player hero = new Player("Hero", 0, 100);
+      Enemy dragon = new Enemy("Dragon", 100, 15);
 
-### 🕷️ Bugs and Errors?
+      // Initialize game map
+      GameMap map = new GameMap();
+      
+      // Print initial game status
+      map.printMap();
+      System.out.println("Game started! Good luck, " + hero.getPlayerName());
+      
+      // Interaction sample
+      hero.moveRight();
+      dragon.attack(hero);
+  }
+  ```
+</details>
 
-If you stumble upon any bugs or errors in this exercise, create a new issue with the title "Task *x*: Error - *summary of the error here*". Your contributions will be appreciated and acknowledged.
+#### Exercise 1.5 -- Scope and Variable Shadowing
+Explore how variable shadowing might impact your game. Examine and fix any shadowing in your game classes making use of the `this` keyword where necessary.
+
+```java
+class Score {
+    private int totalScore = 50; // Outermost score
+
+    public void addBonus(int totalScore) {
+        totalScore += 20; // Shadows the instance variable
+        System.out.println("Total Score inside method: " + totalScore);
+    }
+    
+    public void showTotalScore() {
+        System.out.println("Actual Total Score: " + this.totalScore);
+    }
+}
+```
+
+> **Assistant's Note:** Understand the implications of the `this` keyword as you fix shadowing and improve your code.
+
+### 🐞 Bugs and Errors?
+Should you uncover any errors or experience issues as you progress through this task, please open a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) with the subject "Task *x* Error: *issue summary*". Your contribution to refining the exercise will help future students.
