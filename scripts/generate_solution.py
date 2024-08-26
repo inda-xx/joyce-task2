@@ -17,14 +17,30 @@ def main(api_key, branch_name):
         print(f"Error checking out branch {branch_name}: {e}")
         sys.exit(1)
 
-    # Read the generated task and template
+    # Read the generated task
     try:
         with open("tasks/new_task.md", "r") as file:
             task = file.read()
-        with open("src/template_code.java", "r") as file:
-            template = file.read()
     except FileNotFoundError:
-        print("Error: new_task.md or template_code.java file not found.")
+        print("Error: new_task.md file not found.")
+        sys.exit(1)
+
+    # Read all .java files in the gen_src directory as the template
+    gen_src_dir = "gen_src"
+    if not os.path.exists(gen_src_dir):
+        print(f"Error: Directory {gen_src_dir} does not exist.")
+        sys.exit(1)
+
+    template = ""
+    for filename in os.listdir(gen_src_dir):
+        if filename.endswith(".java"):
+            file_path = os.path.join(gen_src_dir, filename)
+            with open(file_path, "r") as file:
+                template += f"\n// File: {filename}\n"
+                template += file.read() + "\n"
+
+    if not template:
+        print(f"Error: No .java files found in {gen_src_dir}.")
         sys.exit(1)
 
     # Combine task and template into a single prompt for solution generation
@@ -34,8 +50,7 @@ def main(api_key, branch_name):
         f"Use meaningful variable names and comments to improve readability and maintainability.\n\n"
         f"### Task\n{task}\n\n"
         f"### Template\n{template}\n\n"
-        "IMPORTANT: The response must be plain Java code with no markdown formatting or ```java blocks. Ensure that the response is ready to be saved directly as a .java file. "
-        "If the solution consists of multiple classes, ensure each class is placed in its own correctly named `.java` file."
+        "IMPORTANT: The response must be plain Java code with no markdown formatting or ```java blocks. Ensure that the response is ready to be saved directly as a .java file."
     )
 
     response_content = generate_with_retries(client, prompt, max_retries=3)
@@ -43,15 +58,16 @@ def main(api_key, branch_name):
         print("Error: Failed to generate the solution after multiple retries.")
         sys.exit(1)
 
-    # Ensure the gen_src directory exists
-    gen_src_dir = os.path.join("gen_src")
-    os.makedirs(gen_src_dir, exist_ok=True)
+    # Ensure the .hidden_tasks directory exists
+    os.makedirs(".hidden_tasks", exist_ok=True)
 
-    # Write the solution code to appropriate Java files in the gen_src directory
-    write_generated_code_to_files(gen_src_dir, response_content)
+    # Write the solution code to a Java file in the .hidden_tasks directory
+    solution_file_path = os.path.join(".hidden_tasks", "new_task_solution.java")
+    with open(solution_file_path, "w") as file:
+        file.write(response_content)
 
     # Commit and push changes
-    commit_and_push_changes(branch_name, gen_src_dir)
+    commit_and_push_changes(branch_name, solution_file_path)
 
 def generate_with_retries(client, prompt, max_retries=3):
     for attempt in range(max_retries):
@@ -70,31 +86,12 @@ def generate_with_retries(client, prompt, max_retries=3):
                 print("Retrying...")
     return None
 
-def write_generated_code_to_files(directory, code_content):
-    """Write generated Java code to appropriate files in the specified directory."""
-    file_blocks = code_content.split("class ")
-    for block in file_blocks:
-        if block.strip():  # Ensure there's content
-            class_name = block.split("{")[0].strip().split()[0]
-            if not class_name.isidentifier():  # Check if the class name is valid
-                print(f"Invalid class name detected: '{class_name}'. Skipping block.")
-                continue
-            
-            file_name = f"{class_name}.java"
-            file_path = os.path.join(directory, file_name)
-
-            try:
-                with open(file_path, "w") as java_file:
-                    java_file.write("class " + block)
-            except IOError as e:
-                print(f"Error writing file {file_name}: {e}")
-
-def commit_and_push_changes(branch_name, directory):
+def commit_and_push_changes(branch_name, solution_file_path):
     try:
         subprocess.run(["git", "config", "--global", "user.email", "actions@github.com"], check=True)
         subprocess.run(["git", "config", "--global", "user.name", "github-actions"], check=True)
 
-        subprocess.run(["git", "add", directory], check=True)
+        subprocess.run(["git", "add", solution_file_path], check=True)
         subprocess.run(["git", "commit", "-m", "Add generated solution"], check=True)
         subprocess.run(
             ["git", "push", "--set-upstream", "origin", branch_name],
