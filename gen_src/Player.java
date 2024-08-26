@@ -1,3 +1,4 @@
+// File: Player.java
 class Player {
     // Step 1: Define the private fields for the Player class
     private String name;
@@ -7,42 +8,43 @@ class Player {
 
     // Step 3: Constructor to initialize the player with a name and position
     public Player(String name, int x, int y) {
-        // Initialize fields
+        this.name = name;
+        this.xPosition = x;
+        this.yPosition = y;
+        this.score = 0;
     }
     
     // Step 2: Implement getters and setters for each field
+    
     public String getName() {
-        // Return player's name
-        return null;
+        return name;
     }
     
     public void setName(String name) {
-        // Set player's name
+        this.name = name;
     }
     
     public int getX() {
-        // Return player's x position
-        return 0;
+        return xPosition;
     }
     
     public int getY() {
-        // Return player's y position
-        return 0;
+        return yPosition;
     }
     
     public void setPosition(int x, int y) {
-        // Set player's position
+        this.xPosition = x;
+        this.yPosition = y;
     }
     
     public int getScore() {
-        // Return player's score
-        return 0;
+        return score;
     }
     
     public void setScore(int score) {
-        // Set player's score
+        this.score = score;
     }
-
+    
     public static void main(String[] args) {
         // Create a Player object
         Player hero = new Player("Hero", 0, 0);
@@ -56,5 +58,3 @@ class Player {
         System.out.println("Score: " + hero.getScore());
     }
 }
-
-// Enemy.java
