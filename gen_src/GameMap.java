@@ -1,17 +1,36 @@
 class GameMap {
-    // Fields for the GameMap class
     private char[][] mapLayout;
 
-    // Constructor
     public GameMap() {
-        // Initialize a 5x5 char array representing the map
         mapLayout = new char[5][5];
-        // Initialize map layout here
+        initializeMap();
     }
 
-    // Method to print the map layout
+    private void initializeMap() {
+        for (int i = 0; i < mapLayout.length; i++) {
+            for (int j = 0; j < mapLayout[i].length; j++) {
+                mapLayout[i][j] = '.';
+            }
+        }
+    }
+
+    public void updateMapWithPlayer(Player player) {
+        initializeMap(); // Clear map before updating
+        mapLayout[player.getYPosition()][player.getXPosition()] = 'P';
+    }
+
+    public void updateMapWithEnemy(Enemy enemy) {
+        if (mapLayout[enemy.getYPosition()][enemy.getXPosition()] == '.') {
+            mapLayout[enemy.getYPosition()][enemy.getXPosition()] = 'E';
+        }
+    }
+
     public void printMap() {
-        // Logic to print the current map status
+        for (char[] row : mapLayout) {
+            for (char c : row) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+        }
     }
 }
-
