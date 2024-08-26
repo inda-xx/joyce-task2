@@ -1,71 +1,81 @@
 class Player {
-    // Fields for the Player class
     private String playerName;
     private int score;
     private int health;
+    private int xPosition;
+    private int yPosition;
 
-    // Constructor
     public Player(String playerName, int initialScore, int initialHealth) {
         this.playerName = playerName;
         this.score = initialScore;
         this.health = initialHealth;
+        this.xPosition = 0; // Start at the top-left of the map
+        this.yPosition = 0;
     }
 
-    // Getters and Setters
     public String getPlayerName() {
-        // Return the player's name
         return playerName;
     }
 
     public void setPlayerName(String playerName) {
-        // Set the player's name
         this.playerName = playerName;
     }
 
     public int getScore() {
-        // Return the player's score
         return score;
     }
 
     public void setScore(int score) {
-        // Set the player's score
         this.score = score;
     }
 
     public int getHealth() {
-        // Return the player's health
         return health;
     }
 
     public void setHealth(int health) {
-        // Set the player's health
         this.health = health;
     }
 
-    // Methods
     public void moveUp() {
-        // Logic for moving the player up
+        if (yPosition > 0) {
+            yPosition--;
+        }
     }
 
     public void moveDown() {
-        // Logic for moving the player down
+        if (yPosition < 4) {
+            yPosition++;
+        }
     }
 
     public void moveLeft() {
-        // Logic for moving the player left
+        if (xPosition > 0) {
+            xPosition--;
+        }
     }
 
     public void moveRight() {
-        // Logic for moving the player right
+        if (xPosition < 4) {
+            xPosition++;
+        }
     }
 
-    public void encounterEnemy() {
-        // Logic for encountering an enemy
+    public void encounterEnemy(int damage) {
+        this.health -= damage;
+        System.out.println(playerName + " encountered an enemy and lost " + damage + " health. Remaining health: " + health);
     }
 
     public void increaseScore(int points) {
-        // Logic for increasing player's score
+        this.score += points;
+        System.out.println(playerName + " score increased by " + points + ". Total Score: " + score);
+    }
+
+    public int getXPosition() {
+        return xPosition;
+    }
+
+    public int getYPosition() {
+        return yPosition;
     }
 }
-
-// Enemy.java
