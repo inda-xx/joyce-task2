@@ -1,98 +1,132 @@
-// File: Game.java
-class Game {
-    public static void main(String[] args) {
-        // Create a Player object
-        Player hero = new Player("Hero", 0, 0);
-        
-        // Create an Enemy object
-        Enemy badGuy = new Enemy(5, 5);
-        
-        // Simulate player reaching enemy
-        hero.setPosition(5, 5);
-        badGuy.interact(hero);
+// File: Spaceship.java
+class Spaceship {
+    // Fields for Spaceship
+    private String model;
+    private double speed; // in light-years per hour
+    private boolean operational;
 
-        // Display final score
-        System.out.println("Final Score: " + hero.getScore());
+    // Constructor for Spaceship
+    public Spaceship(String model, double speed, boolean operational) {
+        this.model = model;
+        this.speed = speed;
+        this.operational = operational;
+    }
+
+    // Getter and setter for model
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    // Getter and setter for speed
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    // Getter and setter for operational
+    public boolean isOperational() {
+        return operational;
+    }
+
+    public void setOperational(boolean operational) {
+        this.operational = operational;
+    }
+
+    // Method to print fleet information
+    public void printFleetInfo() {
+        System.out.println("Spaceship Model: " + model);
+        System.out.println("Speed: " + speed + " light-years/hour");
+        System.out.println("Operational: " + (operational ? "Yes" : "No"));
     }
 }
 
-// File: Enemy.java
-class Enemy {
-    // Fields for enemy's position
-    private int xPosition;
-    private int yPosition;
+// File: GalacticTraveler.java
+class GalacticTraveler {
+    // Fields for GalacticTraveler
+    private String travelerName;
+    private int age;
+    private String homePlanet;
+    private Spaceship spaceship;
 
-    // Constructor to initialize the enemy's position
-    public Enemy(int x, int y) {
-        this.xPosition = x;
-        this.yPosition = y;
+    // Constructor for GalacticTraveler
+    public GalacticTraveler(String travelerName, int age, String homePlanet, Spaceship spaceship) {
+        this.travelerName = travelerName;
+        this.age = age;
+        this.homePlanet = homePlanet;
+        this.spaceship = spaceship;
     }
-    
-    // Method to interact with a Player
-    public void interact(Player player) {
-        // Example interaction: decrease player's score
-        player.setScore(player.getScore() - 10);
-        System.out.println(player.getName() + " encountered an enemy! Score: " + player.getScore());
-    }
-}
 
-// File: Player.java
-class Player {
-    // Step 1: Define the private fields for the Player class
-    private String name;
-    private int xPosition;
-    private int yPosition;
-    private int score;
+    // Getter and setter for travelerName
+    public String getTravelerName() {
+        return travelerName;
+    }
 
-    // Step 3: Constructor to initialize the player with a name and position
-    public Player(String name, int x, int y) {
-        this.name = name;
-        this.xPosition = x;
-        this.yPosition = y;
-        this.score = 0;
+    public void setTravelerName(String travelerName) {
+        this.travelerName = travelerName;
     }
-    
-    // Step 2: Implement getters and setters for each field
-    
-    public String getName() {
-        return name;
+
+    // Getter and setter for age
+    public int getAge() {
+        return age;
     }
-    
-    public void setName(String name) {
-        this.name = name;
+
+    public void setAge(int age) {
+        this.age = age;
     }
-    
-    public int getX() {
-        return xPosition;
+
+    // Getter and setter for homePlanet
+    public String getHomePlanet() {
+        return homePlanet;
     }
-    
-    public int getY() {
-        return yPosition;
+
+    public void setHomePlanet(String homePlanet) {
+        this.homePlanet = homePlanet;
     }
-    
-    public void setPosition(int x, int y) {
-        this.xPosition = x;
-        this.yPosition = y;
+
+    // Getter and setter for spaceship
+    public Spaceship getSpaceship() {
+        return spaceship;
     }
-    
-    public int getScore() {
-        return score;
+
+    public void setSpaceship(Spaceship spaceship) {
+        this.spaceship = spaceship;
     }
-    
-    public void setScore(int score) {
-        this.score = score;
+
+    // Method to travel to a specified destination
+    public void travelTo(String destination) {
+        System.out.println(travelerName + " is traveling to " + destination + " in their spaceship " + spaceship.getModel() + "!");
     }
-    
+
+    // Method to explore the galaxy
+    public void exploreGalaxy() {
+        System.out.println("Exploring the galaxy...");
+        System.out.println(travelerName + " discovers a new planet full of exotic flora and fauna.");
+        System.out.println(travelerName + " navigates through a dense asteroid belt, showing commendable skills!");
+    }
+
+    // Main method to demonstrate class functionality
     public static void main(String[] args) {
-        // Create a Player object
-        Player hero = new Player("Hero", 0, 0);
-        
-        // Set values using setters
-        hero.setScore(0);
+        Spaceship voyager = new Spaceship("Voyager XL", 0.2, true);
+        GalacticTraveler traveler = new GalacticTraveler("Luna Stark", 29, "Earth", voyager);
 
-        // Get and print values using getters
-        System.out.println("Player Name: " + hero.getName());
-        System.out.println("Position: (" + hero.getX() + ", " + hero.getY() + ")");
-        System.out.println("Score: " + hero.getScore());
+        System.out.println("Traveler: " + traveler.getTravelerName());
+        System.out.println("Age: " + traveler.getAge());
+        System.out.println("Home Planet: " + traveler.getHomePlanet());
+
+        // Use the travelTo method
+        traveler.travelTo("Mars");
+
+        // Use the exploreGalaxy method
+        traveler.exploreGalaxy();
+
+        // Print fleet details
+        voyager.printFleetInfo();
     }
 }
