@@ -15,5 +15,3 @@ class GameMap {
     }
 }
 
-// Game.java
-public 
