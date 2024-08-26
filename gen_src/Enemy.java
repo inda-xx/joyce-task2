@@ -1,11 +1,12 @@
 class Enemy {
-    // Define fields for enemy's position (add more fields if necessary)
+    // Fields for enemy's position
     private int xPosition;
     private int yPosition;
 
     // Constructor to initialize the enemy's position
     public Enemy(int x, int y) {
-        // Initialize enemy's position
+        this.xPosition = x;
+        this.yPosition = y;
     }
     
     // Method to interact with a Player
@@ -15,4 +16,3 @@ class Enemy {
         System.out.println(player.getName() + " encountered an enemy! Score: " + player.getScore());
     }
 }
-
