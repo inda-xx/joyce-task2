@@ -1,218 +1,123 @@
-# 🕹️ Simple Game Application: Player's Quest
+# Galactic Traveler Adventure! 🌌🚀
 
-For this exercise, you will practice creating a simple game application using Java. You will learn how to design classes representing the fundamental components of a game, such as a player, enemies, and the game's scoring system.
+For this task, your mission is to design classes in Java to model a galactic traveler and their spaceship. You'll hone your skills in crafting Java classes while exploring the cosmos!
 
-### 🚀 Deadline
-Complete this exercise before the workshop on **Wednesday 20th November**.
+### 🔒 Deadline
+Ensure you complete this task by **Friday 10th November**.
 
-### 📚 Instructions
-For instructions on how to complete and submit the assignment, please refer to the [assignments section of the course instructions](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments).
+### 👨‍🏫 Instructions
+Refer to the [course assignments section](https://example.com/course-instructions#assignments) for guidelines on completing and submitting your work.
 
-### 📝 Preparation
-Before starting, ensure you have gone through the following resources:
+### 📚 Preparation
+Before beginning this task, make sure to study Module 4 of the OLI material and complete its exercises:
 
-- Read [Understanding Java Classes and Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/classes.html)
-- Complete the exercises on [Encapsulation in Java](https://kth.oli.cmu.edu/)
+- Read [Understanding Java Classes](https://example.com/course-oli/class-modules)
+- Log in to our OLI portal using the course key `galactic123`
 
 ### 🎯 Learning Goals
 
-This assignment will help you achieve the following learning goals:
+This week's goals encompass:
 - Designing Java classes
 - Adding instance fields
-- Adding a constructor method
-- Creating *getters* and *setters*
+- Implementing a constructor method
+- Creating getters and setters
 - Printing to the terminal
-- Using the `main` method
-- Understanding Scope (including *variable shadowing*)
+- Utilizing the `main` method
+- Understanding scope and variable shadowing
 
-### 🛠 Troubleshooting Guide
-If you face any difficulties or have questions, you should follow this procedure:
+### 🔍 Troubleshooting
+If you encounter issues, follow this protocol:
 
-1. Check if your issue is addressed in this week's [posted issues](https://gits-15.sys.kth.se/inda-22/help/issues). Learn from others' queries.
-2. Should your concern be new, raise a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new). Provide a clear, descriptive title, starting with "Task *x*: *brief summary of problem*."
-3. Seek guidance from a TA during the [weekly lab](https://queue.csc.kth.se/Queue/INDA). Refer to your schedule for upcoming lab availability.
+1. Check our [issue tracker](https://example.com/help/issues) to see if others have the same problem.
+2. If not resolved, post your question by creating a [New Issue](https://example.com/help/issues/new). Provide a clear title, e.g., "Task *Galaxy*: *problem summary*"
+3. Discuss in your study group but remember to follow the honor code—no sharing of exact answers!
 
-Collaborative discussion is encouraged; however, please **do not share answers**!
+### 🛸 Assignment Overview
 
-### 🎮 Assignment
+You're tasked to model a cosmic traveler in Java! These travelers voyage across galaxies in their spaceships. The mission is to implement these in Java as classes.
 
-In this task, you'll build a game application in Java featuring a player character, a scoring system, and enemy interactions. Imagine a simple 2D environment where the player can move, earn points, and encounter enemies.
+#### Exercise 1.0 -- Fields and Class Design
+In the [`src`](src) folder, create a class named `GalacticTraveler.java`. This class should contain fields representing:
 
-#### Exercise 1 -- Player Class Design
-Start by creating a class named `Player.java` in the `src` folder. Define this class with the following fields:
+- `String` travelerName
+- `int` age
+- `String` homePlanet
+- `Spaceship` spaceship
 
-- `String` name
-- `int` xPosition
-- `int` yPosition
-- `int` score
+Here's a glimpse of how the `Spaceship` class should look:
 
-Below is an example to guide your setup:
+```java
+class Spaceship {
+    private String model;
+    private double speed; // in light-years per hour
+    private boolean operational;
+
+    // getters, setters, and constructors to be implemented
+}
+```
+
+#### Exercise 1.1 -- Constructors and Methods
+Design a constructor for `GalacticTraveler` to initialize its fields. Similarly, provide a constructor for the `Spaceship` class. Ensure encapsulation by making fields private and use getters and setters to access them.
+
+Example to initialize a traveler and print their details:
 
 <details>
-  <summary> ✏️ Example 1 </summary>
+  <summary> 🛠 Example 1 </summary>
 
   ```java
-  class Player {
+  public class GalacticTraveler {
 
-    // Put your fields here!
+    // Fields declaration
 
-    public static void main(String[] args) {
-      Player hero = new Player();
-      hero.name = "Hero";
-      hero.xPosition = 0;
-      hero.yPosition = 0;
-      hero.score = 0;
-
-      System.out.println("Player Name: " + hero.name);
-      System.out.println("Position: (" + hero.xPosition + ", " + hero.yPosition + ")");
-      System.out.println("Score: " + hero.score);
+    public GalacticTraveler(String travelerName, int age, String homePlanet, Spaceship spaceship) {
+        // Initialize fields
     }
 
+    // Place getters and setters here
+
+    // Main method to demonstrate class usage
+    public static void main(String[] args) {
+        Spaceship voyager = new Spaceship("Voyager XL", 0.2, true);
+        GalacticTraveler traveler = new GalacticTraveler("Luna Stark", 29, "Earth", voyager);
+
+        System.out.println("Traveler: " + traveler.getTravelerName());
+        System.out.println("Age: " + traveler.getAge());
+        System.out.println("Home Planet: " + traveler.getHomePlanet());
+    }
   }
   ```
 </details>
 
-#### Exercise 2 -- Utilizing Getters and Setters
-Enhance your `Player` class following encapsulation principles. Make the fields private and provide getters and setters for each. 
+#### Exercise 1.2 -- Travel Method
+Implement a method `travelTo(String destination)` in the `GalacticTraveler` class. When called, this method should print a statement including the traveler's name and their spaceship's model, asserting they are embarking on a journey to the specified destination.
 
-<details>
-  <summary> ✏️ Example 2 </summary>
+#### Exercise 1.3 -- Fleet Print
+Create a method `printFleetInfo()` in the `Spaceship` class that outputs details about the spaceship's model, speed, and operational status. Use this method in the `main` method to print the fleet details of the traveler's spaceship.
 
-  ```java
-  class Player {
+#### Exercise 1.4 -- Explorations and Adventures Method
+Add an `exploreGalaxy()` method in the `GalacticTraveler` class. This method should simulate a simple session of space exploration by printing messages to the terminal, such as discovering a new planet or navigating through an asteroid belt. Integrate fun and creativity in these prints!
 
-    // Declare private fields
+#### Exercise 1.5 -- Scope and Shadow
+Observe this example illustrating variable shadowing. You might need to explain how scope and shadowing functions in a learning session:
 
-    // Define getters and setters
+```java
+public class ShadowGalaxy {
+    private int galaxyCount = 100; // Define total known galaxies
 
-    public static void main(String[] args) {
-      Player hero = new Player();
-      hero.setName("Hero");
-      hero.setPosition(0, 0);
-      hero.setScore(0);
-
-      System.out.println("Player Name: " + hero.getName());
-      System.out.println("Position: (" + hero.getX() + ", " + hero.getY() + ")");
-      System.out.println("Score: " + hero.getScore());
+    public void printShadowExample() {
+        int galaxyCount = 50; // Local variable shadowing the instance variable
+        System.out.println(galaxyCount); // It prints the local scope galaxyCount (50)
     }
 
-  }
-  ```
-</details>
-
-#### Exercise 3 -- Building a Constructor
-Create a constructor for the `Player` class to initialize the player's name and starting coordinates.
-
-<details>
-  <summary> ✏️ Example 3 </summary>
-
-  ```java
-  class Player {
-
-    // Fields, getters, setters, etc.
-
-    public Player(String name, int x, int y) {
-      this.name = name;
-      this.xPosition = x;
-      this.yPosition = y;
-      this.score = 0;
-    }
-
-    public static void main(String[] args) {
-      Player hero = new Player("Hero", 0, 0);
-      // Use player object
-    }
-
-  }
-  ```
-</details>
-
-#### Exercise 4 -- Enemies: Building Interactions
-Introduce an `Enemy` class. Like `Player`, this class should handle enemy positions and offer a method that alters the player's score during interaction.
-
-<details>
-  <summary> ✏️ Example 4 </summary>
-
-  ```java
-  class Enemy {
-
-    // Define fields, e.g., xPosition, yPosition
-
-    public Enemy(int x, int y) {
-      // Initialize position
-    }
-
-    public void interact(Player player) {
-      // Example interaction: decrease player's score
-      player.setScore(player.getScore() - 10);
-      System.out.println(player.getName() + " encountered an enemy! Score: " + player.getScore());
-    }
-
-  }
-  ```
-</details>
-
-#### Exercise 5 -- Game Mechanics and the `main` Method
-Bring everything together in a `Game` class to simulate interactions between a player and enemies. Implement basic movement and scoring updates.
-
-<details>
-  <summary> ✏️ Example 5 </summary>
-
-  ```java
-  public class Game {
-
-    public static void main(String[] args) {
-      Player hero = new Player("Hero", 0, 0);
-      Enemy badGuy = new Enemy(5, 5);
-
-      // Simulate player reaching enemy
-      hero.setPosition(5, 5);
-      badGuy.interact(hero);
-
-      // Display final score
-      System.out.println("Final Score: " + hero.getScore());
-    }
-
-  }
-  ```
-</details>
-
-#### Exercise 6 -- Scope and Variable Shadowing
-Review the following examples to understand variable shadowing. Prepare to discuss solutions in class.
-
-```Java
-public class ShadowExample {
-    private int score = 100;
-
-    public void printScore() {
-        int score = 50;
-        System.out.println(score); // Wrong score printed :( What to do?
-    }
-
-    public static void main(String[] args) {
-        new ShadowExample().printScore();
+    public static void main(String[] args){
+        new ShadowGalaxy().printShadowExample();
     }
 }
 ```
 
-```Java
-public class Character {
-  private String name;
-  private int score;
+Reflect on why the instance field `galaxyCount` is overshadowed in the `printShadowExample` method and how you could fix this with the `this` keyword.
 
-  public Character(String name, int score) {
-    name = name; // Why doesn't this work?
-    score = score;
-  }
+Take inspiration from these exercises to explore Java class design and encapsulate the magical realm of your galactic adventure. 🚀🌟
 
-  public void displayName() {
-    String name = "John Doe";
-    System.out.println(name + " is ready!"); // Prints the wrong name, why?
-  }
-}
-```
-
-> **Assistant's Note:** Consider the distinctions between instance fields, local variables, and the `this` keyword in these examples.
-
-### 🐛 Found anything unusual?
-If there are any errors or issues, please report them by opening a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) titled "Task *x* Error: *brief description*". Bug reporters will be acknowledged and honored appropriately.
+### 🐛 Reporting Bugs
+Spot an error in these exercises? Open a [New Issue](https://example.com/help/issues/new) with "Task *Galaxy* Error: *error description*" in the title to gain recognition for your eagle-eyed spotting!
