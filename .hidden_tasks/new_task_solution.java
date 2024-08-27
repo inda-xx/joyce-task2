@@ -1,116 +1,135 @@
-// File: GameCharacter.java
-class GameCharacter {
-
-    // Define private fields for the GameCharacter class
-    private String name;
-    private int healthPoints;
-    private int score;
-    private boolean isEnemy;
+// File: SmartLight.java
+class SmartLight {
+    // Private fields for encapsulation
+    private String model;
+    private boolean isOn;
+    private int brightness; // Brightness level from 0 to 100 percent
+    private String color;
+    private boolean isConnected;
 
     // Constructor to initialize all fields
-    public GameCharacter(String name, int healthPoints, int score, boolean isEnemy) {
-        this.name = name;
-        this.healthPoints = healthPoints;
-        this.score = score;
-        this.isEnemy = isEnemy;
+    public SmartLight(String model, boolean isOn, int brightness, String color, boolean isConnected) {
+        // Use 'this' keyword to refer to the current object's fields
+        this.model = model;
+        this.isOn = isOn;
+        this.brightness = brightness;
+        this.color = color;
+        this.isConnected = isConnected;
     }
 
-    // Getter for the name field
-    public String getName() {
-        return name;
+    // Getters for accessing private fields
+    public String getModel() {
+        return model;
     }
 
-    // Setter for the name field
-    public void setName(String name) {
-        this.name = name;
+    public boolean isOn() {
+        return isOn;
     }
 
-    // Getter for the healthPoints field
-    public int getHealthPoints() {
-        return healthPoints;
+    public int getBrightness() {
+        return brightness;
     }
 
-    // Setter for the healthPoints field
-    public void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
+    public String getColor() {
+        return color;
     }
 
-    // Getter for the score field
-    public int getScore() {
-        return score;
+    public boolean isConnected() {
+        return isConnected;
     }
 
-    // Setter for the score field
-    public void setScore(int score) {
-        this.score = score;
+    // Setters for modifying private fields
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    // Getter for the isEnemy field
-    public boolean getIsEnemy() {
-        return isEnemy;
+    public void setOn(boolean isOn) {
+        this.isOn = isOn;
     }
 
-    // Setter for the isEnemy field
-    public void setIsEnemy(boolean isEnemy) {
-        this.isEnemy = isEnemy;
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
     }
 
-    // Method to move the player in a specified direction
-    public void movePlayer(String direction) {
-        // Print the action of moving in the specified direction
-        System.out.println(name + " moves " + direction);
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    // Method to interact with another character
-    public void interact(GameCharacter otherCharacter) {
-        // Check if the other character is an enemy
-        if (otherCharacter.getIsEnemy()) {
-            // Interact logic, e.g., decreasing health points
-            System.out.println(name + " encounters an enemy: " + otherCharacter.getName());
-            this.healthPoints -= 10; // Example of decreasing healthPoints
-            System.out.println("Health now: " + this.healthPoints);
-        }
+    public void setConnected(boolean isConnected) {
+        this.isConnected = isConnected;
     }
 
-    // Main method for testing
+    // Method to print details of the SmartLight
+    public void printDetails() {
+        System.out.println("Gadget Details:");
+        System.out.println("Model: " + model);
+        System.out.println("Power State: " + (isOn ? "On" : "Off"));
+        System.out.println("Brightness: " + brightness + "%");
+        System.out.println("Color: " + color);
+        System.out.println("Connectivity Status: " + (isConnected ? "Connected" : "Disconnected"));
+    }
+
+    // Method to toggle the power state
+    public void togglePower() {
+        isOn = !isOn;
+    }
+
     public static void main(String[] args) {
-        // Create a player character
-        GameCharacter player = new GameCharacter("Adventurer", 100, 0, false);
+        // Example of creating a SmartLight object
+        SmartLight kitchenLight = new SmartLight("EcoShine", true, 65, "Cool Blue", true);
 
-        // Create an enemy character
-        GameCharacter enemy = new GameCharacter("Goblin", 30, 0, true);
+        // Test getters and setters
+        kitchenLight.setModel("EcoShine");
+        kitchenLight.setOn(true);
+        kitchenLight.setBrightness(65);
+        kitchenLight.setColor("Cool Blue");
+        kitchenLight.setConnected(true);
 
-        // Interact with the enemy
-        player.interact(enemy);
+        // Print SmartLight details using the method
+        kitchenLight.printDetails();
 
-        // Move the player
-        player.movePlayer("north");
+        // Toggle the power state
+        System.out.println("Toggling Power...");
+        kitchenLight.togglePower();
+        System.out.println("Is the light On? " + kitchenLight.isOn());
     }
 }
 
-// File: Game.java
-class Game {
+// File: BrightnessControl.java
+class BrightnessControl {
+    private int brightness = 100; // I want this brightness printed
 
-    private int level;
-
-    // Constructor to initialize game level
-    public Game() {
-        this.level = 1;
+    public void setBrightness(int brightness) {
+        // Use 'this' to refer to the field
+        this.brightness = brightness / 2;
+        System.out.println(this.brightness);
     }
 
-    // Method to advance the game level
-    public void advanceLevel(int newLevel) {
-        // Resolve any variable shadowing issues by using 'this'
-        this.level = newLevel;
-        System.out.println("Advanced to level: " + this.level);
-    }
-
-    // Main method for testing the game functionality
     public static void main(String[] args) {
-        // Create a game instance
-        Game gameInstance = new Game();
-        
-        // Advance the game level
-        gameInstance.advanceLevel(2);
+        // Create an instance and test the method
+        new BrightnessControl().setBrightness(80);
+    }
+}
+
+// File: Gadget.java
+class Gadget {
+    private String name;
+    private String type;
+
+    public Gadget(String name, String type) {
+        // Correctly use 'this' to differentiate parameters and fields
+        this.name = name;
+        this.type = type;
+    }
+
+    public void showGadget() {
+        String name = "QuickFix"; // Local variable shadows the field
+        System.out.println(name + " is available!"); // Shows the local variable, not the field
+    }
+
+    public static void main(String[] args) {
+        // Create an instance and test the method
+        Gadget gadget = new Gadget("SmartDevice", "Utility");
+        gadget.showGadget(); // Will print "QuickFix is available!"
     }
 }
