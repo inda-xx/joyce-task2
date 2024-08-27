@@ -56,6 +56,3 @@ class Hero {
         this.score = score;
     }
 }
-
-// Enemy.java
-public 
