@@ -1,135 +1,136 @@
-// File: Enemy.java
-public class Enemy {
-    // Fields for enemy attributes
-    private String type;
-    private int positionX;
-    private int positionY;
-    private int damage;
+// File: SpaceExplorer.java
+class SpaceExplorer {
+    
+    // Declare private fields
+    private String name;
+    private int health;
+    private int energy;
+    private int speed;
+    private boolean active;
 
-    // Constructor to initialize enemy with a type and damage
-    public Enemy(String type, int damage) {
-        this.type = type;
-        this.damage = damage;
-        this.positionX = (int) (Math.random() * 100); // Random initial position
-        this.positionY = (int) (Math.random() * 100);
+    // Constructor to initialize the fields
+    public SpaceExplorer(String name, int health, int energy, int speed) {
+        // Initialize instance fields using constructor parameters
+        this.name = name;
+        this.health = health;
+        this.energy = energy;
+        this.speed = speed;
+        this.active = true; // Default value for active
     }
 
-    // Getter methods for type
-    public String getType() { return type; }
+    // Getter for name
+    public String getName() {
+        return name;
+    }
 
-    // Getter methods for damage
-    public int getDamage() { return damage; }
+    // Setter for name
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    // Getter methods for positionX
-    public int getPositionX() { return positionX; }
+    // Getter for health
+    public int getHealth() {
+        return health;
+    }
 
-    // Getter methods for positionY
-    public int getPositionY() { return positionY; }
+    // Setter for health
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
-    // Main method to test the Enemy class
+    // Getter for energy
+    public int getEnergy() {
+        return energy;
+    }
+
+    // Setter for energy
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
+    // Getter for speed
+    public int getSpeed() {
+        return speed;
+    }
+
+    // Setter for speed
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    // Getter for active - naming convention for boolean isActive()
+    public boolean isActive() {
+        return active;
+    }
+
+    // Setter for active
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    // Method to activate boost
+    public void activateBoost() {
+        if (energy > 50) {
+            speed += speed / 5; // 20% boost in speed
+            energy -= 20; // Reduce energy by 20
+            System.out.println(name + " activated boost! Speed is now " + speed + " and energy is " + energy + ".");
+        } else {
+            System.out.println("Not enough energy to activate boost.");
+        }
+    }
+
+    // Method to print SpaceExplorer info
+    public void printInfo() {
+        System.out.println("SpaceExplorer Information:");
+        System.out.println("Name: " + name);
+        System.out.println("Health: " + health);
+        System.out.println("Energy: " + energy);
+        System.out.println("Speed: " + speed);
+        System.out.println("Active: " + active);
+    }
+
+    // Main method to demonstrate functionality
     public static void main(String[] args) {
-        // Create an enemy object
-        Enemy enemy = new Enemy("Orc", 10);
+        // Create a new SpaceExplorer object
+        SpaceExplorer nova = new SpaceExplorer("Nova", 100, 80, 10);
+        nova.printInfo(); // Print initial info
 
-        // Test enemy methods
-        System.out.println("Enemy type: " + enemy.getType());
-        System.out.println("Enemy position: (" + enemy.getPositionX() + ", " + enemy.getPositionY() + ")");
-        System.out.println("Enemy damage: " + enemy.getDamage());
+        // Activate boost and print info
+        nova.activateBoost();
+        nova.printInfo();
     }
 }
 
-// File: Player.java
-public class Player {
-    // Fields for player attributes
-    private String name;
-    private int score;
-    private int positionX;
-    private int positionY;
+// File: ShadowExample.java
+public class ShadowExample {
+    private int shadowedNumber = 10;
 
-    // Constructor to initialize player with a name and default values for other fields
-    public Player(String name) {
-        this.name = name;
-        this.score = 0; // Starting score
-        this.positionX = 0; // Starting position
-        this.positionY = 0;
+    public void demonstrateShadowing() {
+        int shadowedNumber = 5;
+        System.out.println(this.shadowedNumber);
     }
 
-    // Getter and Setter methods for name
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public static void main(String[] args){
+        new ShadowExample().demonstrateShadowing();
+    }
+}
 
-    // Getter and Setter methods for score
-    public int getScore() { return score; }
-    public void setScore(int score) { this.score = score; }
+// File: Starship.java
+public class Starship {
+    private String model;
+    private int year;
 
-    // Getter and Setter methods for positionX
-    public int getPositionX() { return positionX; }
-    public void setPositionX(int positionX) { this.positionX = positionX; }
-
-    // Getter and Setter methods for positionY
-    public int getPositionY() { return positionY; }
-    public void setPositionY(int positionY) { this.positionY = positionY; }
-
-    // Method to increase player's score
-    public void increaseScore(int points) {
-        this.score += points;
+    public Starship(String model, int year) {
+        this.model = model;
+        this.year = year;
     }
 
-    // Method to print player's information
-    public void printInfo() {
-        System.out.println("Player: " + name);
-        System.out.println("Score: " + score);
-        System.out.println("Position: (" + positionX + ", " + positionY + ")");
+    public void salute() {
+        System.out.println(this.model + " salutes!");
     }
 
-    // Method to move the player in a direction
-    public void move(String direction) {
-        // Implement movement logic based on the direction
-        switch (direction.toLowerCase()) {
-            case "up":
-                positionY++;
-                break;
-            case "down":
-                positionY--;
-                break;
-            case "left":
-                positionX--;
-                break;
-            case "right":
-                positionX++;
-                break;
-            default:
-                System.out.println("Invalid move!");
-                break;
-        }
-        System.out.println("Player moved " + direction + ". New position: (" + positionX + ", " + positionY + ")");
-    }
-
-    // Method to interact with an enemy
-    public void interact(Enemy enemy) {
-        // Calculate distance and interact with enemy if within distance
-        if (Math.abs(this.positionX - enemy.getPositionX()) <= 1 && 
-            Math.abs(this.positionY - enemy.getPositionY()) <= 1) {
-            this.score -= enemy.getDamage();
-            System.out.println("Hit by " + enemy.getType() + "! Score decreased to: " + this.score);
-        }
-    }
-
-    // Main method to test the Player class
     public static void main(String[] args) {
-        // Create a player object
-        Player player = new Player("Hero");
-
-        // Test player methods
-        player.move("up");
-        player.increaseScore(10);
-        player.printInfo();
-
-        // Interact with an enemy
-        Enemy enemy = new Enemy("Goblin", 5);
-        player.interact(enemy);
-
-        // Print player info
-        player.printInfo();
+        Starship enterprise = new Starship("Enterprise", 2024);
+        enterprise.salute();
     }
 }
