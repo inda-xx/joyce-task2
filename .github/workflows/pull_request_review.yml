@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write  # Grant write permission for the GITHUB_TOKEN
-  pull-requests: write  # Making sure the PR comments can be added
+  pull-requests: write  # Ensuring the PR comments can be added
 
 jobs:
   run-tests:
@@ -25,15 +25,16 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
-      - name: Download JUnit
+      - name: Download JUnit and Hamcrest
         run: |
           wget -O junit-4.13.2.jar https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
           wget -O hamcrest-core-1.3.jar https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
 
-      - name: Compile Source and Test Files
+      - name: Compile the Source Code
         run: |
-          javac -cp .junit-4.13.2.jar.hamcrest-core-1.3.jar -d build/ gen_src/SimpleCalculator.java gen_test/SimpleCalculatorTest.java
+          mkdir -p build/
+          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_src/SimpleCalculator.java gen_test/SimpleCalculatorTest.java
 
-      - name: Run Test
+      - name: Run Tests
         run: |
-          java -cp .build.junit-4.13.2.jar.hamcrest-core-1.3.jar org.junit.runner.JUnitCore SimpleCalculatorTest
+          java -cp build/:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore SimpleCalculatorTest
