@@ -32,4 +32,5 @@ class Enemy {
     public void setYCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
+    
 }
