@@ -2,10 +2,12 @@ class Game {
 
     private int level;
 
+    // Constructor to initialize game level
     public Game() {
-        this.level = 1; // Initial game level
+        this.level = 1;
     }
 
+    // Method to advance the game level
     public void advanceLevel(int newLevel) {
         // Resolve any variable shadowing issues by using 'this'
         this.level = newLevel;
