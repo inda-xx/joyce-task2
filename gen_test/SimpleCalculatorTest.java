@@ -1,44 +1,51 @@
-package test;
+name: Pull Request Review
 
-import main.SimpleCalculator;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+on:
+  pull_request:
+    branches:
+      - task-* # This triggers the workflow on PRs to task branches
 
-public class SimpleCalculatorTest {
+permissions:
+  contents: write  # Grant write permission for the GITHUB_TOKEN
+  pull-requests: write  # Making sure the PR comments can be added
 
-    private SimpleCalculator calculator;
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
 
-    @Before
-    public void setUp() {
-        calculator = new SimpleCalculator();
-    }
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
 
-    @Test
-    public void testAdd() {
-        assertEquals(5, calculator.add(2, 3));
-        assertEquals(-1, calculator.add(-2, 1));
-    }
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '11'
 
-    @Test
-    public void testSubtract() {
-        assertEquals(1, calculator.subtract(3, 2));
-        assertEquals(-3, calculator.subtract(-2, 1));
-    }
+      - name: Download JUnit
+        run: |
+          wget -O junit-4.13.2.jar https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
+          wget -O hamcrest-core-1.3.jar https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
 
-    @Test
-    public void testMultiply() {
-        assertEquals(6, calculator.multiply(2, 3));
-        assertEquals(-2, calculator.multiply(-2, 1));
-    }
+      - name: Compile the Source Code
+        run: |
+          # Rename files with .java2 extension to .java
+          for file in gen_src/*.java2; do mv "$file" "${file%.java2}.java"; done
+          for file in gen_test/*.java2; do mv "$file" "${file%.java2}.java"; done
 
-    @Test
-    public void testDivide() {
-        assertEquals(2, calculator.divide(6, 3));
-    }
+          # Compile source files into the correct package structure
+          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_src/*.java
 
-    @Test(expected = ArithmeticException.class)
-    public void testDivideByZero() {
-        calculator.divide(1, 0);
-    }
-}
+          # Compile test files into the correct package structure
+          javac -cp .:build/:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_test/*.java
+
+      - name: Run Tests
+        run: |
+          # Run each test class found in the gen_test directory
+          for testfile in gen_test/*.java; do
+            testname=$(basename "$testfile" .java)
+            java -cp build/:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore test.$testname
+          done
