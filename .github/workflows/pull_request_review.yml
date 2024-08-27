@@ -34,7 +34,7 @@ jobs:
         run: |
           javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d gen_src/ gen_src/*.java
 
-      - name: Compile the Tests
+      - name: Compile the Test Code
         run: |
           javac -cp .:gen_src:junit-4.13.2.jar:hamcrest-core-1.3.jar -d gen_test/ gen_test/*.java
 
