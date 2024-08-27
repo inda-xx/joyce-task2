@@ -4,8 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-// Ensure this class is public
-public class EnemyTest {
+public class EnemyTest {  // Changed class to public
     private Enemy enemy;
 
     @Before
