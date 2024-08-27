@@ -1,119 +1,94 @@
-// File: Hero.java
-class Hero {
-    private String name;
-    private int xCoordinate;
-    private int yCoordinate;
-    private int score;
-    
-    // Constructor to initialize Hero fields
-    public Hero(String name, int x, int y) {
-        this.name = name;
-        this.xCoordinate = x;
-        this.yCoordinate = y;
-        this.score = 0; // Initial score is 0
+// File: Alien.java
+class Alien {
+    // Private fields for Alien attributes
+    private String speciesName;
+    private int energyLevel;
+    private int strength;
+    private int intelligence;
+    private boolean peaceful;
+
+    // Constructor to initialize an Alien object
+    public Alien(String speciesName, int energyLevel, int strength, int intelligence) {
+        this.speciesName = speciesName;
+        this.energyLevel = energyLevel;
+        this.strength = strength;
+        this.intelligence = intelligence;
+        // Peaceful aliens have intelligence greater than strength by default
+        this.peaceful = intelligence > strength;
     }
-    
-    // Method to move the hero by dx and dy
-    public void move(int dx, int dy) {
-        xCoordinate += dx;
-        yCoordinate += dy;
-    }
-    
-    // Method to increase the hero's score
-    public void increaseScore(int points) {
-        score += points;
-    }
-    
+
     // Getters and setters for encapsulation
-    public String getName() {
-        return name;
+    public String getSpeciesName() {
+        return speciesName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public int getXCoordinate() {
-        return xCoordinate;
+    public void setSpeciesName(String speciesName) {
+        this.speciesName = speciesName;
     }
 
-    public void setXCoordinate(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
+    public int getEnergyLevel() {
+        return energyLevel;
     }
 
-    public int getYCoordinate() {
-        return yCoordinate;
+    public void setEnergyLevel(int energyLevel) {
+        this.energyLevel = energyLevel;
     }
 
-    public void setYCoordinate(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
-    }
-    
-    public int getScore() {
-        return score;
+    public int getStrength() {
+        return strength;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-}
-
-// File: Enemy.java
-class Enemy {
-    private int xCoordinate;
-    private int yCoordinate;
-    
-    // Constructor to initialize Enemy fields
-    public Enemy(int x, int y) {
-        this.xCoordinate = x;
-        this.yCoordinate = y;
-    }
-    
-    // Method to simulate interaction with hero
-    public void interact(Hero hero) {
-        // For example, encounter decreases hero's score by 10
-        System.out.println("Enemy at (" + xCoordinate + ", " + yCoordinate + ") encountered by " + hero.getName());
-        hero.increaseScore(-10); // Decrease score as a consequence of encounter
-        // Could also teleport the enemy or change its state
-    }
-    
-    // Getters and setters for encapsulation
-    public int getXCoordinate() {
-        return xCoordinate;
+    public void setStrength(int strength) {
+        this.strength = strength;
     }
 
-    public void setXCoordinate(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
+    public int getIntelligence() {
+        return intelligence;
     }
 
-    public int getYCoordinate() {
-        return yCoordinate;
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
     }
 
-    public void setYCoordinate(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
+    public boolean isPeaceful() {
+        return peaceful;
     }
-}
 
-// File: Game.java
-public class Game {
+    public void setPeaceful(boolean peaceful) {
+        this.peaceful = peaceful;
+    }
+
+    // Method to print details of the alien object
+    public void printDetails() {
+        System.out.println("> INFO");
+        System.out.println("> Species: " + speciesName);
+        System.out.println("> Energy Level: " + energyLevel);
+        System.out.println("> Strength: " + strength);
+        System.out.println("> Intelligence: " + intelligence);
+        System.out.println("> Peaceful: " + peaceful);
+    }
+
+    // Method for simulating combat between two aliens
+    public void combat(Alien defender) {
+        double energyImpact = (this.strength - defender.intelligence / 2.0);
+        defender.energyLevel -= energyImpact;
+
+        // Ensure not to drop below zero
+        if (defender.energyLevel < 0) {
+            defender.energyLevel = 0;
+        }
+
+        System.out.println("> Alien " + this.speciesName + " assaulted alien " + defender.speciesName + ". Estimated impact was " + energyImpact + " energy units!");
+        System.out.println("> Alien " + defender.speciesName + " now has " + defender.energyLevel + " energy left!");
+    }
+
     public static void main(String[] args) {
-        // Create a new Hero with a name and initial coordinates
-        Hero hero = new Hero("John", 0, 0);
+        Alien zorb = new Alien("Zorb", 80, 75, 85);
+        Alien nebula = new Alien("Nebula", 70, 65, 80);
 
-        // Create an Enemy at specific coordinates
-        Enemy enemy = new Enemy(2, 2);
-        
-        // Move the hero to a new position
-        hero.move(2, 2);
-        
-        // Interact with the enemy
-        enemy.interact(hero);
-        
-        // Increase the hero's score
-        hero.increaseScore(100);
-        
-        // Print the hero's updated information
-        System.out.println("Hero " + hero.getName() + " at (" + hero.getXCoordinate() + ", " + hero.getYCoordinate() + ") with score: " + hero.getScore());
+        zorb.printDetails();
+        nebula.printDetails();
+
+        zorb.combat(nebula);
     }
 }
