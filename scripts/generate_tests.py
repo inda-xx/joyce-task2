@@ -190,9 +190,26 @@ def write_generated_tests_to_file(directory, code_content, class_name):
     # Ensure the directory exists
     os.makedirs(directory, exist_ok=True)
 
+    # Extract package and import statements
+    package_declaration = ""
+    import_statements = set()
+    class_definitions = []
+
+    lines = code_content.splitlines()
+    for line in lines:
+        if line.startswith("package "):
+            package_declaration = line
+        elif line.startswith("import "):
+            import_statements.add(line)
+        else:
+            class_definitions.append(line)
+
+    # Reconstruct the file content with proper structure
+    final_content = "\n".join([package_declaration] + sorted(import_statements) + [""] + class_definitions)
+
     try:
         with open(file_path, "w") as java_file:
-            java_file.write(code_content)
+            java_file.write(final_content)
     except IOError as e:
         print(f"Error writing file {file_name}: {e}")
 
