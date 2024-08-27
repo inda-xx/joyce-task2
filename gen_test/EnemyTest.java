@@ -1,10 +1,11 @@
 package test;
 
+import main.Enemy;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-class EnemyTest {
+public class EnemyTest {
     private Enemy enemy;
 
     @Before
@@ -40,14 +41,3 @@ class EnemyTest {
         new Enemy("Orc", -5);
     }
 }
-
-// File: PlayerTest.java
-package test;
-
-import main.Player;
-import main.Enemy;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
-public 
