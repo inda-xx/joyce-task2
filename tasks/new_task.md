@@ -1,186 +1,198 @@
-# 🎮 Simple Game: Hero vs Enemies!
+# 🗺️ Explore the City with Java!
 
-For this exercise, you'll be creating a simple game in Java where players can move around, score points, and interact with enemies! This task will help you understand the components of a Java program by modeling game entities as objects.
+In this programming task, you will dive into the basics of object-oriented programming by creating a virtual cityscape using Java. This task will help you understand how to define and work with Java classes, and explore concepts like constructors, methods, and scope.
 
-### 🗓️ Deadline
-Complete this task before the lab session on **Friday, 30th September**.
+### 📆 Deadline
+Please complete your assignment by **Friday, 9th December**.
 
-### 📋 Instructions
-Refer to the [course submission guidelines](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments) for instructions on how to submit your work.
+### 📚 Instructions
+Please follow the instructions outlined in the [course assignments section](https://example.com/course-instructions#assignments) to submit your work. Ensure your code is well-documented and follows the coding standards discussed in the course.
 
-### 🛠️ Preparation
-Before you start, ensure you've reviewed:
+### 💻 Preparation
+Before embarking on this task, make sure to review Chapter 3 of your Java textbook, which deals with the basics of classes and objects.
 
-- [Classes and Objects in Java](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html)
-- Understanding basic [object-oriented concepts](https://kth.oli.cmu.edu/).
+- **Read:** [Java Classes and Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html)
+- **Get started:** Set up your development environment if you haven't done so by following the [setup guide](https://example.com/setup).
 
 ### 🎯 Learning Goals
 
-By completing this task, you will:
+By the end of this task, you should be able to:
+* Design Java classes
+* Add instance fields
+* Implement constructor methods
+* Use getters and setters
+* Print information to the terminal
+* Utilize the `main` method
+* Understand variable scope and shadowing
 
-- Design and implement Java classes
-- Add and use instance fields effectively
-- Construct objects using constructors
-- Create getters and setters for encapsulation
-- Implement logic involving printing to the terminal
-- Use the `main` method to run Java programs
-- Understand the concept of variable scope and avoid variable shadowing
+### 🔧 Troubleshooting Guide
+Having issues? Follow these steps:
+1. Check the [Q&A forum](https://example.com/forum) to see if others have encountered similar issues.
+2. If your problem is unique, post a detailed question on the forum, including what you've tried and where exactly you're encountering issues.
+3. Reach out during office hours with specific questions.
 
-### 🔍 Troubleshooting
-If you encounter issues:
+Encouraging collaboration is key, but remember to avoid sharing specific code solutions.
 
-1. Check the repository [issues page](https://gits-15.sys.kth.se/inda-22/help/issues) for similar problems.
-2. Create a new issue if the problem isn't listed.
-3. Consult with your peers, but remember to work individually.
+### 🌍 Assignment
 
-### 🎮 Game Assignment
+Your mission, should you choose to accept it, is to model a dynamic city in Java. You'll be starting with a fundamental city class and expanding its capabilities.
 
-In this assignment, you'll build a simple game where a `Hero` moves around, earns points, and encounters `Enemy` objects in a grid-based environment.
-
-#### Exercise 1 -- Design the Classes
-Create the main Java classes for the game:
-
-- `Hero.java`
-- `Enemy.java`
-- `Game.java`
-
-These classes will serve various purposes within your game.
-
-#### Exercise 1.1 -- Hero Fields and Constructor
-In `Hero.java`, start by defining fields for your hero:
-
+#### Exercise 1: Define the City
+In the `src` folder, create a new class named `City.java`. Model it with the following fields:
 - `String name`
-- `int xCoordinate`
-- `int yCoordinate`
-- `int score`
-
-Add a constructor that initializes these fields.
+- `int population`
+- `double area` (in square kilometers)
+- `boolean capital` (indicating if it is a capital city)
 
 <details>
-  <summary> 🛠 Example Usage </summary>
+  <summary> Sample Code Snippet </summary>
 
   ```java
-  public class Hero {
-      private String name;
-      private int xCoordinate;
-      private int yCoordinate;
-      private int score;
+  public class City {
 
-      public Hero(String name, int x, int y) {
-          this.name = name;
-          this.xCoordinate = x;
-          this.yCoordinate = y;
-          this.score = 0;
-      }
-  }
-  ```
-</details>
+    // Define your fields here
 
-#### Exercise 1.2 -- Movement and Scoring
-Add methods for hero movement and scoring:
-
-- `move(int dx, int dy)`: Updates hero's position by `dx` and `dy`.
-- `increaseScore(int points)`: Adds points to the hero's score.
-
-```java
-public void move(int dx, int dy) {
-    xCoordinate += dx;
-    yCoordinate += dy;
-}
-
-public void increaseScore(int points) {
-    score += points;
-}
-```
-
-#### Exercise 2 -- Creating Getters and Setters
-Ensure all necessary fields in `Hero` and `Enemy` have getters and setters to maintain encapsulation.
-
-<details>
-  <summary> 🛠 Implement getters/setters </summary>
-
-  ```java
-  public String getName() {
-      return name;
-  }
-
-  public void setName(String name) {
-      this.name = name;
-  }
-  
-  // Repeat for other fields
-  ```
-</details>
-
-#### Exercise 3 -- Interaction with Enemies
-
-In `Enemy.java`, define fields and methods for the enemy:
-
-- `int xCoordinate`
-- `int yCoordinate`
-
-Implement `interact()` which alters the hero's state (e.g., moving the enemy to a new position).
-
-<details>
-  <summary> 🛠 Enemy Interaction </summary>
-
-  ```java
-  public class Enemy {
-      private int xCoordinate;
-      private int yCoordinate;
-
-      public Enemy(int x, int y) {
-          this.xCoordinate = x;
-          this.yCoordinate = y;
-      }
-
-      public void interact(Hero hero) {
-          System.out.println("Enemy at (" + xCoordinate + ", " + yCoordinate + ") encountered by " + hero.getName());
-          // Implement interaction logic
-      }
-  }
-  ```
-</details>
-
-#### Exercise 4 -- Main Method and Scope
-In `Game.java`, implement the `main` method to create a hero and enemies and simulate interactions. Consider local and global scope to avoid variable shadowing.
-
-```java
-public class Game {
     public static void main(String[] args) {
-        Hero hero = new Hero("John", 0, 0);
-        Enemy enemy = new Enemy(2, 2);
+      City stockholm = new City();
+      
+      // Assign values to fields
+      stockholm.name = "Stockholm";
+      stockholm.population = 975551;
+      stockholm.area = 188.0;
+      stockholm.capital = true;
 
-        hero.move(2, 2);
-        enemy.interact(hero);
-        hero.increaseScore(100);
-
-        System.out.println("Hero " + hero.getName() + " at (" + hero.getXCoordinate() + ", " + hero.getYCoordinate() + ") with score: " + hero.getScore());
+      // Print city information
+      System.out.println("City: " + stockholm.name);
+      System.out.println("Population: " + stockholm.population);
+      System.out.println("Area: " + stockholm.area);
+      System.out.println("Capital: " + stockholm.capital);
     }
-}
-```
+  }
+  ```
+</details>
 
-### 🤔 Reflection on Variable Shadowing
-Review the concept with this sample code, where scope causes unexpected behavior:
+#### Exercise 2: Implement Getters and Setters
+Encapsulate the city attributes by making them private and adding public getter and setter methods for each. This will protect the fields while still providing controlled access.
+
+<details>
+  <summary> Sample Code Snippet </summary>
+
+  ```java
+  public class City {
+
+    // Fields
+    private String name;
+    private int population;
+    private double area;
+    private boolean capital;
+
+    // Getters and Setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public int getPopulation() { return population; }
+    public void setPopulation(int population) { this.population = population; }
+
+    public double getArea() { return area; }
+    public void setArea(double area) { this.area = area; }
+
+    public boolean isCapital() { return capital; }
+    public void setCapital(boolean capital) { this.capital = capital; }
+
+    public static void main(String[] args) {
+      City stockholm = new City();
+
+      // Using setters
+      stockholm.setName("Stockholm");
+      stockholm.setPopulation(975551);
+      stockholm.setArea(188.0);
+      stockholm.setCapital(true);
+
+      // Using getters
+      System.out.println("City: " + stockholm.getName());
+      System.out.println("Population: " + stockholm.getPopulation());
+      System.out.println("Area: " + stockholm.getArea());
+      System.out.println("Capital: " + stockholm.isCapital());
+    }
+  }
+  ```
+</details>
+
+#### Exercise 3: Construct Your City
+Create a constructor to initialize `City` objects with all the attributes in one go. This will make object creation more efficient.
+
+<details>
+  <summary> Sample Code Snippet </summary>
+
+  ```java
+  public City(String name, int population, double area, boolean capital) {
+    this.name = name;
+    this.population = population;
+    this.area = area;
+    this.capital = capital;
+  }
+
+  public static void main(String[] args) {
+    City stockholm = new City("Stockholm", 975551, 188.0, true);
+
+    stockhom.printInfo();
+  }
+  ```
+
+  This will use the constructor to easily create a city and will print the city's details.
+</details>
+
+#### Exercise 4: Print City Info
+Implement a method `printInfo()` to display city details in a structured format.
+
+<details>
+  <summary> Expected Output </summary>
+
+  ```
+  > City Information:
+  > Name: Stockholm
+  > Population: 975551
+  > Area: 188.0 sq km
+  > Capital City: Yes
+  ```
+</details>
+
+#### Exercise 5: Variable Shadowing Analysis
+Analyze and fix the following code snippets demonstrating variable shadowing:
 
 ```java
 public class ShadowExample {
-    private int memberValue = 1;
+    private int population = 1000; // I want this
 
-    public void modifyMember() {
-        int memberValue = 5; // This shadows the class member
-        System.out.println("Inside method: " + memberValue);
+    public void printShadow() {
+        int population = 2000;
+        System.out.println(population); // prints the wrong number
     }
 
-    public static void main(String[] args) {
-        ShadowExample example = new ShadowExample();
-        example.modifyMember();
-        System.out.println("Class member: " + example.memberValue);
+    public static void main(String[] args){
+        new ShadowExample().printShadow();
     }
 }
 ```
 
-### 🕵️‍♂️ Spot Bugs
-If you spot a bug or discrepancy, report it in the [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) section for potential credit in the acknowledgments!
+Another example to fix:
 
-Good luck, and have fun building your game! 🎯
+```java
+public class Building {
+  private String color;
+
+  public Building(String color) {
+    color = color; // This assignment doesn't work as intended
+  }
+
+  public void describe() {
+    String color = "Green";
+    System.out.println("The building is " + color);
+  }
+}
+```
+
+> **Assistant's Note:** Consider the role of `this` and how it can be used to reference class-level variables, avoiding shadowing issues.
+
+### 🐛 Handling Errors
+Discover a problem? Report it by creating a [new issue](https://example.com/issues/new) with specifics about what and where the issue is. Feedback is invaluable in improving the learning experience.
