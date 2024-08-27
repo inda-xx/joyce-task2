@@ -1,4 +1,4 @@
-class Player {
+public class Player {
     // Fields for player attributes
     private String name;
     private int score;
