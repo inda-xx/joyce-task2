@@ -3,11 +3,11 @@ name: Pull Request Review
 on:
   pull_request:
     branches:
-      - task-*  # This triggers the workflow on PRs to task branches
+      - task-* # This triggers the workflow on PRs to task branches
 
 permissions:
   contents: write  # Grant write permission for the GITHUB_TOKEN
-  pull-requests: write  # Ensure PR comments can be added
+  pull-requests: write  # Making sure the PR comments can be added
 
 jobs:
   run-tests:
@@ -30,17 +30,25 @@ jobs:
           wget -O junit-4.13.2.jar https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
           wget -O hamcrest-core-1.3.jar https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
 
-      - name: Compile SimpleCalculator Source Code
+      - name: Compile the Source Code
         run: |
-          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/gen_src gen_src/SimpleCalculator.java
+          # Rename files with .java2 extension to .java
+          for file in gen_src/*.java2; do mv "$file" "${file%.java2}.java"; done
+          for file in gen_test/*.java2; do mv "$file" "${file%.java2}.java"; done
 
-      - name: Compile SimpleCalculatorTest
-        run: |
-          javac -cp .:build/gen_src:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/gen_test gen_test/SimpleCalculatorTest.java
+          # Compile source files
+          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/gen_src/ gen_src/*.java
 
-      - name: Run SimpleCalculatorTest
+          # Compile test files
+          javac -cp .:build/gen_src:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/gen_test/ gen_test/*.java
+
+      - name: Run Tests
         run: |
-          java -cp build/gen_test:build/gen_src:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore SimpleCalculatorTest
+          # Run each test class found in the gen_test directory
+          for testfile in build/gen_test/*.class; do
+            testname=$(basename "$testfile" .class)
+            java -cp build/gen_test:build/gen_src:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore $testname
+          done
 
   analyze-and-respond:
     runs-on: ubuntu-latest
