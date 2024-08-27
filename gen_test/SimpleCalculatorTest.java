@@ -1,4 +1,3 @@
-// File: SimpleCalculatorTest.java
 package test;
 
 import main.SimpleCalculator;
