@@ -34,13 +34,16 @@ jobs:
         run: |
           javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d .hidden_tasks/ gen_src/*.java
 
-      - name: Compile the Tests
+      - name: Compile the Code
         run: |
-          javac -cp .hidden_tasks:junit-4.13.2.jar:hamcrest-core-1.3.jar -d .hidden_tasks/ gen_test/*.java
-
+            javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d .hidden_tasks/ gen_src/*.java gen_test/*.java
+        
       - name: Run Tests
         run: |
-          java -cp .hidden_tasks:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore $(ls gen_test | grep .java | sed 's/.java//')
+            for testfile in gen_test/*.java; do
+              testname=$(basename "$testfile" .java)
+              java -cp .hidden_tasks:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore $testname
+            done
 
       - name: Determine Test Result
         id: determine-result

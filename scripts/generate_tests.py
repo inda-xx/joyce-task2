@@ -26,10 +26,6 @@ def main(api_key, branch_name):
         print("Error: new_task_solution.java file not found.")
         sys.exit(1)
 
-    # Extract the package and class name from the solution to use in the test
-    package_name = extract_package_name(solution)
-    class_name = extract_class_name(solution)
-
     # Example tests to inspire the model (not to be directly copied)
     example_tests = """
     package original;
@@ -134,12 +130,9 @@ def main(api_key, branch_name):
         print("Error: Failed to generate the tests after multiple retries.")
         sys.exit(1)
 
-    # Ensure the tests use the correct package and imports
-    response_content = adjust_package_and_imports(response_content, package_name)
-
-    # Write the generated tests to a Java file in the gen_test directory
+    # Write the generated tests to appropriate Java files in the gen_test directory
     gen_test_dir = os.path.join("gen_test")
-    write_generated_tests_to_file(gen_test_dir, response_content, class_name)
+    write_generated_tests_to_files(gen_test_dir, response_content)
 
     # Commit and push changes
     commit_and_push_changes(branch_name, gen_test_dir)
@@ -161,57 +154,27 @@ def generate_with_retries(client, prompt, max_retries=3):
                 print("Retrying...")
     return None
 
-def extract_package_name(java_code):
-    """Extract the package name from the given Java code."""
-    match = re.search(r'\bpackage\s+(\w+(\.\w+)*);', java_code)
-    if match:
-        return match.group(1)
-    return None
+def write_generated_tests_to_files(directory, code_content):
+    """Write generated Java tests to separate files based on class names."""
+    file_blocks = code_content.split("class ")
+    for block in file_blocks:
+        if block.strip():  # Ensure there's content
+            class_name = block.split("{")[0].strip().split()[0]
+            if not class_name.isidentifier():  # Check if the class name is valid
+                print(f"Invalid class name detected: '{class_name}'. Skipping block.")
+                continue
+            
+            file_name = f"{class_name}Test.java"
+            file_path = os.path.join(directory, file_name)
 
-def extract_class_name(java_code):
-    """Extract the class name from the given Java code."""
-    match = re.search(r'\bclass\s+(\w+)', java_code)
-    if match:
-        return match.group(1)
-    return "GeneratedTests"
+            # Ensure the directory exists
+            os.makedirs(directory, exist_ok=True)
 
-def adjust_package_and_imports(test_code, package_name):
-    """Adjust the package declaration and imports in the generated test code."""
-    if package_name:
-        test_code = f"package {package_name};\n\n" + test_code
-        test_code = test_code.replace("import main.", f"import {package_name}.")
-    return test_code
-
-def write_generated_tests_to_file(directory, code_content, class_name):
-    """Write all generated Java tests to a single file in the specified directory with an appropriate name."""
-    file_name = f"{class_name}Test.java"
-    file_path = os.path.join(directory, file_name)
-
-    # Ensure the directory exists
-    os.makedirs(directory, exist_ok=True)
-
-    # Extract package and import statements
-    package_declaration = ""
-    import_statements = set()
-    class_definitions = []
-
-    lines = code_content.splitlines()
-    for line in lines:
-        if line.startswith("package "):
-            package_declaration = line
-        elif line.startswith("import "):
-            import_statements.add(line)
-        else:
-            class_definitions.append(line)
-
-    # Reconstruct the file content with proper structure
-    final_content = "\n".join([package_declaration] + sorted(import_statements) + [""] + class_definitions)
-
-    try:
-        with open(file_path, "w") as java_file:
-            java_file.write(final_content)
-    except IOError as e:
-        print(f"Error writing file {file_name}: {e}")
+            try:
+                with open(file_path, "w") as java_file:
+                    java_file.write("class " + block)
+            except IOError as e:
+                print(f"Error writing file {file_name}: {e}")
 
 def commit_and_push_changes(branch_name, directory):
     try:
