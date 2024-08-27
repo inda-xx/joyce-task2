@@ -1,3 +1,89 @@
+// File: Kingdom.java
+class Kingdom {
+    // Declare fields
+    private String kingdomName;
+    private int population;
+    private double treasury;
+    private String rulerName;
+    private boolean prosperityStatus;
+
+    // Constructor
+    public Kingdom(String kingdomName, int population, double treasury, String rulerName) {
+        this.kingdomName = kingdomName;
+        this.population = population;
+        this.treasury = treasury;
+        this.rulerName = rulerName;
+        declareProsperous(); // Set the initial prosperity status based on the treasury
+    }
+
+    // Getters
+    public String getKingdomName() {
+        return kingdomName;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public double getTreasury() {
+        return treasury;
+    }
+
+    public String getRulerName() {
+        return rulerName;
+    }
+
+    public boolean isProsperityStatus() {
+        return prosperityStatus;
+    }
+
+    // Setters
+    public void setKingdomName(String kingdomName) {
+        this.kingdomName = kingdomName;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public void setTreasury(double treasury) {
+        this.treasury = treasury;
+        declareProsperous();
+    }
+
+    public void setRulerName(String rulerName) {
+        this.rulerName = rulerName;
+    }
+
+    // Method to display kingdom's information
+    public void displayInfo() {
+        System.out.println("Welcome to the Kingdom of " + kingdomName + "!");
+        System.out.println("Population: " + population);
+        System.out.println("Treasury: $" + treasury + " million");
+        System.out.println("Ruled by: " + rulerName);
+        System.out.println("Prosperous: " + prosperityStatus);
+    }
+
+    // Method to declare prosperity based on treasury
+    private void declareProsperous() {
+        if (treasury > 5.0) {
+            prosperityStatus = true;
+        } else {
+            prosperityStatus = false;
+        }
+    }
+
+    // Main method for testing
+    public static void main(String[] args) {
+        Kingdom serenia = new Kingdom("Serenia", 2000, 3.5, "Queen Athena");
+        serenia.displayInfo();
+
+        serenia.setTreasury(6.0); // Setting treasury above 5 million
+        serenia.displayInfo(); // Should reflect prosperity status change
+    }
+}
+
+
 // File: Hero.java
 class Hero {
     private String name;
@@ -58,6 +144,7 @@ class Hero {
     }
 }
 
+
 // File: Enemy.java
 class Enemy {
     private int xCoordinate;
@@ -71,10 +158,8 @@ class Enemy {
     
     // Method to simulate interaction with hero
     public void interact(Hero hero) {
-        // For example, encounter decreases hero's score by 10
         System.out.println("Enemy at (" + xCoordinate + ", " + yCoordinate + ") encountered by " + hero.getName());
         hero.increaseScore(-10); // Decrease score as a consequence of encounter
-        // Could also teleport the enemy or change its state
     }
     
     // Getters and setters for encapsulation
@@ -95,25 +180,19 @@ class Enemy {
     }
 }
 
-// File: Game.java
-public class Game {
-    public static void main(String[] args) {
-        // Create a new Hero with a name and initial coordinates
-        Hero hero = new Hero("John", 0, 0);
 
-        // Create an Enemy at specific coordinates
+// File: Game.java
+class Game {
+    public static void main(String[] args) {
+        Hero hero = new Hero("John", 0, 0);
         Enemy enemy = new Enemy(2, 2);
         
-        // Move the hero to a new position
         hero.move(2, 2);
         
-        // Interact with the enemy
         enemy.interact(hero);
         
-        // Increase the hero's score
         hero.increaseScore(100);
         
-        // Print the hero's updated information
         System.out.println("Hero " + hero.getName() + " at (" + hero.getXCoordinate() + ", " + hero.getYCoordinate() + ") with score: " + hero.getScore());
     }
 }
