@@ -10,9 +10,10 @@ class Enemy {
     
     // Method to simulate interaction with hero
     public void interact(Hero hero) {
-        // Implement logic to affect hero's state
+        // For example, encounter decreases hero's score by 10
         System.out.println("Enemy at (" + xCoordinate + ", " + yCoordinate + ") encountered by " + hero.getName());
-        // Move enemy to a new position or affect hero
+        hero.increaseScore(-10); // Decrease score as a consequence of encounter
+        // Could also teleport the enemy or change its state
     }
     
     // Getters and setters for encapsulation
@@ -32,6 +33,3 @@ class Enemy {
         this.yCoordinate = yCoordinate;
     }
 }
-
-// Game.java
-public 
