@@ -1,186 +1,217 @@
-# 🎮 Simple Game: Hero vs Enemies!
+# Galactic Adventure: Designing Alien Species in Java 🚀
 
-For this exercise, you'll be creating a simple game in Java where players can move around, score points, and interact with enemies! This task will help you understand the components of a Java program by modeling game entities as objects.
+For this programming task, you'll step into the realm of interstellar game development by creating Java classes that model various alien species encountered during a cosmic journey.
 
-### 🗓️ Deadline
-Complete this task before the lab session on **Friday, 30th September**.
+### 💫 Deadline
+This task must be completed by **Thursday, 25th November**.
 
-### 📋 Instructions
-Refer to the [course submission guidelines](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments) for instructions on how to submit your work.
+### 🧑‍🏫 Instructions
+To complete and submit this assignment, refer to our [course assignments manual](https://gits-15.sys.kth.se/cs101/course-instructions#assignments).
 
-### 🛠️ Preparation
-Before you start, ensure you've reviewed:
+### 📚 Preparation
+Make sure to cover the following materials from our online resources:
 
-- [Classes and Objects in Java](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html)
-- Understanding basic [object-oriented concepts](https://kth.oli.cmu.edu/).
+- Read [Creating Classes and Objects](https://kth.oli.cmu.edu/jcourse/webui/syllabus/module.do?context=f6e9a109bc2e088896f2b9de225bac61).
+- For a detailed dive, go to https://kth.oli.cmu.edu/ and use the course key `cs101-ht23` for registration if you haven't already.
+
+> **Assistant's Note:** Course materials may occasionally be updated, so feel free to browse ahead if you're keen.
 
 ### 🎯 Learning Goals
 
-By completing this task, you will:
+The objectives for this assignment include:
+* Designing Java classes
+* Adding instance fields
+* Adding a constructor method
+* Creating *getters* and *setters*
+* Printing to the terminal
+* Using the `main` method
+* Understanding Scope and *Variable Shadowing*
 
-- Design and implement Java classes
-- Add and use instance fields effectively
-- Construct objects using constructors
-- Create getters and setters for encapsulation
-- Implement logic involving printing to the terminal
-- Use the `main` method to run Java programs
-- Understand the concept of variable scope and avoid variable shadowing
+### 🔍 Troubleshooting Guide
+Having trouble? Follow these steps:
 
-### 🔍 Troubleshooting
-If you encounter issues:
+1. Check out the week's [discussion board](https://gits-15.sys.kth.se/cs101/help/issues) to find similar questions.
+2. Submit your query by creating a [New Issue](https://gits-15.sys.kth.se/cs101/help/issues/new) titled "Task *x*: *brief description of your problem*".
+3. Seek advice from a Teaching Assistant during weekly labs. Consult your schedule for more details.
 
-1. Check the repository [issues page](https://gits-15.sys.kth.se/inda-22/help/issues) for similar problems.
-2. Create a new issue if the problem isn't listed.
-3. Consult with your peers, but remember to work individually.
+While collaboration is encouraged, ensure your submissions remain personal and original!
 
-### 🎮 Game Assignment
+### 👽 Assignment: Alien Encounters
 
-In this assignment, you'll build a simple game where a `Hero` moves around, earns points, and encounters `Enemy` objects in a grid-based environment.
+Within the Galactic Federation's data archives, various alien species are documented, accompanied by their vital statistics. Embark on a mission to model these fascinating creatures in Java!
 
-#### Exercise 1 -- Design the Classes
-Create the main Java classes for the game:
+#### Exercise 1.0 -- Fields
+Begin in the [`src`](src) directory by drafting a new `Alien` class (`Alien.java`). Specify its unique attributes using [fields](https://docs.oracle.com/javase/tutorial/java/javaOO/variables.html):
 
-- `Hero.java`
-- `Enemy.java`
-- `Game.java`
+- `String` speciesName
+- `int` energyLevel
+- `int` strength
+- `int` intelligence
+- `boolean` peaceful
 
-These classes will serve various purposes within your game.
-
-#### Exercise 1.1 -- Hero Fields and Constructor
-In `Hero.java`, start by defining fields for your hero:
-
-- `String name`
-- `int xCoordinate`
-- `int yCoordinate`
-- `int score`
-
-Add a constructor that initializes these fields.
+Upon completion, the introductory setup given in Example 1 should compile successfully if incorporated into `Alien.java`.
 
 <details>
-  <summary> 🛠 Example Usage </summary>
+  <summary> 🛠 Example 1 </summary>
 
   ```java
-  public class Hero {
-      private String name;
-      private int xCoordinate;
-      private int yCoordinate;
-      private int score;
+  class Alien {
 
-      public Hero(String name, int x, int y) {
-          this.name = name;
-          this.xCoordinate = x;
-          this.yCoordinate = y;
-          this.score = 0;
-      }
-  }
-  ```
-</details>
-
-#### Exercise 1.2 -- Movement and Scoring
-Add methods for hero movement and scoring:
-
-- `move(int dx, int dy)`: Updates hero's position by `dx` and `dy`.
-- `increaseScore(int points)`: Adds points to the hero's score.
-
-```java
-public void move(int dx, int dy) {
-    xCoordinate += dx;
-    yCoordinate += dy;
-}
-
-public void increaseScore(int points) {
-    score += points;
-}
-```
-
-#### Exercise 2 -- Creating Getters and Setters
-Ensure all necessary fields in `Hero` and `Enemy` have getters and setters to maintain encapsulation.
-
-<details>
-  <summary> 🛠 Implement getters/setters </summary>
-
-  ```java
-  public String getName() {
-      return name;
-  }
-
-  public void setName(String name) {
-      this.name = name;
-  }
-  
-  // Repeat for other fields
-  ```
-</details>
-
-#### Exercise 3 -- Interaction with Enemies
-
-In `Enemy.java`, define fields and methods for the enemy:
-
-- `int xCoordinate`
-- `int yCoordinate`
-
-Implement `interact()` which alters the hero's state (e.g., moving the enemy to a new position).
-
-<details>
-  <summary> 🛠 Enemy Interaction </summary>
-
-  ```java
-  public class Enemy {
-      private int xCoordinate;
-      private int yCoordinate;
-
-      public Enemy(int x, int y) {
-          this.xCoordinate = x;
-          this.yCoordinate = y;
-      }
-
-      public void interact(Hero hero) {
-          System.out.println("Enemy at (" + xCoordinate + ", " + yCoordinate + ") encountered by " + hero.getName());
-          // Implement interaction logic
-      }
-  }
-  ```
-</details>
-
-#### Exercise 4 -- Main Method and Scope
-In `Game.java`, implement the `main` method to create a hero and enemies and simulate interactions. Consider local and global scope to avoid variable shadowing.
-
-```java
-public class Game {
-    public static void main(String[] args) {
-        Hero hero = new Hero("John", 0, 0);
-        Enemy enemy = new Enemy(2, 2);
-
-        hero.move(2, 2);
-        enemy.interact(hero);
-        hero.increaseScore(100);
-
-        System.out.println("Hero " + hero.getName() + " at (" + hero.getXCoordinate() + ", " + hero.getYCoordinate() + ") with score: " + hero.getScore());
-    }
-}
-```
-
-### 🤔 Reflection on Variable Shadowing
-Review the concept with this sample code, where scope causes unexpected behavior:
-
-```java
-public class ShadowExample {
-    private int memberValue = 1;
-
-    public void modifyMember() {
-        int memberValue = 5; // This shadows the class member
-        System.out.println("Inside method: " + memberValue);
-    }
+    // Add your fields here!
 
     public static void main(String[] args) {
-        ShadowExample example = new ShadowExample();
-        example.modifyMember();
-        System.out.println("Class member: " + example.memberValue);
+      Alien zorb = new Alien();
+
+      // Assign decent values to the attributes
+      zorb.speciesName = "Zorb";
+      zorb.energyLevel = 50;
+      zorb.strength = 75;
+      zorb.intelligence = 90;
+
+      // Print attribute data
+      System.out.println("Species: " + zorb.speciesName);
+      System.out.println("Energy Level: " + zorb.energyLevel);
+      System.out.println("Strength: " + zorb.strength);
+      System.out.println("Intelligence: " + zorb.intelligence);
+    } // end main method
+
+  } // end class
+  ```
+</details>
+
+#### Exercise 1.1 -- Getters and Setters
+Object-oriented programming emphasizes [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)), restricting direct access to the object's state. Change the fields to `private` and implement *getters* and *setters* for each, totaling ten methods. The example in Example 2 should now run smoothly when fused with `Alien.java`.
+
+<details>
+  <summary> 🛠 Example 2 </summary>
+
+  ```java
+  class Alien {
+
+    // Insert updated private fields here!
+
+    // Add your getters and setters here!
+
+    public static void main(String[] args) {
+      Alien zorb = new Alien();
+
+      zorb.setSpeciesName("Zorb");
+      zorb.setEnergyLevel(50);
+      zorb.setStrength(75);
+      zorb.setIntelligence(90);
+
+      System.out.println("Species: " + zorb.getSpeciesName());
+      System.out.println("Energy Level: " + zorb.getEnergyLevel());
+      System.out.println("Strength: " + zorb.getStrength());
+      System.out.println("Intelligence: " + zorb.getIntelligence());
+    } // end main method
+
+  } // end class
+  ```
+</details>
+
+> **Assistant's Note:** For `boolean` type fields, adhere to different conventions: `isPeaceful()` and `setPeaceful()` instead of the generic `getXXX()` and `setXXX()` styles.
+
+#### Exercise 1.2 -- Constructor
+Manually adding attributes repeatedly defies efficiency. Develop a *constructor*, and with this foundation, replicate Example 2's outcomes.
+
+#### Exercise 1.3 -- `printDetails()`
+Formulate a method, `printDetails()`, to succinctly display all alien details in the console. Its return type will be `void`.
+
+<details>
+  <summary> 🛠 Example 3 </summary>
+
+  ```java
+  public static void main(String[] args){
+    // Create an alien object and initialize with constructor
+    Alien zorb = new Alien("Zorb", 50, 75, 90);
+
+    // Display its details
+    zorb.printDetails();
+  }
+  ```
+
+  Expected console output:
+
+  ```
+  > INFO
+  > Species: Zorb
+  > Energy Level: 50
+  > Strength: 75
+  > Intelligence: 90
+  > Peaceful: false
+  ```
+</details>
+
+#### Exercise 1.4 -- Alien Combat!
+Imagine a space-battle scenario! Incorporate a `combat` method whereby one alien *attacks* another, reducing their energy. The method will compute:
+
+```java
+final double energyImpact = (attacker.getStrength() - defender.getIntelligence() / 2.0);
+```
+
+Display combat outcomes using the console.
+
+<details>
+  <summary> 🛠 Example 4 </summary>
+
+  ```java
+  public static void main(String[] args){
+    Alien zorb = new Alien("Zorb", 80, 75, 85);
+    Alien nebula = new Alien("Nebula", 70, 65, 80);
+
+    zorb.combat(nebula);
+  }
+  ```
+
+  This should generate:
+
+  ```
+  > Alien Zorb assaulted alien Nebula. Estimated impact was 32.5 energy units!
+  > Alien Nebula now has 37.5 energy left!
+  ```
+</details>
+
+#### Exercise 1.5 -- Grasping Variable Shadowing
+Review the following Variable Shadowing examples and prepare for class discussions. Remedies may involve [this keyword](https://docs.oracle.com/javase/tutorial/java/javaOO/thiskey.html).
+
+```Java
+public class Example1 {
+    private int count = 10; 
+
+    public void shadowDemo() {
+        int count = 20;
+        System.out.println(count); // Why is 20 printed instead of 10?
+    }
+
+    public static void main(String[] args){
+        new Example1().shadowDemo();
     }
 }
 ```
 
-### 🕵️‍♂️ Spot Bugs
-If you spot a bug or discrepancy, report it in the [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) section for potential credit in the acknowledgments!
+Here's another:
 
-Good luck, and have fun building your game! 🎯
+```Java
+import java.awt.Color;
+
+public class Spaceship {
+  private String name;
+  private Color hullColor;
+
+  public Spaceship(String name, Color hullColor) {
+    name = name; // Encountering a problem here. Why doesn't it work?
+    hullColor = hullColor;
+  }
+
+  public void travel() {
+    String name = "Star Voyager";
+    System.out.println(name + " sets sail across the stars!"); // Ever seen this in action?
+  }
+}
+```
+
+> **Assistant's Note:** Contemplate how *local scope*, *global variables*, and *instance fields* interrelate in these examples.
+
+### 🛠 Bug Reporting?
+Spot an error? Kindly create a [New Issue](https://gits-15.sys.kth.se/cs101/help/issues/new) titled "Task *x* Issue: *brief summary of error*". Earn accolades in our acknowledgments for identifying bugs!
