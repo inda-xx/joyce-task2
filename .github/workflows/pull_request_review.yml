@@ -32,8 +32,8 @@ jobs:
 
       - name: Compile Source and Test Files
         run: |
-          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_src/SimpleCalculator.java gen_test/SimpleCalculatorTest.java
+          javac -cp .junit-4.13.2.jar.hamcrest-core-1.3.jar -d build/ gen_src/SimpleCalculator.java gen_test/SimpleCalculatorTest.java
 
       - name: Run Test
         run: |
-          java -cp .:build/:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore SimpleCalculatorTest
+          java -cp .build.junit-4.13.2.jar.hamcrest-core-1.3.jar org.junit.runner.JUnitCore SimpleCalculatorTest
