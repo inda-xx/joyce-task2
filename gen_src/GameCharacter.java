@@ -1,6 +1,6 @@
 class GameCharacter {
-    
-    // Define private fields for GameCharacter class
+
+    // Define private fields for the GameCharacter class
     private String name;
     private int healthPoints;
     private int score;
@@ -14,42 +14,42 @@ class GameCharacter {
         this.isEnemy = isEnemy;
     }
 
-    // Getter for name field
+    // Getter for the name field
     public String getName() {
         return name;
     }
 
-    // Setter for name field
+    // Setter for the name field
     public void setName(String name) {
         this.name = name;
     }
 
-    // Getter for healthPoints field
+    // Getter for the healthPoints field
     public int getHealthPoints() {
         return healthPoints;
     }
 
-    // Setter for healthPoints field
+    // Setter for the healthPoints field
     public void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
     }
 
-    // Getter for score field
+    // Getter for the score field
     public int getScore() {
         return score;
     }
 
-    // Setter for score field
+    // Setter for the score field
     public void setScore(int score) {
         this.score = score;
     }
 
-    // Getter for isEnemy field
+    // Getter for the isEnemy field
     public boolean getIsEnemy() {
         return isEnemy;
     }
 
-    // Setter for isEnemy field
+    // Setter for the isEnemy field
     public void setIsEnemy(boolean isEnemy) {
         this.isEnemy = isEnemy;
     }
@@ -86,5 +86,3 @@ class GameCharacter {
         player.movePlayer("north");
     }
 }
-
-// Game.java (Optional additional 
