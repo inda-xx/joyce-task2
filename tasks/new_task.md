@@ -1,186 +1,190 @@
-# 🎮 Simple Game: Hero vs Enemies!
+# 🏰 Kingdom Builder: Create Your Realm!
 
-For this exercise, you'll be creating a simple game in Java where players can move around, score points, and interact with enemies! This task will help you understand the components of a Java program by modeling game entities as objects.
+In this exercise, you'll learn to build and manage your kingdom using Java. You will learn about Java class components and will create a detailed kingdom simulation.
 
-### 🗓️ Deadline
-Complete this task before the lab session on **Friday, 30th September**.
+### ⏳ Deadline
+This task should be submitted by **Monday 20th November**.
 
-### 📋 Instructions
-Refer to the [course submission guidelines](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments) for instructions on how to submit your work.
+### 📖 Instructions
+Refer to the [course instructions section](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments) for details on how to submit.
 
-### 🛠️ Preparation
-Before you start, ensure you've reviewed:
+### 📚 Preparation
+Before you begin, make sure to:
 
-- [Classes and Objects in Java](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html)
-- Understanding basic [object-oriented concepts](https://kth.oli.cmu.edu/).
+- Complete the reading on [Classes and Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html)
+- Ensure you're registered with KTH learning resources using the course key `dd1337-ht22`.
 
 ### 🎯 Learning Goals
 
-By completing this task, you will:
+Through this exercise, you will:
 
-- Design and implement Java classes
-- Add and use instance fields effectively
-- Construct objects using constructors
-- Create getters and setters for encapsulation
-- Implement logic involving printing to the terminal
-- Use the `main` method to run Java programs
-- Understand the concept of variable scope and avoid variable shadowing
+- Design Java classes
+- Add instance fields
+- Construct a constructor method
+- Create getters and setters
+- Print outputs to the console
+- Use the `main` method
+- Understand scope and variable shadowing
 
-### 🔍 Troubleshooting
-If you encounter issues:
+### 🔧 Troubleshooting
+In case of questions:
 
-1. Check the repository [issues page](https://gits-15.sys.kth.se/inda-22/help/issues) for similar problems.
-2. Create a new issue if the problem isn't listed.
-3. Consult with your peers, but remember to work individually.
+1. Review the [open issues](https://gits-15.sys.kth.se/inda-22/help/issues) from fellow students.
+2. Post your questions by creating a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new).
+3. Visit the weekly lab session to ask TAs for help. Refer to your schedule for exact timings.
 
-### 🎮 Game Assignment
+Work together with classmates, but remember, **sharing answers is not permitted**!
 
-In this assignment, you'll build a simple game where a `Hero` moves around, earns points, and encounters `Enemy` objects in a grid-based environment.
+### 🏗 Assignment
 
-#### Exercise 1 -- Design the Classes
-Create the main Java classes for the game:
+In a faraway land, your kingdom awaits its ruler! Develop a Java program to simulate and manage your kingdom's growth and prosperity.
 
-- `Hero.java`
-- `Enemy.java`
-- `Game.java`
+#### Exercise 1: Designing the Kingdom Class
 
-These classes will serve various purposes within your game.
+Create a new class `Kingdom.java`. The attributes of your kingdom should include:
 
-#### Exercise 1.1 -- Hero Fields and Constructor
-In `Hero.java`, start by defining fields for your hero:
+- `String` kingdomName
+- `int` population
+- `double` treasury (in millions)
+- `String` rulerName
+- `boolean` prosperityStatus
 
-- `String name`
-- `int xCoordinate`
-- `int yCoordinate`
-- `int score`
-
-Add a constructor that initializes these fields.
+To verify your implementation of fields, test with the `main` method in Example 1.
 
 <details>
-  <summary> 🛠 Example Usage </summary>
-
-  ```java
-  public class Hero {
-      private String name;
-      private int xCoordinate;
-      private int yCoordinate;
-      private int score;
-
-      public Hero(String name, int x, int y) {
-          this.name = name;
-          this.xCoordinate = x;
-          this.yCoordinate = y;
-          this.score = 0;
-      }
-  }
-  ```
-</details>
-
-#### Exercise 1.2 -- Movement and Scoring
-Add methods for hero movement and scoring:
-
-- `move(int dx, int dy)`: Updates hero's position by `dx` and `dy`.
-- `increaseScore(int points)`: Adds points to the hero's score.
+  <summary> ⚙️ Example 1 </summary>
 
 ```java
-public void move(int dx, int dy) {
-    xCoordinate += dx;
-    yCoordinate += dy;
-}
+class Kingdom {
 
-public void increaseScore(int points) {
-    score += points;
-}
-```
-
-#### Exercise 2 -- Creating Getters and Setters
-Ensure all necessary fields in `Hero` and `Enemy` have getters and setters to maintain encapsulation.
-
-<details>
-  <summary> 🛠 Implement getters/setters </summary>
-
-  ```java
-  public String getName() {
-      return name;
-  }
-
-  public void setName(String name) {
-      this.name = name;
-  }
-  
-  // Repeat for other fields
-  ```
-</details>
-
-#### Exercise 3 -- Interaction with Enemies
-
-In `Enemy.java`, define fields and methods for the enemy:
-
-- `int xCoordinate`
-- `int yCoordinate`
-
-Implement `interact()` which alters the hero's state (e.g., moving the enemy to a new position).
-
-<details>
-  <summary> 🛠 Enemy Interaction </summary>
-
-  ```java
-  public class Enemy {
-      private int xCoordinate;
-      private int yCoordinate;
-
-      public Enemy(int x, int y) {
-          this.xCoordinate = x;
-          this.yCoordinate = y;
-      }
-
-      public void interact(Hero hero) {
-          System.out.println("Enemy at (" + xCoordinate + ", " + yCoordinate + ") encountered by " + hero.getName());
-          // Implement interaction logic
-      }
-  }
-  ```
-</details>
-
-#### Exercise 4 -- Main Method and Scope
-In `Game.java`, implement the `main` method to create a hero and enemies and simulate interactions. Consider local and global scope to avoid variable shadowing.
-
-```java
-public class Game {
-    public static void main(String[] args) {
-        Hero hero = new Hero("John", 0, 0);
-        Enemy enemy = new Enemy(2, 2);
-
-        hero.move(2, 2);
-        enemy.interact(hero);
-        hero.increaseScore(100);
-
-        System.out.println("Hero " + hero.getName() + " at (" + hero.getXCoordinate() + ", " + hero.getYCoordinate() + ") with score: " + hero.getScore());
-    }
-}
-```
-
-### 🤔 Reflection on Variable Shadowing
-Review the concept with this sample code, where scope causes unexpected behavior:
-
-```java
-public class ShadowExample {
-    private int memberValue = 1;
-
-    public void modifyMember() {
-        int memberValue = 5; // This shadows the class member
-        System.out.println("Inside method: " + memberValue);
-    }
+    // Declare your fields here
 
     public static void main(String[] args) {
-        ShadowExample example = new ShadowExample();
-        example.modifyMember();
-        System.out.println("Class member: " + example.memberValue);
+        Kingdom myKingdom = new Kingdom();
+
+        myKingdom.kingdomName = "Serenia";
+        myKingdom.population = 2000;
+        myKingdom.treasury = 3.5;
+        myKingdom.rulerName = "Queen Athena";
+
+        System.out.println("Welcome to the Kingdom of " + myKingdom.kingdomName);
+        System.out.println("Population: " + myKingdom.population);
+        System.out.println("Treasury: $" + myKingdom.treasury + " million");
+        System.out.println("Ruled by: " + myKingdom.rulerName);
     }
 }
 ```
 
-### 🕵️‍♂️ Spot Bugs
-If you spot a bug or discrepancy, report it in the [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) section for potential credit in the acknowledgments!
+</details>
 
-Good luck, and have fun building your game! 🎯
+#### Exercise 2: Implementing Getters and Setters
+
+To enable encapsulation, set fields in the `Kingdom` class as `private`. Implement getters and setters for each field to allow controlled access. Test your getters and setters with Example 2.
+
+<details>
+  <summary> ⚙️ Example 2 </summary>
+
+```java
+class Kingdom {
+
+    // Private fields
+
+    // Getters and Setters for each field
+
+    public static void main(String[] args) {
+        Kingdom myKingdom = new Kingdom();
+
+        myKingdom.setKingdomName("Serenia");
+        myKingdom.setPopulation(2000);
+        myKingdom.setTreasury(3.5);
+        myKingdom.setRulerName("Queen Athena");
+
+        System.out.println("Kingdom: " + myKingdom.getKingdomName());
+        System.out.println("Population: " + myKingdom.getPopulation());
+        System.out.println("Treasury: $" + myKingdom.getTreasury() + " million");
+        System.out.println("Ruled by: " + myKingdom.getRulerName());
+    }
+}
+```
+
+</details>
+
+#### Exercise 3: Adding a Constructor
+
+Introduce a constructor to initialize your kingdom's attributes efficiently. Reimplement Example 2 utilizing the constructor.
+
+#### Exercise 4: Display Kingdom Information
+
+Develop a `displayInfo()` method to print the kingdom's full information succinctly. Example 3 illustrates this implementation.
+
+<details>
+  <summary> ⚙️ Example 3 </summary>
+
+```java
+public static void main(String[] args) {
+    Kingdom serenia = new Kingdom("Serenia", 2000, 3.5, "Queen Athena");
+
+    serenia.displayInfo();
+}
+```
+
+Expected console output:
+
+```
+Welcome to the Kingdom of Serenia!
+Population: 2000
+Treasury: $3.5 million
+Ruled by: Queen Athena
+Prosperous: false
+```
+
+</details>
+
+#### Exercise 5: Managing Prosperity
+
+Implement a method `declareProsperous()` which prints a message to the console declaring the prosperity of the kingdom based on its treasury:
+
+- If the treasury is above 5 million, the kingdom is prosperous.
+
+Adjust the `prosperityStatus` accordingly, impacting the output of `displayInfo()`.
+
+#### Exercise 6: Handling Variable Shadowing
+
+Review the provided examples of variable shadowing below. Be prepared to discuss fixes in class.
+
+```java
+public class Castle {
+    private int towerCount = 6; // I need this number to be used :(
+
+    public void buildWalls() {
+        int towerCount = 10;
+        System.out.println(towerCount); // It's not displaying the intended value :(
+    }
+
+    public static void main(String[] args){
+        new Castle().buildWalls();
+    }
+}
+```
+
+Another scenario:
+
+```java
+public class Knight {
+    private String title;
+
+    public Knight(String title) {
+        title = title; // Why doesn't this work? :(
+    }
+
+    public void battleCry() {
+        String title = "Sir Unie";
+        System.out.println(title + " charges valiantly!"); // Unexpected name :(
+    }
+}
+```
+
+> **Assistant's Note:** Consider the implications of local and global scopes, as well as the use of the `this` keyword in resolving these issues.
+
+### 🛠 Errors or Feedback?
+Please report any errors or provide feedback through a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) titled "Task *x*: *Error Description*". Your contributions will be acknowledged with gratitude.
