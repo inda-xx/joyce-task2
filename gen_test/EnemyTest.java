@@ -1,10 +1,10 @@
 package test;
 
-import main.Enemy;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+// Ensure this class is public
 public class EnemyTest {
     private Enemy enemy;
 
