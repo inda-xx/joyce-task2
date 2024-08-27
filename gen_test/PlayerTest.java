@@ -1,10 +1,12 @@
 package test;
 
+import main.Player;
+import main.Enemy;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-class PlayerTest {
+public class PlayerTest {
     private Player player;
     private Enemy enemy;
 
