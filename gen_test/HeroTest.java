@@ -99,7 +99,7 @@ public class HeroEnemyTest {
 public class Hero {
     private String name;
     private int xCoordinate;
-    private yCoordinate;
+    private int yCoordinate;  // Corrected line
     private int score;
 
     public Hero(String name, int x, int y) {
