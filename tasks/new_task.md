@@ -1,204 +1,223 @@
-# 🕹️ Create Your Own Adventure Game!
+# 🏗 Java Building Blocks: Craft Your Gadget!
 
-For this assignment, you will design and implement a simple text-based adventure game using Java. This task will help you practice object-oriented programming and familiarize yourself with Java classes and methods, while integrating core game functionalities such as player movement, a scoring system, and enemy interaction.
+In this task, you’ll dive into designing Java classes to model objects, focusing on crafting a virtual gadget for smart home enthusiasts. You'll get hands-on experience with Java's core concepts, from class design to handling scope and avoiding variable shadowing.
 
-### 💀 Deadline
-Ensure you complete this assignment before class on **Friday, 14th October**.
+### 📅 Deadline
+This assignment is due by **Friday, November 10th**.
 
-### 👩‍🏫 Instructions
-For detailed instructions on how to proceed with and submit this assignment, please refer to the [Assignments Section](https://youruniversity.edu/course-instructions#assignments).
+### 📚 Instructions
+To complete and submit your work, follow the guidelines in the [assignments section of the course instructions](https://example-university-java-course.com/assignments).
 
-### 📝 Preparation
-To set yourself up for success, ensure you review and comprehend the following resources:
+### 🔍 Preparation
+Before you begin, please review and answer the questions in the course material for Module 3:
 
-- [Object-Oriented Programming Concepts](https://docs.oracle.com/javase/tutorial/java/concepts/)
-- [Java Classes and Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/classes.html)
+- Complete the readings on [Object-Oriented Programming Basics](https://example-university-java-course.com/module3/basics)
+- Ensure you are registered on the course platform with the code `java-101-fall23`.
 
-> **Assistant's Note:** These readings are foundational to understanding the structure and implementation of your classes.
+> **Note:** The course materials may have slightly shifted this semester; if needed, feel free to explore ahead to complete this task.
 
-### ✅ Learning Goals
+### 🎯 Learning Goals
 
-This week's learning goals include:
+Through this task, you will:
 
-- Designing Java classes
-- Adding instance fields
-- Adding a constructor method
-- Creating *getters* and *setters*
-- Printing to the terminal
-- Using the main method
-- Understanding scope (including *variable shadowing*)
+- Design Java classes
+- Add instance fields
+- Implement a constructor method
+- Develop getters and setters
+- Print to the terminal
+- Work with the `main` method
+- Understand scope and variable shadowing
 
-### 🚨 Troubleshooting Guide
-If you encounter difficulties, follow this checklist:
+### 🛠 Troubleshooting Guide
+If issues arise during this task:
 
-1. Review this week's [online forum](https://yourcourseforum.com/help/issues) to see if others have resolved similar issues.
-2. If your question is unique, create a [New Issue](https://yourcourseforum.com/help/issues/new). Make your title descriptive, e.g., "Task *3*: *Brief Description of Problem*".
-3. Consult with your Teaching Assistant during lab hours. Schedule details can be found [here](https://youruniversity.edu/lab-schedule).
+1. Check this week's [posted issues](https://example-university-help.com/issues) to see if others have encountered similar problems.
+2. If your problem is new, create a [New Issue](https://example-university-help.com/issues/new) with a clear title starting with "Task *x*: *brief problem description*".
+3. Attend a [scheduled lab](https://example-university.com/labs) for hands-on assistance from a TA.
 
-Remember, cooperation with peers is encouraged, but direct sharing of solutions is prohibited!
+Discuss with peers as needed, but remember to maintain academic integrity!
 
-### 🎮 Assignment
+### 🏠 Assignment
 
-Create a dynamic and interactive game world with multiple game elements. Your goal is to develop a text-based adventure game featuring player movement, a scoring system, and enemy interactions.
+Imagine you’re a designer for a smart home company. Your mission is to model a gadget, a "Smart Light", using Java. While real prototypes are being built, you’ll develop the digital twin to simulate how these lights might operate.
 
-#### Exercise 3.0 -- Fields and Initial Setup
-Begin by creating a new class called `GameCharacter.java` in the `src` folder. The `GameCharacter` class should represent any entity in your game world, such as a player or an enemy. The necessary fields are:
+#### Exercise 3.0 -- Fields
+In the [`src`](src) folder, create a new class named `SmartLight.java`. Define the following attributes as fields:
 
-- `String` name
-- `int` healthPoints
-- `int` score
-- `boolean` isEnemy
+- `String` model
+- `boolean` isOn
+- `int` brightness (%) (0-100)
+- `String` color
+- `boolean` isConnected
 
-Example of how these fields could be initialized in the `main` method:
+Make sure the test code in Example 1 compiles and runs in `SmartLight.java`.
 
 <details>
-  <summary> 🛠 GameCharacter Example </summary>
+  <summary> 🛠 Example 1 </summary>
 
   ```java
-  public class GameCharacter {
+  class SmartLight {
 
-      // Define fields here
-      String name;
-      int healthPoints;
-      int score;
-      boolean isEnemy;
+    // Declare your fields here!
 
-      public static void main(String[] args) {
-          // Create a player character
-          GameCharacter player = new GameCharacter();
-          player.name = "Adventurer";
-          player.healthPoints = 100;
-          player.score = 0;
-          player.isEnemy = false;
+    public static void main(String[] args) {
+      // Instantiate a SmartLight object
+      SmartLight livingRoomLight = new SmartLight();
 
-          // Output player's initial state
-          System.out.println("Character: " + player.name);
-          System.out.println("Health: " + player.healthPoints);
-          System.out.println("Score: " + player.score);
-          System.out.println("Is Enemy: " + player.isEnemy);
-      }
-  }
+      // Assign meaningful values to its attributes
+      livingRoomLight.model = "LuxeBeam";
+      livingRoomLight.isOn = true;
+      livingRoomLight.brightness = 75;
+      livingRoomLight.color = "Warm White";
+      livingRoomLight.isConnected = true;
+
+      // Print information about the SmartLight
+      System.out.println("Model: " + livingRoomLight.model);
+      System.out.println("Is On: " + livingRoomLight.isOn);
+      System.out.println("Brightness: " + livingRoomLight.brightness + "%");
+      System.out.println("Color: " + livingRoomLight.color);
+      System.out.println("Connected: " + livingRoomLight.isConnected);
+    } // end main method
+
+  } // end class
   ```
 </details>
 
 #### Exercise 3.1 -- Getters and Setters
-To adhere to encapsulation principles, modify the fields to private and implement getters and setters for all fields in the `GameCharacter` class.
+Encapsulate the `SmartLight` fields by making them `private`. Implement *getters* and *setters* for each field, facilitating access control while preserving state integrity. Adapt Example 2 to test your code.
 
 <details>
-  <summary> 🛠 Encapsulation Example </summary>
+  <summary> 🛠 Example 2 </summary>
 
   ```java
-  public class GameCharacter {
+  class SmartLight {
 
-      // Define fields here
-      private String name;
-      private int healthPoints;
-      private int score;
-      private boolean isEnemy;
+    // Implement fields, encapsulating them as private
 
-      // Getters and setters
-      public String getName() { return name; }
-      public void setName(String name) { this.name = name; }
+    // Implement getters and setters
 
-      public int getHealthPoints() { return healthPoints; }
-      public void setHealthPoints(int healthPoints) { this.healthPoints = healthPoints; }
+    public static void main(String[] args) {
+      // Create a SmartLight object
+      SmartLight kitchenLight = new SmartLight();
 
-      public int getScore() { return score; }
-      public void setScore(int score) { this.score = score; }
+      // Test getters and setters
+      kitchenLight.setModel("EcoShine");
+      kitchenLight.setOn(true);
+      kitchenLight.setBrightness(65);
+      kitchenLight.setColor("Cool Blue");
+      kitchenLight.setConnected(true);
 
-      public boolean getIsEnemy() { return isEnemy; }
-      public void setIsEnemy(boolean isEnemy) { this.isEnemy = isEnemy; }
-  }
+      // Print SmartLight details using getters
+      System.out.println("Model: " + kitchenLight.getModel());
+      System.out.println("Is On: " + kitchenLight.isOn());
+      System.out.println("Brightness: " + kitchenLight.getBrightness() + "%");
+      System.out.println("Color: " + kitchenLight.getColor());
+      System.out.println("Connected: " + kitchenLight.isConnected());
+    } // end main method
+
+  } // end class
   ```
 </details>
 
-#### Exercise 3.2 -- Constructors
-Implement a constructor for `GameCharacter` that initializes all fields using parameters. Replace the example constructor calls with this new constructor method.
+> **Note:** For `boolean` fields, the getter uses `is` prefix—for example, `isOn()`, `setOn()`.
+
+#### Exercise 3.2 -- Constructor
+Simplify object creation by implementing a constructor that initializes all fields. Recreate Example 2 using this constructor.
+
+#### Exercise 3.3 -- `printDetails()`
+Add a method `printDetails()` to print full information using a formatted output. See Example 3 for reference.
 
 <details>
-  <summary> 🛠 Constructor Example </summary>
+  <summary> 🛠 Example 3 </summary>
 
   ```java
-  public GameCharacter(String name, int healthPoints, int score, boolean isEnemy) {
-      this.name = name;
-      this.healthPoints = healthPoints;
-      this.score = score;
-      this.isEnemy = isEnemy;
-  }
+  public static void main(String[] args){
+    // Instantiate a SmartLight using its constructor
+    SmartLight bedroomLight = new SmartLight("DreamLite", true, 50, "Pleasant Yellow", true);
 
-  public static void main(String[] args) {
-      GameCharacter player = new GameCharacter("Adventurer", 100, 0, false);
-      System.out.println("Character: " + player.getName());
+    // Print all gadget details
+    bedroomLight.printDetails();
   }
+  ```
+
+  Expecting:
+  ```
+  > Gadget Details:
+  > Model: DreamLite
+  > Power State: On
+  > Brightness: 50%
+  > Color: Pleasant Yellow
+  > Connectivity Status: Connected
   ```
 </details>
 
-#### Exercise 3.3 -- Player Movement
-Add a new method called `movePlayer(String direction)` to the `GameCharacter` class. This method should print the direction in which the player moves.
+#### Exercise 3.4 -- Operating the SmartLight
+Develop a method `togglePower()` that switches the `isOn` status of the `SmartLight`. Enhance Example 4 with this capability.
 
 <details>
-  <summary> 🛠 Player Movement Example </summary>
+  <summary> 🛠 Example 4 </summary>
 
   ```java
-  public void movePlayer(String direction) {
-      System.out.println(name + " moves " + direction);
-  }
+  public static void main(String[] args){
+    // Create an instance
+    SmartLight workshopLight = new SmartLight("HighVision", false, 30, "Neutral White", true);
 
-  public static void main(String[] args) {
-      GameCharacter player = new GameCharacter("Adventurer", 100, 0, false);
-      player.movePlayer("north");
+    // Toggle power state
+    System.out.println("Toggling Power...");
+    workshopLight.togglePower();
+
+    // Verify if the light is now On
+    System.out.println("Is the light On? " + workshopLight.isOn());
   }
+  ```
+
+  Expected:
+  ```
+  > Toggling Power...
+  > Is the light On? true
   ```
 </details>
 
-#### Exercise 3.4 -- Enemy Interaction
-Add a method called `interact(GameCharacter otherCharacter)` that interacts with another `GameCharacter`, decreasing `healthPoints` if `otherCharacter` is an enemy.
+#### Exercise 3.5 -- Handling Variable Shadowing
+Familiarize yourself with variable shadowing and ensure your understanding by reviewing and correcting the following examples.
 
-<details>
-  <summary> 🛠 Interaction Example </summary>
+```Java
+public class BrightnessControl {
+    private int brightness = 100;
 
-  ```java
-  public void interact(GameCharacter otherCharacter) {
-      if (otherCharacter.getIsEnemy()) {
-          System.out.println(name + " encounters an enemy: " + otherCharacter.getName());
-          this.healthPoints -= 10;
-          System.out.println("Health now: " + this.healthPoints);
-      }
+    public void setBrightness(int brightness) {
+        brightness = brightness / 2; // This might not behave as intended
+        System.out.println(brightness); // What value prints here?
+    }
+
+    public static void main(String[] args) {
+        new BrightnessControl().setBrightness(80);
+    }
+}
+```
+
+Here’s another:
+
+```Java
+public class Gadget {
+  private String name;
+  private String type;
+
+  public Gadget(String name, String type) {
+    name = name; // Identifying what's wrong here
+    type = type;
   }
 
-  public static void main(String[] args) {
-      GameCharacter player = new GameCharacter("Adventurer", 100, 0, false);
-      GameCharacter enemy = new GameCharacter("Goblin", 30, 0, true);
-      player.interact(enemy);
+  public void showGadget() {
+    String name = "QuickFix";
+    System.out.println(name + " is available!"); // What outputs here?
   }
-  ```
-</details>
+}
+```
 
-#### Exercise 3.5 -- Scope and Variable Shadowing
-Investigate and resolve variable shadowing issues that might arise when implementing these features. Applying the `this` keyword correctly will help you manage the class fields and local variables effectively.
+> **Consider:** Reflect on *local* versus *global* scope and the role of `this` keyword in fixing such examples.
 
-<details>
-  <summary> 🛠 Scope Example </summary>
+### 🐞 Spot a bug?
+If you detect errors or inconsistencies, promptly file a [New Issue](https://example-university-help.com/issues/new) titled "Task *x* Bug: *brief summary here*". Discoverers of confirmed bugs will earn gratitude acknowledgments in course communications.
 
-  ```java
-  public class Game {
-
-      private int level = 1;
-
-      public void advanceLevel(int level) { // This causes variable shadowing
-          this.level = level;
-          System.out.println("Advanced to level: " + this.level);
-      }
-  }
-
-  public static void main(String[] args) {
-      Game gameInstance = new Game();
-      gameInstance.advanceLevel(2); // Fix the shadowing problem to ensure correct output
-  }
-  ```
-</details>
-
-> **Assistant's Note:** For both local and instance variables, understand how scope and variable shadowing work in Java!
-
-### 🐞 Bugs and Errors?
-In case you discover inconsistencies or errors, kindly open a [New Issue](https://youruniversity.edu/help/issues/new) with the subject line "Task 3 Error: [Brief Error Description]". All verifiable bug reports will be rewarded via acknowledgments in the course materials!
+With these exercises, you sharpen your understanding of Java's fundamentals and prepare for larger object-oriented projects. Enjoy crafting your SmartLight!
