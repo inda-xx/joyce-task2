@@ -32,52 +32,12 @@ jobs:
 
       - name: Compile the Source Code
         run: |
-          # Rename files with .java2 extension to .java
-          for file in gen_src/*.java2; do mv "$file" "${file%.java2}.java"; done
-          for file in gen_test/*.java2; do mv "$file" "${file%.java2}.java"; done
+          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_src/SimpleCalculator.java
 
-          # Compile source files
-          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/gen_src/ gen_src/*.java
-
-          # Compile test files
-          javac -cp .:build/gen_src:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/gen_test/ gen_test/*.java
+      - name: Compile the Test Code
+        run: |
+          javac -cp .:build/:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_test/SimpleCalculatorTest.java
 
       - name: Run Tests
         run: |
-          # Run each test class found in the gen_test directory
-          for testfile in build/gen_test/*.class; do
-            testname=$(basename "$testfile" .class)
-            java -cp build/gen_test:build/gen_src:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore $testname
-          done
-
-  analyze-and-respond:
-    runs-on: ubuntu-latest
-    needs: run-tests
-
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}  # Ensure it's the right branch
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'adopt'  # Choose JDK distribution
-          java-version: '11'     # Adjust to JDK version
-
-      - name: Set GITHUB_PR_NUMBER
-        run: echo "GITHUB_PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
-
-      - name: Analyze and Respond
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the PAT token or GITHUB_TOKEN
-          TESTS_PASSED: ${{ needs.run-tests.outputs.tests_passed }}
-          GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}  
-        run: |
-          if [ "${{ env.TESTS_PASSED }}" == "true" ]; then
-            python scripts/generate_compliment_and_merge.py "${{ secrets.OPENAI_TOKEN }}" "${{ github.head_ref }}" "${{ github.base_ref }}"
-          else
-            python scripts/generate_feedback_and_clues.py "${{ secrets.OPENAI_TOKEN }}" "${{ github.head_ref }}" "${{ github.base_ref }}"
-          fi
+          java -cp build/:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore SimpleCalculatorTest
