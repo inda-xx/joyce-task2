@@ -1,4 +1,4 @@
-class Enemy {
+public class Enemy {
     // Fields for enemy attributes
     private String type;
     private int positionX;
