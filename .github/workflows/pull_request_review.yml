@@ -32,11 +32,11 @@ jobs:
 
       - name: Compile the Source Code
         run: |
-          javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_src/SimpleCalculator.java
+          javac -cp junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_src/SimpleCalculator.java
 
       - name: Compile the Test Code
         run: |
-          javac -cp .:build/:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_test/SimpleCalculatorTest.java
+          javac -cp build/:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_test/SimpleCalculatorTest.java
 
       - name: Run Tests
         run: |
