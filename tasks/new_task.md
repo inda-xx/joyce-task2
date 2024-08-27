@@ -1,137 +1,192 @@
-# Let's Play Java Game! 🕹️ 
+# 🚀 Simple Java Game: Player vs. Enemies
 
-This is your challenge for today, programmer! It's time to step into the magical world of **Java Programming** and test your skills. Are you ready?
+Dive into the exciting world of game development with this Java assignment! You will create a basic game application with player movement, a scoring system, and enemy interactions.
 
-### 📅 Deadline
-Get this task completed before the due date, which is on **Tuesday 20th September**.
+### 💀 Deadline
+Complete this assignment by **Friday, November 30th**.
 
-### 👨‍💼 Instructions
-Please review the [course instructions section](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments) to understand how to do and submit assignments. Make sure you adhere to every detail.
+### 👩‍🏫 Instructions
+For detailed instructions on how to complete and submit this assignment, please refer to the [course instructions](https://yourcourse.edu/assignments).
 
-### 🎓 Preparation
-Before getting started with this assignment, here's what you need to do:
+### 📝 Preparation
+Before you start, ensure you've completed the following readings and exercises:
 
-- Read [Using Objects](https://kth.oli.cmu.edu/jcourse/webui/syllabus/module.do?context=a2b40d76a4200020a49c27f0000168af)
-- Sign up and get registered for the course key `dd1337-ht22` at https://kth.oli.cmu.edu/, in case you haven't done it yet. 
+- [Understanding Classes and Objects in Java](https://yourcourse.edu/module3/classes-and-objects)
+- If you haven't already, register for the course platform with the key `game-dev-23` at [our learning site](https://yourcourse.edu).
 
-### 📌 Learning Goals
-The learning goals for this week's tasks are:
-* Designing Java classes
-* Adding instance fields
-* Adding a constructor method
-* Creating getters and setters
-* Printing to the terminal
-* Utilising the `main` method
-* Scope (or variable shadowing)
+> **Note:** The material may slightly differ from last year, so moving ahead is helpful if needed.
 
-### 🔧 Troubleshooting Guide
-If you find yourself stuck or facing any difficulties:
+### ✅ Learning Goals
 
-1. Check out this week's [posted issues](https://gits-15.sys.kth.se/inda-22/help/issues). The solution to your problem might be there already.
-2. If not, feel free to post your issue [here](https://gits-15.sys.kth.se/inda-22/help/issues/new). Make sure title begins with "Task *x*: *summary of your problem*".
-3. You can always ask a teacher assistant in person during the [weekly lab](https://queue.csc.kth.se/Queue/INDA). Check your schedule for the timings of the next lab.
+After finishing this assignment, you should be able to:
 
-Feel free to discuss with your fellow students, but remember to **respect the rules against plagiarism**!
+* Design Java classes
+* Add instance fields
+* Add a constructor method
+* Create *getters* and *setters*
+* Print to the terminal
+* Use the `main` method
+* Understand Scope (or *variable shadowing*)
 
-### 👾 Assignment
+### 🚨 Troubleshooting Guide
+Follow these steps if you encounter issues:
 
-The name of the game is **Java Gold Digger!**. You are composing the code of a fearless explorer digging for gold while dodging hidden traps. 
+1. Review this week's [frequently asked questions](https://yourcourse.edu/help/faqs).
+2. Post your question in the forum by creating a [New Topic](https://yourcourse.edu/forum/new).
+3. Reach out to a Teaching Assistant during [lab hours](https://yourcourse.edu/lab-schedule).
 
-#### Exercise 1.0 -- Character Class
+Collaborate with peers, but **do not share code directly**!
 
-In the [`src`](src) folder, create a class named `Character.java`. This class will model the game character and should include these attributes:
+### 🎮 Assignment: Build Your Game!
 
-- `String` name
-- `int` xPos (representing the character's x-position in the game)
-- `int` yPos (y-position)
-- `int` gold (amount of gold collected)
-- `boolean` isAlive (if character is still alive)
+In this assignment, you will develop a simple 2D game featuring player movement, a dynamic scoring system, and exciting enemy interactions. Let's begin your journey to become a game developer!
 
-A simple `main` method for `Character.java` should compile correctly if done right. This method is given below for your reference.
+#### Exercise 1 -- Player Class
+Begin by creating a `Player.java` class in the `src` folder. This class should have the following fields:
 
-<details>
-  <summary>🛠️ Example 1</summary>
-  
-  ```java
-  class Character {
-    // Put your fields here!
-
-    public static void main(String[] args) {
-      // create a new "Character" object
-      Character digger = new Character();
-      
-      // assign field variables to some values
-      digger.name = "digger";
-      digger.xPos = 0;
-      digger.yPos = 0;
-      digger.gold = 0;
-      digger.isAlive = true;
-      
-      // print the information of the assigned values
-      System.out.println("Character name: " + digger.name);
-      System.out.println("Character Position: (" + digger.xPos + ", " + digger.yPos + ")");
-      System.out.println("Gold collected: " + digger.gold);
-      System.out.println("Character alive? " + digger.isAlive);
-    } 
-  } 
-  ```
-</details>
-
-#### Exercise 1.1 -- Getters and Setters 
-
-Implement getters and setters for each field in your `Character` class. Your `Character` class should now have private fields and all the 10 *getters* and *setters* methods. 
-
-A copied version of Example 1 into your `Character.java` file should compile correctly, if you've done this right.
+- `String name`
+- `int score`
+- `int positionX`
+- `int positionY`
 
 <details>
-  <summary>🛠️ Example 2</summary>
-  
+  <summary> 🛠 Example Code </summary>
+
   ```java
-  class Character {
-    // Put your fields here!
+  public class Player {
   
-    // Put your getters and setters here!
+      private String name;
+      private int score;
+      private int positionX;
+      private int positionY;
   
-    public static void main(String[] args) {
-      // create a new "Character" object
-      Character digger = new Character();
+      public Player(String name) {
+          this.name = name;
+          this.score = 0; // Starting score
+          this.positionX = 0; // Starting position
+          this.positionY = 0;
+      }
+  
+      // Getter and Setter methods for each field
+      public String getName() { return name; }
+      public int getScore() { return score; }
+      public int getPositionX() { return positionX; }
+      public int getPositionY() { return positionY; }
       
-      // assign field variables using setters
-      digger.setName("digger");
-      digger.setxPos(0);
-      digger.setyPos(0);
-      digger.setGold(0);
-      digger.setAlive(true);
-      
-      // print the information of the assigned values using getters
-      System.out.println("Character name: " + digger.getName());
-      System.out.println("Character Position: (" + digger.getxPos() + ", " + digger.getyPos() + ")");
-      System.out.println("Gold collected: " + digger.getGold());
-      System.out.println("Character alive? " + digger.getIsAlive());
-    } 
-  } 
+      public void setPositionX(int x) { this.positionX = x; }
+      public void setPositionY(int y) { this.positionY = y; }
+      public void increaseScore(int points) { this.score += points; }
+  
+      public void printInfo() {
+          System.out.println("Player: " + name);
+          System.out.println("Score: " + score);
+          System.out.println("Position: (" + positionX + ", " + positionY + ")");
+      }
+  }
   ```
+
+  Use the provided structure to create player objects with initial values and methods to modify their state.
 </details>
-#### Exercise 1.2
 
-Implement a constructor for your Character class. Overwrite your previous main method in accordance to this change.
+#### Exercise 2 -- Enemy Class
+Create an `Enemy.java` class to represent game adversaries. It should include:
 
-#### Exercise 1.3 -- `printStatus()`
+- `String type`
+- `int positionX`
+- `int positionY`
+- `int damage`
 
-Add a method named `printStatus()`. This method should print all the information about the character to the console. 
+<details>
+  <summary> 🛠 Example Code </summary>
 
-#### Exercise 1.4 -- `move()`
+  ```java
+  public class Enemy {
 
-Incorporate a `move()` method into your Character class. This method should receive a `char` as input ('N', 'S', 'E', 'W') and modify the character's position accordingly (North, South, East, or West). Implement bounds checking so the character cannot move outside the grid (which is 10x10 units for this exercise). 
+      private String type;
+      private int positionX;
+      private int positionY;
+      private int damage;
 
-#### Exercise 1.5 -- `dig()`
- 
-Introduce a `dig()` method. This method receives an `int` value as an argument, which corresponds to the amount of gold to be added to the player’s gold stash.
+      public Enemy(String type, int damage) {
+          this.type = type;
+          this.damage = damage;
+          this.positionX = (int) (Math.random() * 100); // Random initial position
+          this.positionY = (int) (Math.random() * 100);
+      }
 
-#### Exercise 1.6 -- Instance variable shadowing
+      // Getter methods
+      public String getType() { return type; }
+      public int getDamage() { return damage; }
+      public int getPositionX() { return positionX; }
+      public int getPositionY() { return positionY; }
+  }
+  ```
 
-Create an example of instance variable shadowing. Discuss this subject during the next lab session. 
+  These enemies will randomly appear and interact with the player. Implement and test basic movement logic by using constructors and methods.
+</details>
 
-### 🕷️ Bugs and Errors?
+#### Exercise 3 -- Player Movement
+Implement a `move` method in the `Player` class allowing the player to navigate the game world. Movement options include:
 
-If you stumble upon any bugs or errors in this exercise, create a new issue with the title "Task *x*: Error - *summary of the error here*". Your contributions will be appreciated and acknowledged.
+- Up
+- Down
+- Left
+- Right
+
+<details>
+  <summary> 🛠 Implementation Example </summary>
+
+  ```java
+  public void move(String direction) {
+      switch (direction.toLowerCase()) {
+          case "up": positionY++; break;
+          case "down": positionY--; break;
+          case "left": positionX--; break;
+          case "right": positionX++; break;
+          default: System.out.println("Invalid move!"); break;
+      }
+      System.out.println("Player moved " + direction + ". New position: (" + positionX + ", " + positionY + ")");
+  }
+  ```
+
+  This method allows your player objects to interact with their environment by moving around.
+</details>
+
+#### Exercise 4 -- Interaction with Enemies
+Develop an interaction method where if a `Player` comes within a certain distance (e.g., `1` unit) of an `Enemy`, the player's score decreases by the enemy's damage value.
+
+<details>
+  <summary> 🛠 Interaction Implementation </summary>
+
+  ```java
+  public void interact(Enemy enemy) {
+      if (Math.abs(this.positionX - enemy.getPositionX()) <= 1 && 
+          Math.abs(this.positionY - enemy.getPositionY()) <= 1) {
+          this.score -= enemy.getDamage();
+          System.out.println("Hit by " + enemy.getType() + "! Score decreased to: " + this.score);
+      }
+  }
+  ```
+
+  This ensures realistic interactions, reflecting adversaries' proximity impact.
+</details>
+
+#### Exercise 5 -- Variable Shadowing
+Consider potential variable shadowing issues with similar field and method parameters. Ensure correct usage of `this` to reference instance fields. Analyze these examples:
+
+```java
+public class Example {
+    private int sampleValue = 42;
+
+    public void showValue(int sampleValue) {
+        System.out.println(sampleValue); // It prints method parameter instead of instance field.
+    }
+}
+```
+
+Utilize these insights to prevent variable shadowing issues in your game classes.
+
+### 🐞 Encounter a Bug or Error?
+Notify us by opening a [New Issue](https://yourcourse.edu/help/issues/new) with "Game Assignment Error:" followed by a summary. Acknowledgments will be given for reporting valid bugs!
+
+Good luck, and have fun creating your game! 🎮
