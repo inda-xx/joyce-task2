@@ -1,192 +1,213 @@
-# 🚀 Simple Java Game: Player vs. Enemies
+# 🚀 SpaceExplorers Adventure
 
-Dive into the exciting world of game development with this Java assignment! You will create a basic game application with player movement, a scoring system, and enemy interactions.
+Welcome to your next programming task! You'll venture into the realm of Java by designing a class structure for a thrilling space exploration game. You'll build a `SpaceExplorer` to traverse the galaxies, manage its attributes, and enhance your understanding of object-oriented principles in Java.
 
-### 💀 Deadline
-Complete this assignment by **Friday, November 30th**.
+### 🔗 Deadline
+Please ensure that your work is submitted by **Friday 20th October**.
 
-### 👩‍🏫 Instructions
-For detailed instructions on how to complete and submit this assignment, please refer to the [course instructions](https://yourcourse.edu/assignments).
+### 📖 Preparation
+Make sure to review the following resources to prepare for this exercise:
 
-### 📝 Preparation
-Before you start, ensure you've completed the following readings and exercises:
+- [Java Classes and Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html)
+- [Encapsulation in Java](https://www.geeksforgeeks.org/encapsulation-in-java/)
+- [Variable Shadowing](https://www.baeldung.com/java-variable-shadowing)
 
-- [Understanding Classes and Objects in Java](https://yourcourse.edu/module3/classes-and-objects)
-- If you haven't already, register for the course platform with the key `game-dev-23` at [our learning site](https://yourcourse.edu).
+These readings will equip you with the knowledge needed to dive into this assignment.
 
-> **Note:** The material may slightly differ from last year, so moving ahead is helpful if needed.
+### 🎯 Learning Goals
 
-### ✅ Learning Goals
+By completing this task, you'll achieve the following learning objectives:
+* Designing Java classes
+* Adding instance fields
+* Adding a constructor method
+* Creating *getters* and *setters*
+* Printing to the terminal
+* Using the `main` method
+* Scope (or *variable shadowing*)
 
-After finishing this assignment, you should be able to:
+### 🧭 Assignment
 
-* Design Java classes
-* Add instance fields
-* Add a constructor method
-* Create *getters* and *setters*
-* Print to the terminal
-* Use the `main` method
-* Understand Scope (or *variable shadowing*)
+The task is to create a `SpaceExplorer` Java class to simulate a space explorer's journey. Imagine your SpaceExplorer equipped with attributes and methods to persevere through the cosmos.
 
-### 🚨 Troubleshooting Guide
-Follow these steps if you encounter issues:
+#### Exercise 1 -- Fields
+Create a class called `SpaceExplorer.java` in the `src` folder. The class should include the following fields:
 
-1. Review this week's [frequently asked questions](https://yourcourse.edu/help/faqs).
-2. Post your question in the forum by creating a [New Topic](https://yourcourse.edu/forum/new).
-3. Reach out to a Teaching Assistant during [lab hours](https://yourcourse.edu/lab-schedule).
+- `String` name
+- `int` health
+- `int` energy
+- `int` speed
+- `boolean` active
 
-Collaborate with peers, but **do not share code directly**!
-
-### 🎮 Assignment: Build Your Game!
-
-In this assignment, you will develop a simple 2D game featuring player movement, a dynamic scoring system, and exciting enemy interactions. Let's begin your journey to become a game developer!
-
-#### Exercise 1 -- Player Class
-Begin by creating a `Player.java` class in the `src` folder. This class should have the following fields:
-
-- `String name`
-- `int score`
-- `int positionX`
-- `int positionY`
+Here’s a starter template that should compile onto your class:
 
 <details>
   <summary> 🛠 Example Code </summary>
 
   ```java
-  public class Player {
-  
-      private String name;
-      private int score;
-      private int positionX;
-      private int positionY;
-  
-      public Player(String name) {
-          this.name = name;
-          this.score = 0; // Starting score
-          this.positionX = 0; // Starting position
-          this.positionY = 0;
-      }
-  
-      // Getter and Setter methods for each field
-      public String getName() { return name; }
-      public int getScore() { return score; }
-      public int getPositionX() { return positionX; }
-      public int getPositionY() { return positionY; }
-      
-      public void setPositionX(int x) { this.positionX = x; }
-      public void setPositionY(int y) { this.positionY = y; }
-      public void increaseScore(int points) { this.score += points; }
-  
-      public void printInfo() {
-          System.out.println("Player: " + name);
-          System.out.println("Score: " + score);
-          System.out.println("Position: (" + positionX + ", " + positionY + ")");
-      }
-  }
-  ```
+  class SpaceExplorer {
 
-  Use the provided structure to create player objects with initial values and methods to modify their state.
+    // Declare your fields here!
+
+    public static void main(String[] args) {
+      SpaceExplorer nova = new SpaceExplorer();
+
+      nova.name = "Nova";
+      nova.health = 100;
+      nova.energy = 80;
+      nova.speed = 10;
+
+      System.out.println("Name: " + nova.name);
+      System.out.println("Health: " + nova.health);
+      System.out.println("Energy: " + nova.energy);
+      System.out.println("Speed: " + nova.speed);
+    } // end main method
+
+  } // end class
+  ```
 </details>
 
-#### Exercise 2 -- Enemy Class
-Create an `Enemy.java` class to represent game adversaries. It should include:
-
-- `String type`
-- `int positionX`
-- `int positionY`
-- `int damage`
+#### Exercise 2 -- Getters and Setters
+Change your instance fields to private. Implement *getters* and *setters* for each field, ensuring encapsulation integrity.
 
 <details>
   <summary> 🛠 Example Code </summary>
 
   ```java
-  public class Enemy {
+  class SpaceExplorer {
 
-      private String type;
-      private int positionX;
-      private int positionY;
-      private int damage;
+    // Private fields
 
-      public Enemy(String type, int damage) {
-          this.type = type;
-          this.damage = damage;
-          this.positionX = (int) (Math.random() * 100); // Random initial position
-          this.positionY = (int) (Math.random() * 100);
-      }
+    // Getters and Setters
 
-      // Getter methods
-      public String getType() { return type; }
-      public int getDamage() { return damage; }
-      public int getPositionX() { return positionX; }
-      public int getPositionY() { return positionY; }
-  }
+    public static void main(String[] args) {
+      SpaceExplorer nova = new SpaceExplorer();
+
+      nova.setName("Nova");
+      nova.setHealth(100);
+      nova.setEnergy(80);
+      nova.setSpeed(10);
+
+      System.out.println("Name: " + nova.getName());
+      System.out.println("Health: " + nova.getHealth());
+      System.out.println("Energy: " + nova.getEnergy());
+      System.out.println("Speed: " + nova.getSpeed());
+      System.out.println("Is active: " + nova.isActive());
+    } // end main method
+
+  } // end class
   ```
-
-  These enemies will randomly appear and interact with the player. Implement and test basic movement logic by using constructors and methods.
 </details>
 
-#### Exercise 3 -- Player Movement
-Implement a `move` method in the `Player` class allowing the player to navigate the game world. Movement options include:
+> **Note:** Notice the boolean field follows the naming convention `isActive()` and `setActive()`.
 
-- Up
-- Down
-- Left
-- Right
+#### Exercise 3 -- Constructor
+Leverage the power of a constructor to initialize your `SpaceExplorer` attributes in one step, minimizing repetitive code, and instantiate an explorer.
 
 <details>
-  <summary> 🛠 Implementation Example </summary>
+  <summary> 🛠 Example Usage </summary>
 
   ```java
-  public void move(String direction) {
-      switch (direction.toLowerCase()) {
-          case "up": positionY++; break;
-          case "down": positionY--; break;
-          case "left": positionX--; break;
-          case "right": positionX++; break;
-          default: System.out.println("Invalid move!"); break;
-      }
-      System.out.println("Player moved " + direction + ". New position: (" + positionX + ", " + positionY + ")");
+  public static void main(String[] args) {
+      SpaceExplorer nova = new SpaceExplorer("Nova", 100, 80, 10);
+
+      nova.printInfo();
   }
   ```
-
-  This method allows your player objects to interact with their environment by moving around.
 </details>
 
-#### Exercise 4 -- Interaction with Enemies
-Develop an interaction method where if a `Player` comes within a certain distance (e.g., `1` unit) of an `Enemy`, the player's score decreases by the enemy's damage value.
+#### Exercise 4 -- printInfo()
+Craft a method called `printInfo()` to output a comprehensive summary of the `SpaceExplorer` attributes.
 
 <details>
-  <summary> 🛠 Interaction Implementation </summary>
+  <summary> 🛠 Example Output </summary>
+
+  This method should produce a terminal output like:
+
+  ```
+  > SpaceExplorer Information:
+  > Name: Nova
+  > Health: 100
+  > Energy: 80
+  > Speed: 10
+  > Active: true
+  ```
+</details>
+
+#### Exercise 5 -- Energy Boost!
+Introduce an `activateBoost()` method increasing the explorer's speed temporarily. If energy is above 50, increase the speed by 20% and decrease energy by 20.
+
+<details>
+  <summary> 🛠 Example Code </summary>
 
   ```java
-  public void interact(Enemy enemy) {
-      if (Math.abs(this.positionX - enemy.getPositionX()) <= 1 && 
-          Math.abs(this.positionY - enemy.getPositionY()) <= 1) {
-          this.score -= enemy.getDamage();
-          System.out.println("Hit by " + enemy.getType() + "! Score decreased to: " + this.score);
+  public void activateBoost() {
+      if (energy > 50) {
+          speed += speed / 5; // 20% boost
+          energy -= 20;
+          System.out.println(name + " activated boost! Speed is now " + speed + " and energy is " + energy + ".");
+      } else {
+          System.out.println("Not enough energy to activate boost.");
       }
+  }
+
+  public static void main(String[] args) {
+      SpaceExplorer nova = new SpaceExplorer("Nova", 100, 80, 10);
+      nova.activateBoost();
+      nova.printInfo();
   }
   ```
 
-  This ensures realistic interactions, reflecting adversaries' proximity impact.
+  This call should print:
+
+  ```
+  > Nova activated a boost! Speed is now 12 and energy is 60.
+  ```
 </details>
 
-#### Exercise 5 -- Variable Shadowing
-Consider potential variable shadowing issues with similar field and method parameters. Ensure correct usage of `this` to reference instance fields. Analyze these examples:
+#### Exercise 6 -- Variable Shadowing
+Boost your understanding of scope by exploring the examples below. Be prepared to discuss and fix these in class:
 
 ```java
-public class Example {
-    private int sampleValue = 42;
+public class ShadowExample {
+    private int shadowedNumber = 10; // I want this number!
 
-    public void showValue(int sampleValue) {
-        System.out.println(sampleValue); // It prints method parameter instead of instance field.
+    public void demonstrateShadowing() {
+        int shadowedNumber = 5;
+        System.out.println(shadowedNumber); // Why doesn't it print the number I want?
+    }
+
+    public static void main(String[] args){
+        new ShadowExample().demonstrateShadowing();
     }
 }
 ```
 
-Utilize these insights to prevent variable shadowing issues in your game classes.
+Another instance:
 
-### 🐞 Encounter a Bug or Error?
-Notify us by opening a [New Issue](https://yourcourse.edu/help/issues/new) with "Game Assignment Error:" followed by a summary. Acknowledgments will be given for reporting valid bugs!
+```java
+public class Starship {
+  private String model;
+  private int year;
 
-Good luck, and have fun creating your game! 🎮
+  public Starship(String model, int year) {
+    model = model; // Why isn't this working?
+    year = year;
+  }
+
+  public void salute() {
+    String model = "Generic";
+    System.out.println(model + " salutes!"); // Why doesn't it use the field model?
+  }
+}
+```
+
+> **Note:** Contemplate how *local variables*, *instance fields*, and the keyword `this` influence the result.
+
+### 🤔 Questions?
+If you encounter any issues or inconsistencies, or simply need guidance:
+
+1. Check the [discussion board](https://gits-15.sys.kth.se/inda-22/help/issues) for similar issues.
+2. Post a question or create a [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) mentioning the task number in the title.
+3. Reach out to a TA during your [scheduled lab time](https://queue.csc.kth.se/Queue/INDA).
+
+Feel free to collaborate with your peers but remember to submit original work!
