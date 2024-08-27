@@ -1,103 +1,96 @@
-# 🎮 Simple Game: Hero vs Enemies!
+# 🎨 Design Your Own Characters!
 
-For this exercise, you'll be creating a simple game in Java where players can move around, score points, and interact with enemies! This task will help you understand the components of a Java program by modeling game entities as objects.
+In this assignment, you will dive into the world of custom character design using Java classes. You will learn to model characters with various attributes and behaviors, practicing essential object-oriented programming concepts.
 
-### 🗓️ Deadline
-Complete this task before the lab session on **Friday, 30th September**.
+### 🌟 Deadline
+Please submit your completed task by **Friday 20th October**.
 
-### 📋 Instructions
-Refer to the [course submission guidelines](https://gits-15.sys.kth.se/inda-22/course-instructions#assignments) for instructions on how to submit your work.
+### 📜 Instructions
+To find detailed instructions on completing and submitting the assignment, refer to the [course assignments section](https://your-course-link.com).
 
-### 🛠️ Preparation
-Before you start, ensure you've reviewed:
+### 📚 Preparation
+Before starting this task, ensure you have reviewed the relevant materials and answer the following questions:
 
-- [Classes and Objects in Java](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html)
-- Understanding basic [object-oriented concepts](https://kth.oli.cmu.edu/).
+- Read about [Java Classes and Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html).
+- Familiarize yourself with [Instance Variables](https://docs.oracle.com/javase/tutorial/java/javaOO/classvars.html).
+- If you're new to Java, get started with [Setting Up Java](https://docs.oracle.com/javase/tutorial/getStarted/index.html).
 
 ### 🎯 Learning Goals
+This week's learning objectives are:
+- Designing Java classes that represent complex objects
+- Adding instance fields to store state
+- Writing constructor methods for initialization
+- Creating getters and setters for encapsulation
+- Printing to the terminal for output
+- Utilizing the main method to execute your program
+- Understanding and resolving scope/variable shadowing issues
 
-By completing this task, you will:
+### 🚑 Troubleshooting Guide
+If you run into issues, follow this troubleshooting workflow:
 
-- Design and implement Java classes
-- Add and use instance fields effectively
-- Construct objects using constructors
-- Create getters and setters for encapsulation
-- Implement logic involving printing to the terminal
-- Use the `main` method to run Java programs
-- Understand the concept of variable scope and avoid variable shadowing
+1. Check the [help forum](https://your-course-help-forum.com) to see if a solution to your problem already exists.
+2. If not, create a new question with "Character Design Task: [Brief Problem Description]" as the title.
+3. Seek help during office hours or lab sessions as per your schedule.
 
-### 🔍 Troubleshooting
-If you encounter issues:
+Share knowledge with your peers, but please, do not share direct answers.
 
-1. Check the repository [issues page](https://gits-15.sys.kth.se/inda-22/help/issues) for similar problems.
-2. Create a new issue if the problem isn't listed.
-3. Consult with your peers, but remember to work individually.
+### 🏗️ Assignment: Build Your Own Character
 
-### 🎮 Game Assignment
+In this assignment, you'll design and implement a Java class called `Character` that models a character with various attributes. You'll define a fictional character to bring to life in code!
 
-In this assignment, you'll build a simple game where a `Hero` moves around, earns points, and encounters `Enemy` objects in a grid-based environment.
+#### Exercise 1 -- Creating Fields
+In the `src` folder, create a new class file named `Character.java`. Your `Character` class should have the following fields:
 
-#### Exercise 1 -- Design the Classes
-Create the main Java classes for the game:
+- `String` name
+- `int` age
+- `String` type (e.g., 'Warrior', 'Mage', etc.)
+- `int` strength
+- `int` intelligence
+- `boolean` isActive
 
-- `Hero.java`
-- `Enemy.java`
-- `Game.java`
-
-These classes will serve various purposes within your game.
-
-#### Exercise 1.1 -- Hero Fields and Constructor
-In `Hero.java`, start by defining fields for your hero:
-
-- `String name`
-- `int xCoordinate`
-- `int yCoordinate`
-- `int score`
-
-Add a constructor that initializes these fields.
+Ensure the class field visibility is set to `private`.
 
 <details>
-  <summary> 🛠 Example Usage </summary>
+  <summary>🛠 Example Code Structure</summary>
 
   ```java
-  public class Hero {
+  public class Character {
+      // Instance variables
       private String name;
-      private int xCoordinate;
-      private int yCoordinate;
-      private int score;
+      private int age;
+      private String type;
+      private int strength;
+      private int intelligence;
+      private boolean isActive;
 
-      public Hero(String name, int x, int y) {
-          this.name = name;
-          this.xCoordinate = x;
-          this.yCoordinate = y;
-          this.score = 0;
-      }
+      // Your methods will go here!
   }
   ```
 </details>
 
-#### Exercise 1.2 -- Movement and Scoring
-Add methods for hero movement and scoring:
-
-- `move(int dx, int dy)`: Updates hero's position by `dx` and `dy`.
-- `increaseScore(int points)`: Adds points to the hero's score.
-
-```java
-public void move(int dx, int dy) {
-    xCoordinate += dx;
-    yCoordinate += dy;
-}
-
-public void increaseScore(int points) {
-    score += points;
-}
-```
-
-#### Exercise 2 -- Creating Getters and Setters
-Ensure all necessary fields in `Hero` and `Enemy` have getters and setters to maintain encapsulation.
+#### Exercise 2 -- Constructor Method
+Create a constructor for your `Character` class that initializes all the fields. Use parameters to assign values on creation.
 
 <details>
-  <summary> 🛠 Implement getters/setters </summary>
+  <summary>🛠 Example Constructor</summary>
+
+  ```java
+  public Character(String name, int age, String type, int strength, int intelligence, boolean isActive) {
+      this.name = name;
+      this.age = age;
+      this.type = type;
+      this.strength = strength;
+      this.intelligence = intelligence;
+      this.isActive = isActive;
+  }
+  ```
+</details>
+
+#### Exercise 3 -- Getters and Setters
+Implement getters and setters for each field. These methods help encapsulate your data, providing controlled access to it.
+
+<details>
+  <summary>🛠 Example Getter and Setter</summary>
 
   ```java
   public String getName() {
@@ -107,80 +100,77 @@ Ensure all necessary fields in `Hero` and `Enemy` have getters and setters to ma
   public void setName(String name) {
       this.name = name;
   }
-  
-  // Repeat for other fields
   ```
 </details>
 
-#### Exercise 3 -- Interaction with Enemies
-
-In `Enemy.java`, define fields and methods for the enemy:
-
-- `int xCoordinate`
-- `int yCoordinate`
-
-Implement `interact()` which alters the hero's state (e.g., moving the enemy to a new position).
+#### Exercise 4 -- Print Details
+Add a method called `public void printDetails()` that prints all the character's information to the console in a formatted manner.
 
 <details>
-  <summary> 🛠 Enemy Interaction </summary>
+  <summary>🛠 Example Output Format</summary>
 
   ```java
-  public class Enemy {
-      private int xCoordinate;
-      private int yCoordinate;
+  public void printDetails() {
+      System.out.println("Character Details:");
+      System.out.println("Name: " + name);
+      System.out.println("Age: " + age);
+      System.out.println("Type: " + type);
+      System.out.println("Strength: " + strength);
+      System.out.println("Intelligence: " + intelligence);
+      System.out.println("Active: " + isActive);
+  }
+  ```
+</details>
 
-      public Enemy(int x, int y) {
-          this.xCoordinate = x;
-          this.yCoordinate = y;
-      }
+#### Exercise 5 -- Battle Interaction
+Implement a `battle` method that takes another `Character` as a parameter. This method should compare and print which character is likely to win based on their strength and intelligence combined.
 
-      public void interact(Hero hero) {
-          System.out.println("Enemy at (" + xCoordinate + ", " + yCoordinate + ") encountered by " + hero.getName());
-          // Implement interaction logic
+<details>
+  <summary>🛠 Example Battle Method</summary>
+
+  ```java
+  public void battle(Character opponent) {
+      int thisPower = this.strength + this.intelligence;
+      int opponentPower = opponent.strength + opponent.intelligence;
+      
+      System.out.println(this.name + " battles " + opponent.getName() + "!");
+      if (thisPower > opponentPower) {
+          System.out.println(this.name + " is likely to win the battle.");
+      } else if (thisPower < opponentPower) {
+          System.out.println(opponent.getName() + " is likely to win the battle.");
+      } else {
+          System.out.println("It's a tie!");
       }
   }
   ```
 </details>
 
-#### Exercise 4 -- Main Method and Scope
-In `Game.java`, implement the `main` method to create a hero and enemies and simulate interactions. Consider local and global scope to avoid variable shadowing.
-
-```java
-public class Game {
-    public static void main(String[] args) {
-        Hero hero = new Hero("John", 0, 0);
-        Enemy enemy = new Enemy(2, 2);
-
-        hero.move(2, 2);
-        enemy.interact(hero);
-        hero.increaseScore(100);
-
-        System.out.println("Hero " + hero.getName() + " at (" + hero.getXCoordinate() + ", " + hero.getYCoordinate() + ") with score: " + hero.getScore());
-    }
-}
-```
-
-### 🤔 Reflection on Variable Shadowing
-Review the concept with this sample code, where scope causes unexpected behavior:
+#### Exercise 6 -- Scope and Shadowing
+Review the following example of variable shadowing and resolve it using the `this` keyword. Understand the concept of variable shadowing and how it can affect your code.
 
 ```java
 public class ShadowExample {
-    private int memberValue = 1;
+    private String name;
 
-    public void modifyMember() {
-        int memberValue = 5; // This shadows the class member
-        System.out.println("Inside method: " + memberValue);
+    public ShadowExample(String name) {
+        name = name; // Fix this
+    }
+
+    public void printName() {
+        String name = "Temporary Name";
+        System.out.println(name); // How to print the instance variable instead?
     }
 
     public static void main(String[] args) {
-        ShadowExample example = new ShadowExample();
-        example.modifyMember();
-        System.out.println("Class member: " + example.memberValue);
+        new ShadowExample("Real Name").printName();
     }
 }
 ```
 
-### 🕵️‍♂️ Spot Bugs
-If you spot a bug or discrepancy, report it in the [New Issue](https://gits-15.sys.kth.se/inda-22/help/issues/new) section for potential credit in the acknowledgments!
+> **Hint:** Consider the scope where each variable is defined and use `this` to refer to instance variables.
 
-Good luck, and have fun building your game! 🎯
+### 📝 Conclusion
+By the end of this exercise, you will have a fully functional character model with the ability to interact in simple simulations. Remember to test your class thoroughly in the `main` method and ensure your understanding of object-oriented principles is solid. If you encounter issues, refer back to the documentation provided in the preparation section.
+
+### 🐛 Found a Bug?
+If you detect any inconsistencies or mistakes in this material, please open a [New Issue](https://your-course-help-forum.com/issues/new) with a clear description.
