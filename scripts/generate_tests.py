@@ -164,7 +164,16 @@ def write_generated_tests_to_files(directory, code_content):
                 print(f"Invalid class name detected: '{class_name}'. Skipping block.")
                 continue
             
-            file_name = f"{class_name}Test.java"
+            # Construct the file content
+            package_declaration = "package test;\n\n"
+            imports = (
+                "import org.junit.Before;\n"
+                "import org.junit.Test;\n"
+                "import static org.junit.Assert.*;\n\n"
+            )
+            file_content = package_declaration + imports + "class " + block
+
+            file_name = f"{class_name}.java"
             file_path = os.path.join(directory, file_name)
 
             # Ensure the directory exists
@@ -172,9 +181,10 @@ def write_generated_tests_to_files(directory, code_content):
 
             try:
                 with open(file_path, "w") as java_file:
-                    java_file.write("class " + block)
+                    java_file.write(file_content)
             except IOError as e:
                 print(f"Error writing file {file_name}: {e}")
+
 
 def commit_and_push_changes(branch_name, directory):
     try:
