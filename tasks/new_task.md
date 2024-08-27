@@ -1,204 +1,199 @@
-# 🕹️ Create Your Own Adventure Game!
+# 🚀 Space Explorer: Designing Java Classes for Spacecraft
 
-For this assignment, you will design and implement a simple text-based adventure game using Java. This task will help you practice object-oriented programming and familiarize yourself with Java classes and methods, while integrating core game functionalities such as player movement, a scoring system, and enemy interaction.
+For this task, you will model a spacecraft **Space Explorer** in Java. This exercise will help you become familiar with designing Java classes and implementing various methods to create a functional program.
 
-### 💀 Deadline
-Ensure you complete this assignment before class on **Friday, 14th October**.
+### 📅 Deadline
+This task should be completed by **Friday 20th October**.
 
-### 👩‍🏫 Instructions
-For detailed instructions on how to proceed with and submit this assignment, please refer to the [Assignments Section](https://youruniversity.edu/course-instructions#assignments).
+### 📚 Instructions
+For detailed instructions on executing and submitting the assignment, please refer to the [Assignments section](https://your-university-link/course-instructions#assignments) on our course portal.
 
-### 📝 Preparation
-To set yourself up for success, ensure you review and comprehend the following resources:
+### 📖 Preparation
+Before you start, please ensure you complete the following readings:
 
-- [Object-Oriented Programming Concepts](https://docs.oracle.com/javase/tutorial/java/concepts/)
-- [Java Classes and Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/classes.html)
+- Read about [Java Classes and Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/index.html).
+- Cover the section on [Variable Scope](https://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html).
+- If you haven't already, sign up at https://java-olibrary.com and register with the course key `java-basic-2023`.
 
-> **Assistant's Note:** These readings are foundational to understanding the structure and implementation of your classes.
+### 🎯 Learning Goals
 
-### ✅ Learning Goals
+Through this assignment, you will develop your competency in:
+* Designing Java classes
+* Adding instance fields
+* Adding a constructor method
+* Creating *getters* and *setters*
+* Printing to the terminal
+* Using the `main` method
+* Understanding Scope and Variable Shadowing
 
-This week's learning goals include:
+### 🛠 Troubleshooting
 
-- Designing Java classes
-- Adding instance fields
-- Adding a constructor method
-- Creating *getters* and *setters*
-- Printing to the terminal
-- Using the main method
-- Understanding scope (including *variable shadowing*)
+In case you encounter any issues, please follow these steps:
 
-### 🚨 Troubleshooting Guide
-If you encounter difficulties, follow this checklist:
+1. Review this week's [posted issues](https://your-university-link/help/issues) to see if others have the same problem.
+2. Raise your concern by creating a [New Issue](https://your-university-link/help/issues/new) with an informative title starting with "Task Space Explorer: Summary of the problem".
+3. Consult with a TA during the [scheduled lab sessions](https://queue.university-link/Queue/JavaLab).
 
-1. Review this week's [online forum](https://yourcourseforum.com/help/issues) to see if others have resolved similar issues.
-2. If your question is unique, create a [New Issue](https://yourcourseforum.com/help/issues/new). Make your title descriptive, e.g., "Task *3*: *Brief Description of Problem*".
-3. Consult with your Teaching Assistant during lab hours. Schedule details can be found [here](https://youruniversity.edu/lab-schedule).
+Discuss with your peers, but remember not to share your solutions directly.
 
-Remember, cooperation with peers is encouraged, but direct sharing of solutions is prohibited!
+### 🌌 Assignment
 
-### 🎮 Assignment
+Welcome aboard the journey to explore the universe! Your task is to design a Java program that models a spacecraft named **Space Explorer**. This spaceship can travel, refuel, and explore various planets. Follow these exercises to create this functionality.
 
-Create a dynamic and interactive game world with multiple game elements. Your goal is to develop a text-based adventure game featuring player movement, a scoring system, and enemy interactions.
-
-#### Exercise 3.0 -- Fields and Initial Setup
-Begin by creating a new class called `GameCharacter.java` in the `src` folder. The `GameCharacter` class should represent any entity in your game world, such as a player or an enemy. The necessary fields are:
+#### Exercise 1 -- Fields
+Create a new class called `Spacecraft.java`. The class should include the following instance fields:
 
 - `String` name
-- `int` healthPoints
-- `int` score
-- `boolean` isEnemy
+- `double` fuelLevel (in percentages, e.g., 75.0 for 75%)
+- `int` maxSpeed (in kilometers per hour)
+- `String` currentPlanet
 
-Example of how these fields could be initialized in the `main` method:
+Implement these fields in the class. Afterward, verify your implementation using the provided main method.
 
 <details>
-  <summary> 🛠 GameCharacter Example </summary>
+  <summary> 🛠 Example 1 </summary>
 
   ```java
-  public class GameCharacter {
+  class Spacecraft {
 
-      // Define fields here
-      String name;
-      int healthPoints;
-      int score;
-      boolean isEnemy;
+    // Declare your fields here!
 
-      public static void main(String[] args) {
-          // Create a player character
-          GameCharacter player = new GameCharacter();
-          player.name = "Adventurer";
-          player.healthPoints = 100;
-          player.score = 0;
-          player.isEnemy = false;
+    public static void main(String[] args) {
+      Spacecraft voyager = new Spacecraft();
 
-          // Output player's initial state
-          System.out.println("Character: " + player.name);
-          System.out.println("Health: " + player.healthPoints);
-          System.out.println("Score: " + player.score);
-          System.out.println("Is Enemy: " + player.isEnemy);
-      }
-  }
+      // Assign values to each field
+      voyager.name = "Voyager";
+      voyager.fuelLevel = 100.0;
+      voyager.maxSpeed = 20000;
+      voyager.currentPlanet = "Earth";
+      
+      // Print out the information
+      System.out.println("Name: " + voyager.name);
+      System.out.println("Fuel Level: " + voyager.fuelLevel + "%");
+      System.out.println("Max Speed: " + voyager.maxSpeed + " km/h");
+      System.out.println("Current Planet: " + voyager.currentPlanet);
+    } // end main method
+
+  } // end class
   ```
 </details>
 
-#### Exercise 3.1 -- Getters and Setters
-To adhere to encapsulation principles, modify the fields to private and implement getters and setters for all fields in the `GameCharacter` class.
+#### Exercise 2 -- Getters and Setters
+To encapsulate the fields, set their [access modifiers](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html) to `private`. Implement *getters* and *setters* for each field, allowing controlled access and modification.
 
 <details>
-  <summary> 🛠 Encapsulation Example </summary>
+  <summary> 🛠 Example 2 </summary>
 
   ```java
-  public class GameCharacter {
+  class Spacecraft {
 
-      // Define fields here
-      private String name;
-      private int healthPoints;
-      private int score;
-      private boolean isEnemy;
+    // Define private fields here
+    
+    // Implement getters and setters here
 
-      // Getters and setters
-      public String getName() { return name; }
-      public void setName(String name) { this.name = name; }
+    public static void main(String[] args) {
+      Spacecraft voyager = new Spacecraft();
+      
+      voyager.setName("Voyager");
+      voyager.setFuelLevel(100.0);
+      voyager.setMaxSpeed(20000);
+      voyager.setCurrentPlanet("Earth");
 
-      public int getHealthPoints() { return healthPoints; }
-      public void setHealthPoints(int healthPoints) { this.healthPoints = healthPoints; }
+      System.out.println("Name: " + voyager.getName());
+      System.out.println("Fuel Level: " + voyager.getFuelLevel() + "%");
+      System.out.println("Max Speed: " + voyager.getMaxSpeed() + " km/h");
+      System.out.println("Current Planet: " + voyager.getCurrentPlanet());
+    } // end main method
 
-      public int getScore() { return score; }
-      public void setScore(int score) { this.score = score; }
-
-      public boolean getIsEnemy() { return isEnemy; }
-      public void setIsEnemy(boolean isEnemy) { this.isEnemy = isEnemy; }
-  }
+  } // end class
   ```
 </details>
 
-#### Exercise 3.2 -- Constructors
-Implement a constructor for `GameCharacter` that initializes all fields using parameters. Replace the example constructor calls with this new constructor method.
+#### Exercise 3 -- Constructor
+Improve object instantiation by adding a constructor to initialize a spacecraft with specified values. Repeat the previous example using this constructor to instantiate the object's attributes.
+
+#### Exercise 4 -- `printInfo()`
+Create a `printInfo()` method in the class to display all the spacecraft's details neatly. Use the updated example to test this method.
 
 <details>
-  <summary> 🛠 Constructor Example </summary>
+  <summary> 🛠 Example 3 </summary>
 
   ```java
-  public GameCharacter(String name, int healthPoints, int score, boolean isEnemy) {
-      this.name = name;
-      this.healthPoints = healthPoints;
-      this.score = score;
-      this.isEnemy = isEnemy;
+  public static void main(String[] args){
+    Spacecraft voyager = new Spacecraft("Voyager", 100.0, 20000, "Earth");
+    
+    voyager.printInfo();
   }
+  ```
 
-  public static void main(String[] args) {
-      GameCharacter player = new GameCharacter("Adventurer", 100, 0, false);
-      System.out.println("Character: " + player.getName());
-  }
+  Expected output:
+  ```
+  > Spacecraft Info
+  > Name: Voyager
+  > Fuel Level: 100.0%
+  > Max Speed: 20000 km/h
+  > Current Planet: Earth
   ```
 </details>
 
-#### Exercise 3.3 -- Player Movement
-Add a new method called `movePlayer(String direction)` to the `GameCharacter` class. This method should print the direction in which the player moves.
+#### Exercise 5 -- Explore
+Add a method called `explore()`, which receives a string parameter `newPlanet`. It simulates traveling to another planet if the spacecraft has sufficient fuel. Implement logic to reduce fuel and update `currentPlanet`.
 
 <details>
-  <summary> 🛠 Player Movement Example </summary>
+  <summary> 🛠 Example 4 </summary>
 
   ```java
-  public void movePlayer(String direction) {
-      System.out.println(name + " moves " + direction);
-  }
+  public static void main(String[] args){
+    Spacecraft voyager = new Spacecraft("Voyager", 80.0, 20000, "Earth");
 
-  public static void main(String[] args) {
-      GameCharacter player = new GameCharacter("Adventurer", 100, 0, false);
-      player.movePlayer("north");
+    voyager.explore("Mars");
   }
+  ```
+
+  Expected output:
+  ```
+  > Voyager is exploring Mars!
+  > Fuel Level now at: 70.0%
   ```
 </details>
 
-#### Exercise 3.4 -- Enemy Interaction
-Add a method called `interact(GameCharacter otherCharacter)` that interacts with another `GameCharacter`, decreasing `healthPoints` if `otherCharacter` is an enemy.
+#### Exercise 6 -- Variable Shadowing
+Review the following example and reason how variable shadowing is in effect. Prepare your thoughts for discussion in class.
 
-<details>
-  <summary> 🛠 Interaction Example </summary>
+```Java
+public class FuelGauge {
+    private double fuelLevel = 100.0;  // This is the field I want to use
 
-  ```java
-  public void interact(GameCharacter otherCharacter) {
-      if (otherCharacter.getIsEnemy()) {
-          System.out.println(name + " encounters an enemy: " + otherCharacter.getName());
-          this.healthPoints -= 10;
-          System.out.println("Health now: " + this.healthPoints);
-      }
+    public void useFuel() {
+        double fuelLevel = 10.0;
+        System.out.println("Using " + fuelLevel + "% fuel."); // Why doesn't this use the correct field?
+    }
+
+    public static void main(String[] args){
+        new FuelGauge().useFuel();
+    }
+}
+```
+
+Another example:
+
+```Java
+public class Astronaut {
+  private String name;
+
+  public Astronaut(String name) {
+    name = name; // Fix this: why doesn't it set correctly?
   }
 
-  public static void main(String[] args) {
-      GameCharacter player = new GameCharacter("Adventurer", 100, 0, false);
-      GameCharacter enemy = new GameCharacter("Goblin", 30, 0, true);
-      player.interact(enemy);
+  public void callMe() {
+    String name = "Unknown";
+    System.out.println("Hello, " + name); // Why is this not the correct name?
   }
-  ```
-</details>
+}
+```
 
-#### Exercise 3.5 -- Scope and Variable Shadowing
-Investigate and resolve variable shadowing issues that might arise when implementing these features. Applying the `this` keyword correctly will help you manage the class fields and local variables effectively.
+> **Assistant's Note:** Consider how local and class-level variables (fields) interact, using the `this` keyword to correctly reference class fields.
 
-<details>
-  <summary> 🛠 Scope Example </summary>
+### 🐛 Found Bugs?
 
-  ```java
-  public class Game {
-
-      private int level = 1;
-
-      public void advanceLevel(int level) { // This causes variable shadowing
-          this.level = level;
-          System.out.println("Advanced to level: " + this.level);
-      }
-  }
-
-  public static void main(String[] args) {
-      Game gameInstance = new Game();
-      gameInstance.advanceLevel(2); // Fix the shadowing problem to ensure correct output
-  }
-  ```
-</details>
-
-> **Assistant's Note:** For both local and instance variables, understand how scope and variable shadowing work in Java!
-
-### 🐞 Bugs and Errors?
-In case you discover inconsistencies or errors, kindly open a [New Issue](https://youruniversity.edu/help/issues/new) with the subject line "Task 3 Error: [Brief Error Description]". All verifiable bug reports will be rewarded via acknowledgments in the course materials!
+If you come across any errors or inconsistencies, please report them by creating a [New Issue](https://your-university-link/help/issues/new) with a descriptive title like "Task Space Explorer Bug: Summary of issue". Contributors who identify valid bugs will be acknowledged in the task credits.
