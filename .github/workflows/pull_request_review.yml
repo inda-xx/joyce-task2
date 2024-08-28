@@ -19,6 +19,12 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
+      - name: Show directory structure after checkout
+        run: |
+          echo "Directory structure after checkout:"
+          sudo apt-get install tree
+          tree
+
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
@@ -30,9 +36,19 @@ jobs:
           wget -O junit-4.13.2.jar https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
           wget -O hamcrest-core-1.3.jar https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
 
+      - name: Show directory structure after downloading JARs
+        run: |
+          echo "Directory structure after downloading JARs:"
+          tree
+
       - name: Compile Source and Test Files
         run: |
           javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d build/ gen_src/SimpleCalculator.java gen_test/SimpleCalculatorTest.java
+
+      - name: Show directory structure after compilation
+        run: |
+          echo "Directory structure after compilation:"
+          tree
 
       - name: Run Test
         run: |
